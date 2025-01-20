@@ -1,6 +1,6 @@
 ﻿namespace CMS
 {
-    partial class Form1
+    partial class Registration
     {
         /// <summary>
         /// Required designer variable.
@@ -37,7 +37,7 @@
             // 
             // usernameBox
             // 
-            this.usernameBox.Location = new System.Drawing.Point(324, 176);
+            this.usernameBox.Location = new System.Drawing.Point(322, 176);
             this.usernameBox.Name = "usernameBox";
             this.usernameBox.Size = new System.Drawing.Size(100, 22);
             this.usernameBox.TabIndex = 0;
@@ -46,7 +46,7 @@
             // Username
             // 
             this.Username.AutoSize = true;
-            this.Username.Location = new System.Drawing.Point(246, 180);
+            this.Username.Location = new System.Drawing.Point(245, 180);
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(73, 16);
             this.Username.TabIndex = 1;
@@ -55,18 +55,18 @@
             // 
             // loginBtn
             // 
-            this.loginBtn.Location = new System.Drawing.Point(336, 267);
+            this.loginBtn.Location = new System.Drawing.Point(311, 263);
             this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(75, 23);
+            this.loginBtn.Size = new System.Drawing.Size(122, 23);
             this.loginBtn.TabIndex = 2;
-            this.loginBtn.Text = "Login";
+            this.loginBtn.Text = "Create Account";
             this.loginBtn.UseVisualStyleBackColor = true;
             this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
             // 
             // Password
             // 
             this.Password.AutoSize = true;
-            this.Password.Location = new System.Drawing.Point(247, 213);
+            this.Password.Location = new System.Drawing.Point(246, 213);
             this.Password.Name = "Password";
             this.Password.Size = new System.Drawing.Size(70, 16);
             this.Password.TabIndex = 3;
@@ -74,13 +74,13 @@
             // 
             // PasswordBox
             // 
-            this.PasswordBox.Location = new System.Drawing.Point(324, 213);
+            this.PasswordBox.Location = new System.Drawing.Point(322, 213);
             this.PasswordBox.Name = "PasswordBox";
             this.PasswordBox.PasswordChar = '*';
             this.PasswordBox.Size = new System.Drawing.Size(100, 22);
             this.PasswordBox.TabIndex = 4;
             // 
-            // Form1
+            // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -90,7 +90,7 @@
             this.Controls.Add(this.loginBtn);
             this.Controls.Add(this.Username);
             this.Controls.Add(this.usernameBox);
-            this.Name = "Form1";
+            this.Name = "Registration";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();

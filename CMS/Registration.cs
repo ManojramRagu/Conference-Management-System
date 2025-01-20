@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CMS
 {
-    public partial class Form1 : Form
+    public partial class Registration : Form
     {
-        public Form1()
+        public Registration()
         {
             InitializeComponent();
         }
@@ -31,8 +31,9 @@ namespace CMS
         {
             string username = usernameBox.Text;
             string password = PasswordBox.Text;
-            User newUser = new User(1, "savishkar", "Savishkar Thiruchelvam", "saviskar2003@gmail.com", "savishkar123");
-            newUser.Login("savishkar", "savishkar123");
+
+            User user = new User();
+            user.RegisterUser(username, password);
         }
     }
 }
