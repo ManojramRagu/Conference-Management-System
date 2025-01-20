@@ -63,6 +63,7 @@ namespace CMS
             if (!IsUsernameExists(userName))
             {
                 AddUser(UserID, userName, password);
+                MessageBox.Show("Successfully registered!");
             }
             else
             {
