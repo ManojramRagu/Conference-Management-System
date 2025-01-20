@@ -1,13 +1,20 @@
-﻿using System;
+﻿using Mysqlx.Prepare;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
+using DatabaseLearning;
 
 namespace CMS
 {
     internal class User
     {
+        private DBConnection connection;
+        
         // Attributes
         public int UserID { get; set; }
         public string UserName { get; set; }
@@ -36,6 +43,17 @@ namespace CMS
         {
             // Logic to handle logout, e.g., clear session
             Console.WriteLine("Logged out successfully.");
+        }
+
+        public User()
+        {
+            connection = new DBConnection();
+        }
+
+        public void AddUser(int userID, string userName, string fullName, string email, string password)
+        {
+            string query = $"INSERT INTO user_table (userID, userName, fullName, email, password)\r\nVALUES ('{userID}', '{userName}' , '{fullName}', '{email}', '{password}');\r\n";
+            connection.ExecuteQuery(query); // writes the data to the respective table in the database
         }
     }
 }
