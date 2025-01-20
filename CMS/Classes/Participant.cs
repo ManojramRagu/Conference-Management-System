@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMS
 {
-    internal class Participant
+    internal class Participant : User
     {
         public List<string> RegisteredSessions { get; set; }
 
