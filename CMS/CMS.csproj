@@ -98,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Conference.cs" />
     <Compile Include="DBconnection.cs" />
     <Compile Include="Classes\Participant.cs" />
     <Compile Include="Registration.cs">

@@ -1,0 +1,79 @@
+﻿using Mysqlx.Prepare;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Common;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
+using DatabaseLearning;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+namespace CMS
+{
+    internal class Conference
+    {
+        public int ConferenceId { get; set; }
+        public string ConferenceName { get; set; }
+        public DateTime Date { get; set; }
+        public string Venue { get; set; }
+        public string Description { get; set; }
+
+        private DBConnection connection;
+
+        public Conference()
+        {
+            connection = new DBConnection();
+        }
+
+        // Create a new conference
+        public void CreateConference(int id, string name, DateTime date, string venue, string description)
+        {
+            string query = $"INSERT INTO conference_table (ConferenceId, ConferenceName, Date, Venue, Description) VALUES ('{id}', '{name}', '{date.ToString("yyyy-MM-dd")}', '{venue}', '{description}');";
+            connection.ExecuteQuery(query);
+            MessageBox.Show("Conference created successfully.");
+        }
+
+        // Edit an existing conference
+        public void EditConference(int id, string name, DateTime date, string venue, string description)
+        {
+            string query = $"UPDATE conference_table SET ConferenceName = '{name}', Date = '{date.ToString("yyyy-MM-dd")}', Venue = '{venue}', Description = '{description}' WHERE ConferenceId = '{id}';";
+            connection.ExecuteQuery(query);
+            MessageBox.Show("Conference details updated successfully.");
+        }
+
+        // Delete a conference
+        public void DeleteConference(int id)
+        {
+            string query = $"DELETE FROM conference_table WHERE ConferenceId = '{id}';";
+            connection.ExecuteQuery(query);
+            MessageBox.Show("Conference deleted successfully.");
+        }
+
+        // View conference details
+        public void ViewDetails(int id)
+        {
+            string query = $"SELECT * FROM conference_table WHERE ConferenceId = '{id}';";
+            if (connection.OpenConnection())
+            {
+                using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            MessageBox.Show($"ID: {reader["ConferenceId"]}, Name: {reader["ConferenceName"]}, Date: {reader["Date"]}, Venue: {reader["Venue"]}, Description: {reader["Description"]}");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Conference not found.");
+                        }
+                    }
+                }
+                connection.CloseConnection();
+            }
+        }
+    }
+}
