@@ -35,12 +35,6 @@ namespace CMS
         }
 
         // Methods
-        //public bool Login(string enteredUserName, string enteredPassword)
-        //{
-        //    // Compares the entered username and password with stored values
-        //    return UserName == enteredUserName && Password == enteredPassword;
-        //}
-
         public bool Login(string enteredUserName, string enteredPassword)
         {
             string query = $"SELECT COUNT(*) FROM users_table WHERE userName = '{enteredUserName}' AND password = '{enteredPassword}'";
