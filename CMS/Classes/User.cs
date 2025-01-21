@@ -75,8 +75,6 @@ namespace CMS
             return false;
         }
 
-
-
         public void Logout()
         {
             // Logic to handle logout, e.g., clear session
