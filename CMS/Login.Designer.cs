@@ -40,7 +40,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(99, 81);
+            this.label1.Location = new System.Drawing.Point(118, 81);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 16);
             this.label1.TabIndex = 0;
@@ -48,7 +48,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(178, 75);
+            this.textBox1.Location = new System.Drawing.Point(197, 75);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
             this.textBox1.TabIndex = 1;
@@ -56,7 +56,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(99, 117);
+            this.label2.Location = new System.Drawing.Point(118, 117);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 16);
             this.label2.TabIndex = 2;
@@ -64,16 +64,16 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(178, 114);
+            this.textBox2.Location = new System.Drawing.Point(197, 114);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 22);
             this.textBox2.TabIndex = 3;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(102, 156);
+            this.button1.Location = new System.Drawing.Point(121, 156);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(176, 23);
+            this.button1.Size = new System.Drawing.Size(176, 32);
             this.button1.TabIndex = 4;
             this.button1.Text = "Sign In";
             this.button1.UseVisualStyleBackColor = true;

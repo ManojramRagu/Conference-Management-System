@@ -16,69 +16,20 @@ namespace CMS
     internal class User
     {
         private DBConnection connection;
-        
+
         // Attributes
         public int UserID { get; set; }
         public string UserName { get; set; }
-        //public string FullName { get; set; }
-        //public string Email { get; set; }
         public string Password { get; set; }
+        public string AccountType { get; set; }
 
         // Constructor
-        public User(int userID, string userName, string password)
+        public User(int userID, string userName, string password, string accountType)
         {
             UserID = userID;
             UserName = userName;
-            //FullName = fullName;
-            //Email = email;
             Password = password;
-        }
-
-        // Methods
-        public bool Login(string enteredUserName, string enteredPassword)
-        {
-            string query = $"SELECT COUNT(*) FROM users_table WHERE userName = '{enteredUserName}' AND password = '{enteredPassword}'";
-            try
-            {
-                if (connection.OpenConnection())
-                {
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
-                    {
-                        int count = Convert.ToInt32(cmd.ExecuteScalar());
-                        connection.CloseConnection();
-
-                        if (count > 0)
-                        {
-                            MessageBox.Show("Login successful!");
-
-                            // Redirect to the form that you want it to redirected (Here it is Dashboard form)
-                            //DashboardForm dashboardForm = new DashboardForm();
-                            //dashboardForm.Show();
-
-                            // Close the current form if needed
-                            Application.OpenForms[0].Close();
-
-                            return true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Invalid username or password.");
-                            return false;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
-            return false;
-        }
-
-        public void Logout()
-        {
-            // Logic to handle logout, e.g., clear session
-            Console.WriteLine("Logged out successfully.");
+            AccountType = accountType;
         }
 
         public User()
@@ -86,37 +37,45 @@ namespace CMS
             connection = new DBConnection();
         }
 
-        public void AddUser(int userID, string userName, string password)
+        // Method to add user to the database
+        public void AddUser(int userID, string userName, string password, string accountType)
         {
-            string query = $"INSERT INTO users_table (userID, userName, password)\r\nVALUES ('{userID}', '{userName}', '{password}');\r\n";
+            string query = $"INSERT INTO users_table (userID, userName, password, accountType) VALUES ('{userID}', '{userName}', '{password}', '{accountType}');";
             connection.ExecuteQuery(query); // writes the data to the respective table in the database
         }
 
-        public void RegisterUser(string userName, string password)
+        // Method to register user
+        public void RegisterUser(string userName, string password, string confirmPassword, string accountType)
         {
-            if (!IsUsernameExists(userName))
+            if (password == confirmPassword)  // Check if passwords match
             {
-                AddUser(UserID, userName, password);
-                MessageBox.Show("Successfully registered!");
+                if (!IsUsernameExists(userName))
+                {
+                    AddUser(UserID, userName, password, accountType);
+                    MessageBox.Show("Successfully registered!");
+                }
+                else
+                {
+                    MessageBox.Show("Username already exists. Try a different username.");
+                }
             }
             else
             {
-                MessageBox.Show("Username already exits. Try a different username.");
+                MessageBox.Show("Passwords do not match.");
             }
         }
 
+        // Check if the username already exists
         public bool IsUsernameExists(string userNameToCheck)
         {
-            // Get the list of users from the database
             List<User> users = GetUsers();
-
-            // Check if the username exists using LINQ
             return users.Any(user => user.UserName.Equals(userNameToCheck, StringComparison.OrdinalIgnoreCase));
         }
 
-        public List<User> GetUsers() 
+        // Get the list of users from the database
+        public List<User> GetUsers()
         {
-            List <User> users = new List<User>();
+            List<User> users = new List<User>();
             string query = "SELECT * FROM users_table";
 
             try
@@ -127,15 +86,14 @@ namespace CMS
                     {
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            while (reader.Read()) 
+                            while (reader.Read())
                             {
                                 User user = new User
                                 {
                                     UserID = Convert.ToInt32(reader["userID"]),
                                     UserName = reader["userName"].ToString(),
-                                    //FullName = reader["fullName"].ToString(),
-                                    //Email = reader["email"].ToString(),
-                                    Password = reader["password"].ToString()
+                                    Password = reader["password"].ToString(),
+                                    AccountType = reader["accountType"].ToString()
                                 };
 
                                 users.Add(user);
@@ -146,9 +104,9 @@ namespace CMS
                     }
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex}");
+                MessageBox.Show($"Error: {ex.Message}");
             }
 
             return users;
