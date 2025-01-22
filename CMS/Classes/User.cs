@@ -162,3 +162,4 @@ namespace CMS
 // make the registration process to store the account type of the user 
 // make the login such that it checks for the account type of the user and redirects to the respective page
 // add account type to database
+// update registration ui to take in the account type
