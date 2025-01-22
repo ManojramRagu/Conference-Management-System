@@ -15,5 +15,10 @@ namespace CMS.Classes
         {
             this.connection = new DBConnection();
         }
+
+        public void sayHello()
+        {
+            Console.WriteLine("Hello World");
+        }
     }
 }
