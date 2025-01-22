@@ -19,5 +19,6 @@ namespace CMS
         {
             RegisteredSessions.Add(sessionName);
         }
+        //THIS IS TO SAVE CURRENT MAIN TO BRANCH
     }
 }
