@@ -34,9 +34,9 @@ namespace CMS
             // Check if an account type is selected and handle accordingly
             if (accountTypeComboBox.SelectedItem != null)
             {
-                string accountType = accountTypeComboBox.SelectedItem.ToString();
+                string account_type = accountTypeComboBox.SelectedItem.ToString();
                 User user = new User();
-                user.RegisterUser(username, password, confirmPassword, accountType);
+                user.RegisterUser(username, password, confirmPassword, account_type);
             }
             else
             {

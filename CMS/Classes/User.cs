@@ -38,20 +38,20 @@ namespace CMS
         }
 
         // Method to add user to the database
-        public void AddUser(int userID, string userName, string password, string accountType)
+        public void AddUser(int userID, string userName, string password, string account_type)
         {
-            string query = $"INSERT INTO users_table (userID, userName, password, accountType) VALUES ('{userID}', '{userName}', '{password}', '{accountType}');";
+            string query = $"INSERT INTO users_table (userID, userName, password, account_type) VALUES ('{userID}', '{userName}', '{password}', '{account_type}');";
             connection.ExecuteQuery(query); // writes the data to the respective table in the database
         }
 
         // Method to register user
-        public void RegisterUser(string userName, string password, string confirmPassword, string accountType)
+        public void RegisterUser(string userName, string password, string confirmPassword, string account_type)
         {
             if (password == confirmPassword)  // Check if passwords match
             {
                 if (!IsUsernameExists(userName))
                 {
-                    AddUser(UserID, userName, password, accountType);
+                    AddUser(UserID, userName, password, account_type);
                     MessageBox.Show("Successfully registered!");
                 }
                 else
@@ -93,7 +93,7 @@ namespace CMS
                                     UserID = Convert.ToInt32(reader["userID"]),
                                     UserName = reader["userName"].ToString(),
                                     Password = reader["password"].ToString(),
-                                    AccountType = reader["accountType"].ToString()
+                                    AccountType = reader["account_type"].ToString()
                                 };
 
                                 users.Add(user);
