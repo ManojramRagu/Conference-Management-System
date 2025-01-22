@@ -81,7 +81,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listBox1);
             this.Name = "ManageRegisteredSessions";
-            this.Text = "Form1";
+            this.Text = "ManageRegisteredSessions";
             this.ResumeLayout(false);
             this.PerformLayout();
 
