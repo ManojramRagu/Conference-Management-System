@@ -37,8 +37,42 @@ namespace CMS
         // Methods
         public bool Login(string enteredUserName, string enteredPassword)
         {
-            // Compares the entered username and password with stored values
-            return UserName == enteredUserName && Password == enteredPassword;
+            string query = $"SELECT COUNT(*) FROM users_table WHERE userName = '{enteredUserName}' AND password = '{enteredPassword}'";
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+                        connection.CloseConnection();
+
+                        if (count > 0)
+                        {
+                            MessageBox.Show("Login successful!");
+
+                            // Redirect to the form that you want it to redirected (Here it is Dashboard form)
+                            //DashboardForm dashboardForm = new DashboardForm();
+                            //dashboardForm.Show();
+
+                            // Close the current form if needed
+                            Application.OpenForms[0].Close();
+
+                            return true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid username or password.");
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+            return false;
         }
 
         public void Logout()
@@ -121,3 +155,11 @@ namespace CMS
         }
     }
 }
+
+
+//TODO  
+
+// make the registration process to store the account type of the user 
+// make the login such that it checks for the account type of the user and redirects to the respective page
+// add account type to database
+// update registration ui to take in the account type
