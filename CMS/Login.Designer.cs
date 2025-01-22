@@ -42,9 +42,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(99, 81);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 16);
+            this.label1.Size = new System.Drawing.Size(73, 16);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Login";
+            this.label1.Text = "Username:";
             // 
             // textBox1
             // 
@@ -71,11 +71,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(191, 156);
+            this.button1.Location = new System.Drawing.Point(102, 156);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(176, 23);
             this.button1.TabIndex = 4;
-            this.button1.Text = "Signin";
+            this.button1.Text = "Sign In";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -90,7 +90,6 @@
             this.groupBox1.Size = new System.Drawing.Size(422, 237);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
             // 
             // Login
             // 
@@ -99,7 +98,6 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.groupBox1);
             this.Name = "Login";
-            this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
