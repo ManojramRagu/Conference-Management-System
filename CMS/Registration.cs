@@ -46,22 +46,22 @@ namespace CMS
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            // Handle any text changes if necessary
+            
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-            // Handle label click events if needed
+            
         }
 
         private void enterPwdAgain_TextChanged(object sender, EventArgs e)
         {
-            // Handle any text changes in the confirm password field if necessary
+            
         }
 
         private void accountTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Handle selection changes if needed (for validation or updates)
+            
         }
     }
 }
