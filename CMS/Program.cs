@@ -18,7 +18,7 @@ namespace CMS
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Registration());
             //Application.Run(new User());
-            Application.Run(new ManageSpeaker());
+            Application.Run(new Login());
         }
     }
 }
