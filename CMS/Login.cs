@@ -52,6 +52,7 @@ namespace CMS
                         break;
                 }
 
+
                 this.Hide(); // Hide the login form
             }
             else
