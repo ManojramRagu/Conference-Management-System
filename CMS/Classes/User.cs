@@ -65,6 +65,40 @@ namespace CMS
             }
         }
 
+        // Login feature
+        public string Login(string userName, string password)
+        {
+            string accountType = null;
+            string query = $"SELECT account_type FROM users_table WHERE userName = '{userName}' AND password = '{password}'";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                accountType = reader["account_type"].ToString();
+                                Console.WriteLine($"Successful login for user: {userName}, Account Type: {accountType}");
+                            }
+                        }
+
+                        connection.CloseConnection();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            return accountType;
+        }
+
+
         // Check if the username already exists
         public bool IsUsernameExists(string userNameToCheck)
         {
