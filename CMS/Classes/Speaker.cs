@@ -18,7 +18,7 @@ namespace CMS.Classes
         private DBConnection connection;
 
         // Constructor
-        public Speaker() : base()
+        public Speaker() : base() // donno why this is there
         {
             AccountType = "Speaker";
             connection = new DBConnection();
