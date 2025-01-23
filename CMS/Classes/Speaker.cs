@@ -20,7 +20,7 @@ namespace CMS.Classes
         // Constructor
         public Speaker() : base()
         {
-            AccountType = "Speaker"; // Set default account type
+            AccountType = "Speaker";
             connection = new DBConnection();
         }
 
@@ -38,7 +38,6 @@ namespace CMS.Classes
 
             try
             {
-                // Open the connection manually for retrieving data
                 if (connection.OpenConnection())
                 {
                     MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection());
@@ -54,7 +53,6 @@ namespace CMS.Classes
                         });
                     }
 
-                    // Close the reader and connection
                     reader.Close();
                     connection.CloseConnection();
                 }
@@ -80,6 +78,36 @@ namespace CMS.Classes
             catch (Exception ex)
             {
                 Console.WriteLine($"Error updating speaker details: {ex.Message}");
+            }
+        }
+
+        // Assign speaker to conference
+        public void AssignSpeakerToConference(int userID, int conferenceID)
+        {
+            string query = $"INSERT INTO conference_speakers (conferenceID, userID) VALUES ('{conferenceID}', '{userID}');";
+            try
+            {
+                connection.ExecuteQuery(query);
+                Console.WriteLine("Speaker assigned to the conference successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error assigning speaker to the conference: {ex.Message}");
+            }
+        }
+
+        // Remove speaker from conference
+        public void RemoveSpeakerFromConference(int userID, int conferenceID)
+        {
+            string query = $"DELETE FROM conference_speakers WHERE conferenceID = '{conferenceID}' AND userID = '{userID}';";
+            try
+            {
+                connection.ExecuteQuery(query);
+                Console.WriteLine("Speaker removed from the conference successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error removing speaker from the conference: {ex.Message}");
             }
         }
 
