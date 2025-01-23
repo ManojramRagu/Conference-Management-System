@@ -13,28 +13,52 @@ using System.Windows.Forms;
 
 namespace CMS.Classes
 {
-    internal class Speaker : User
+    internal class Speaker
     {
+        public int SpeakerID { get; set; }
+        public string Name { get; set; }
+        public string Bio { get; set; }
+        public string Email { get; set; }
+        public int Phone { get; set; }
+
         private DBConnection connection;
 
         // Constructor
-        public Speaker() : base() // donno why this is there
-        {
-            AccountType = "Speaker";
-            connection = new DBConnection();
-        }
-
-        public Speaker(int userID, string userName, string password)
-            : base(userID, userName, password, "Speaker")
+        public Speaker()
         {
             connection = new DBConnection();
         }
 
-        // Get a list of all speakers
+        public Speaker(int speakerID, string name, string bio, string email, int phone)
+        {
+            SpeakerID = speakerID;
+            Name = name;
+            Bio = bio;
+            Email = email;
+            Phone = phone;
+            connection = new DBConnection();
+        }
+
+        // Add speaker
+        public void AddSpeaker(int speakerID, string name, string bio, string email, int phone)
+        {
+            string query = $"INSERT INTO speakers_table (speakerID, name, bio, email, phone) VALUES ('{speakerID}', '{name}', '{bio}', '{email}', '{phone}');";
+            try
+            {
+                connection.ExecuteQuery(query);
+                MessageBox.Show("Speaker added successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding speaker: {ex.Message}");
+            }
+        }
+
+        // Get list of speakers
         public List<Speaker> GetSpeakers()
         {
             List<Speaker> speakers = new List<Speaker>();
-            string query = "SELECT * FROM users_table WHERE accountType = 'Speaker';";
+            string query = "SELECT * FROM speakers_table;";
 
             try
             {
@@ -47,9 +71,11 @@ namespace CMS.Classes
                     {
                         speakers.Add(new Speaker
                         {
-                            UserID = Convert.ToInt32(reader["userID"]),
-                            UserName = reader["userName"].ToString(),
-                            Password = reader["password"].ToString()
+                            SpeakerID = Convert.ToInt32(reader["speakerID"]),
+                            Name = reader["name"].ToString(),
+                            Bio = reader["bio"].ToString(),
+                            Email = reader["email"].ToString(),
+                            Phone = Convert.ToInt32(reader["phone"])
                         });
                     }
 
@@ -59,57 +85,55 @@ namespace CMS.Classes
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving speakers: {ex.Message}");
+                MessageBox.Show($"Error retrieving speakers: {ex.Message}");
             }
 
             return speakers;
         }
 
-
         // Edit speaker details
-        public void EditSpeaker(int userID, string newUserName, string newPassword)
+        public void EditSpeaker(int speakerID, string newName, string newBio, string newEmail, int newPhone)
         {
-            string query = $"UPDATE users_table SET userName = '{newUserName}', password = '{newPassword}' WHERE userID = '{userID}' AND accountType = 'Speaker';";
+            string query = $"UPDATE speakers_table SET name = '{newName}', bio = '{newBio}', email = '{newEmail}', phone = '{newPhone}' WHERE speakerID = '{speakerID}';";
             try
             {
                 connection.ExecuteQuery(query);
-                Console.WriteLine("Speaker details updated successfully.");
+                MessageBox.Show("Speaker details updated successfully.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating speaker details: {ex.Message}");
+                MessageBox.Show($"Error updating speaker details: {ex.Message}");
             }
         }
 
         // Assign speaker to conference
-        public void AssignSpeakerToConference(int userID, int conferenceID)
-        {
-            string query = $"INSERT INTO conference_speakers (conferenceID, userID) VALUES ('{conferenceID}', '{userID}');";
-            try
-            {
-                connection.ExecuteQuery(query);
-                Console.WriteLine("Speaker assigned to the conference successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error assigning speaker to the conference: {ex.Message}");
-            }
-        }
+        //public void AssignSpeakerToConference(int speakerID, int conferenceID)
+        //{
+        //    string query = $"INSERT INTO sessions_table (conferenceID, speakerID) VALUES ('{conferenceID}', '{speakerID}');";
+        //    try
+        //    {
+        //        connection.ExecuteQuery(query);
+        //        MessageBox.Show("Speaker assigned to the conference successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Error assigning speaker to the conference: {ex.Message}");
+        //    }
+        //}
 
-        // Remove speaker from conference
-        public void RemoveSpeakerFromConference(int userID, int conferenceID)
-        {
-            string query = $"DELETE FROM conference_speakers WHERE conferenceID = '{conferenceID}' AND userID = '{userID}';";
-            try
-            {
-                connection.ExecuteQuery(query);
-                Console.WriteLine("Speaker removed from the conference successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error removing speaker from the conference: {ex.Message}");
-            }
-        }
-
+        //// Remove speaker from conference
+        //public void RemoveSpeakerFromConference(int speakerID, int conferenceID)
+        //{
+        //    string query = $"DELETE FROM sessions_table WHERE conferenceID = '{conferenceID}' AND speakerID = '{speakerID}';";
+        //    try
+        //    {
+        //        connection.ExecuteQuery(query);
+        //        MessageBox.Show("Speaker removed from the conference successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Error removing speaker from the conference: {ex.Message}");
+        //    }
+        //}
     }
 }
