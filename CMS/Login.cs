@@ -37,15 +37,15 @@ namespace CMS
                         participantUI.Show();
                         break;
 
-                    //case "Organizer":
-                    //    OrganizerUI organizerUI = new OrganizerUI();
-                    //    organizerUI.Show();
-                    //    break;
+                    case "Organizer":
+                        OrganiserUI organizerUI = new OrganiserUI();
+                        organizerUI.Show();
+                        break;
 
-                    //case "Speaker":
-                    //    SpeakerUI speakerUI = new SpeakerUI();
-                    //    speakerUI.Show();
-                    //    break;
+                    case "Speaker":
+                        SpeakerUI speakerUI = new SpeakerUI();
+                        speakerUI.Show();
+                        break;
 
                     default:
                         MessageBox.Show("Unknown account type.");
