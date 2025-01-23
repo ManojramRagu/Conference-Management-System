@@ -30,21 +30,6 @@ namespace CMS.Classes
             connection = new DBConnection();
         }
 
-        // Add a new speaker
-        public void AddSpeaker(int userID, string userName, string password)
-        {
-            string query = $"INSERT INTO users_table (userID, userName, password, accountType) VALUES ('{userID}', '{userName}', '{password}', 'Speaker');";
-            try
-            {
-                connection.ExecuteQuery(query);
-                Console.WriteLine("Speaker added successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error adding speaker: {ex.Message}");
-            }
-        }
-
         // Get a list of all speakers
         public List<Speaker> GetSpeakers()
         {
@@ -53,9 +38,12 @@ namespace CMS.Classes
 
             try
             {
+                // Open the connection manually for retrieving data
                 if (connection.OpenConnection())
                 {
-                    var reader = connection.ExecuteReader(query); // Assuming ExecuteReader is available in DBConnection
+                    MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection());
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
                     while (reader.Read())
                     {
                         speakers.Add(new Speaker
@@ -65,6 +53,8 @@ namespace CMS.Classes
                             Password = reader["password"].ToString()
                         });
                     }
+
+                    // Close the reader and connection
                     reader.Close();
                     connection.CloseConnection();
                 }
@@ -77,7 +67,8 @@ namespace CMS.Classes
             return speakers;
         }
 
-        // Edit a speaker's details
+
+        // Edit speaker details
         public void EditSpeaker(int userID, string newUserName, string newPassword)
         {
             string query = $"UPDATE users_table SET userName = '{newUserName}', password = '{newPassword}' WHERE userID = '{userID}' AND accountType = 'Speaker';";
@@ -92,19 +83,5 @@ namespace CMS.Classes
             }
         }
 
-        // Delete a speaker
-        public void DeleteSpeaker(int userID)
-        {
-            string query = $"DELETE FROM users_table WHERE userID = '{userID}' AND accountType = 'Speaker';";
-            try
-            {
-                connection.ExecuteQuery(query);
-                Console.WriteLine("Speaker deleted successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error deleting speaker: {ex.Message}");
-            }
-        }
     }
 }
