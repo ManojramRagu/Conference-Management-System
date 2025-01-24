@@ -23,7 +23,10 @@ namespace CMS
             string password = textBox2.Text;
 
             User user = new User();
-            string accountType = user.Login(username, password);
+            var loginResult = user.Login(username, password);
+
+            int loggedInUserId = loginResult.Item1;
+            string accountType = loginResult.Item2;
 
             if (accountType != null)
             {

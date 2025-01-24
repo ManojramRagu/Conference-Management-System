@@ -66,10 +66,11 @@ namespace CMS
         }
 
         // Login feature
-        public string Login(string userName, string password)
+        public Tuple<int, string> Login(string userName, string password)
         {
+            int loggedInUserId = -1;
             string accountType = null;
-            string query = $"SELECT account_type FROM users_table WHERE userName = '{userName}' AND password = '{password}'";
+            string query = $"SELECT userID, account_type FROM users_table WHERE userName = '{userName}' AND password = '{password}'";
 
             try
             {
@@ -81,8 +82,9 @@ namespace CMS
                         {
                             if (reader.Read())
                             {
+                                loggedInUserId = Convert.ToInt32(reader["userID"]);
                                 accountType = reader["account_type"].ToString();
-                                Console.WriteLine($"Successful login for user: {userName}, Account Type: {accountType}");
+                                Console.WriteLine($"Successful login for user: {userName}, Account Type: {accountType}, userID: {loggedInUserId}");
                             }
                         }
 
@@ -95,7 +97,7 @@ namespace CMS
                 MessageBox.Show($"Error: {ex.Message}");
             }
 
-            return accountType;
+            return new Tuple<int, string>(loggedInUserId, accountType); ;
         }
 
 
