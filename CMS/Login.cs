@@ -37,7 +37,7 @@ namespace CMS
                 switch (accountType)
                 {
                     case "Participant":
-                        ParticipantUI participantUI = new ParticipantUI();
+                        ParticipantUI participantUI = new ParticipantUI(loggedInUserID);
                         participantUI.Show();
                         break;
 
