@@ -32,17 +32,13 @@ namespace CMS
         // Create a new conference
         public void CreateConference(string name, DateTime date, string venue, string description, int capacity)
         {
-            string query = $"INSERT INTO conference_table (name, date, venue, description, capacity) " +
-                           $"VALUES ('{name}', '{date.ToString("yyyy-MM-dd")}', '{venue}', '{description}', '{capacity}');";
+            string query = $"INSERT INTO conferences_table (name, date, venue, description, capacity) " +
+                           $"VALUES ('{name}', '{date:yyyy-MM-dd}', '{venue}', '{description}', {capacity});";
 
             try
             {
-                if (connection.OpenConnection())
-                {
-                    connection.ExecuteQuery(query);
-                    connection.CloseConnection();
-                    MessageBox.Show("Conference created successfully.");
-                }
+                connection.ExecuteQuery(query);
+                MessageBox.Show("Conference created successfully.");
             }
             catch (Exception ex)
             {
@@ -53,17 +49,14 @@ namespace CMS
         // Edit an existing conference
         public void EditConference(int id, string name, DateTime date, string venue, string description, int capacity)
         {
-            string query = $"UPDATE conferences_table SET name = '{name}', date = '{date.ToString("yyyy-MM-dd")}', " +
-                           $"venue = '{venue}', description = '{description}', capacity = '{capacity}' WHERE conferenceId = '{id}';";
+            string query = $"UPDATE conferences_table SET name = '{name}', date = '{date:yyyy-MM-dd}', " +
+                           $"venue = '{venue}', description = '{description}', capacity = {capacity} " +
+                           $"WHERE conferenceId = {id};";
 
             try
             {
-                if (connection.OpenConnection())
-                {
-                    connection.ExecuteQuery(query);
-                    connection.CloseConnection();
-                    MessageBox.Show("Conference details updated successfully.");
-                }
+                connection.ExecuteQuery(query);
+                MessageBox.Show("Conference details updated successfully.");
             }
             catch (Exception ex)
             {
