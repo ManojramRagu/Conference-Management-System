@@ -81,6 +81,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ViewAndRegister";
             this.Text = "ViewAndRegister";
+            //this.Load += new System.EventHandler(this.ViewAndRegister_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
