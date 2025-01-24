@@ -32,6 +32,7 @@ namespace CMS
                 string query = @"
                                 SELECT 
                                     s.sessionID, 
+                                    s.title AS SessionTitle, -- Added session title
                                     s.date AS SessionDate, 
                                     c.conferenceID, 
                                     c.name AS ConferenceName, 
@@ -46,6 +47,7 @@ namespace CMS
                                 ORDER BY 
                                     s.date;";
 
+
                 MySqlCommand command = new MySqlCommand(query, dbConnection.GetConnection());
                 MySqlDataReader reader = command.ExecuteReader();
 
@@ -53,13 +55,15 @@ namespace CMS
                 {
                     sessions.Add(new SessionItem
                     {
-                        SessionID = reader.GetInt32(0),
+                        SessionID = reader.GetInt32(0), // Fetch sessionID
+                        SessionTitle = reader.GetString(1), // Fetch session title
                         ConferenceID = reader.GetInt32(2), // Fetch conferenceID
                         ConferenceName = reader.GetString(3), // Fetch conference name
                         ConferenceDate = reader.GetDateTime(4), // Fetch conference date
-                        Speaker = reader.GetString(5), // Fetch speaker name
+                        Speaker = reader.GetString(5) // Fetch speaker name
                     });
                 }
+
 
 
                 dbConnection.CloseConnection(); // Close the connection from DBConnection
@@ -97,9 +101,10 @@ namespace CMS
     public class SessionItem
     {
         public int SessionID { get; set; }
+        public string SessionTitle { get; set; }    
         public int ConferenceID { get; set; }  // Add this property to store the conferenceID
         public string ConferenceName { get; set; }
         public DateTime ConferenceDate { get; set; }
         public string Speaker { get; set; }
     }
-}      
+}

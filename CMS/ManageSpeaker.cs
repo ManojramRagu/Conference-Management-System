@@ -16,5 +16,26 @@ namespace CMS
         {
             InitializeComponent();
         }
+
+        private void AddNewSpeakerbtn_Click(object sender, EventArgs e)
+        {
+            AddNewSpeaker addNewSpeaker = new AddNewSpeaker();
+            addNewSpeaker.Show();
+            this.Hide();
+        }
+
+        private void Editbtn_Click(object sender, EventArgs e)
+        {
+            EditSpeakerDetails editSpeakerDetails = new EditSpeakerDetails();
+            editSpeakerDetails.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OrganiserUI organiser = new OrganiserUI();
+            organiser.Show();
+            this.Hide();
+        }
     }
 }

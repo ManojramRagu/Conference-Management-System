@@ -40,6 +40,21 @@ namespace CMS
         // Register button click event handler
         private void btnRegister_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // This method can be used for additional behavior when the selection changes.
+        }
+
+        private void ViewAndRegister_Load(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
             // Get the selected session IDs from the DataGridView
             var selectedSessions = new List<int>();
 
@@ -82,21 +97,6 @@ namespace CMS
 
             // Clear the selection in the DataGridView
             participantsViewGrid.ClearSelection();
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // This method can be used for additional behavior when the selection changes.
-        }
-
-        private void ViewAndRegister_Load(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
         }
     }
 }

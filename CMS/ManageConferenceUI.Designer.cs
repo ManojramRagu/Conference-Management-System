@@ -32,9 +32,10 @@
             this.listofconference = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Conference = new System.Windows.Forms.GroupBox();
-            this.createbtn = new System.Windows.Forms.Button();
-            this.managebtn = new System.Windows.Forms.Button();
             this.removebtn = new System.Windows.Forms.Button();
+            this.managebtn = new System.Windows.Forms.Button();
+            this.createbtn = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.Conference.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,6 +69,7 @@
             // Conference
             // 
             this.Conference.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.Conference.Controls.Add(this.button2);
             this.Conference.Controls.Add(this.removebtn);
             this.Conference.Controls.Add(this.managebtn);
             this.Conference.Controls.Add(this.createbtn);
@@ -80,24 +82,6 @@
             this.Conference.TabStop = false;
             this.Conference.Text = "Conference";
             // 
-            // createbtn
-            // 
-            this.createbtn.Location = new System.Drawing.Point(51, 189);
-            this.createbtn.Name = "createbtn";
-            this.createbtn.Size = new System.Drawing.Size(156, 31);
-            this.createbtn.TabIndex = 2;
-            this.createbtn.Text = "Create Conference";
-            this.createbtn.UseVisualStyleBackColor = true;
-            // 
-            // managebtn
-            // 
-            this.managebtn.Location = new System.Drawing.Point(254, 189);
-            this.managebtn.Name = "managebtn";
-            this.managebtn.Size = new System.Drawing.Size(156, 31);
-            this.managebtn.TabIndex = 3;
-            this.managebtn.Text = "Edit Conference";
-            this.managebtn.UseVisualStyleBackColor = true;
-            // 
             // removebtn
             // 
             this.removebtn.Location = new System.Drawing.Point(447, 189);
@@ -107,6 +91,36 @@
             this.removebtn.Text = "Remove Conference";
             this.removebtn.UseVisualStyleBackColor = true;
             this.removebtn.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // managebtn
+            // 
+            this.managebtn.Location = new System.Drawing.Point(254, 189);
+            this.managebtn.Name = "managebtn";
+            this.managebtn.Size = new System.Drawing.Size(156, 31);
+            this.managebtn.TabIndex = 3;
+            this.managebtn.Text = "Edit Conference";
+            this.managebtn.UseVisualStyleBackColor = true;
+            this.managebtn.Click += new System.EventHandler(this.managebtn_Click);
+            // 
+            // createbtn
+            // 
+            this.createbtn.Location = new System.Drawing.Point(51, 189);
+            this.createbtn.Name = "createbtn";
+            this.createbtn.Size = new System.Drawing.Size(156, 31);
+            this.createbtn.TabIndex = 2;
+            this.createbtn.Text = "Create Conference";
+            this.createbtn.UseVisualStyleBackColor = true;
+            this.createbtn.Click += new System.EventHandler(this.createbtn_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(285, 243);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 29;
+            this.button2.Text = "Go Back";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // ManageConferenceUI
             // 
@@ -132,5 +146,6 @@
         private System.Windows.Forms.Button removebtn;
         private System.Windows.Forms.Button managebtn;
         private System.Windows.Forms.Button createbtn;
+        private System.Windows.Forms.Button button2;
     }
 }
