@@ -47,42 +47,40 @@ namespace CMS
         }
 
         // Edit an existing conference
-        public void EditConference(int id, Dictionary<string, object> updatedFields)
+        public void EditConference(int id, string name, DateTime date, string venue, string description, int capacity)
         {
-            if (updatedFields.Count == 0)
-            {
-                MessageBox.Show("No fields to update.");
-                return;
-            }
+            string query = $"UPDATE conferences_table SET ";
 
-            List<string> updateParts = new List<string>();
+            List<string> updateFields = new List<string>();
 
-            foreach (var field in updatedFields)
+            if (!string.IsNullOrEmpty(name))
+                updateFields.Add($"name = '{name}'");
+            if (!string.IsNullOrEmpty(venue))
+                updateFields.Add($"venue = '{venue}'");
+            if (!string.IsNullOrEmpty(description))
+                updateFields.Add($"description = '{description}'");
+            if (date != DateTime.MinValue)
+                updateFields.Add($"date = '{date:yyyy-MM-dd}'");
+            if (capacity > 0)
+                updateFields.Add($"capacity = {capacity}");
+
+            if (updateFields.Count > 0)
             {
-                if (field.Value is DateTime)
+                query += string.Join(", ", updateFields) + $" WHERE conferenceId = {id};";
+
+                try
                 {
-                    updateParts.Add($"{field.Key} = '{((DateTime)field.Value):yyyy-MM-dd}'");
+                    connection.ExecuteQuery(query);
+                    MessageBox.Show("Conference details updated successfully.");
                 }
-                else if (field.Value is int)
+                catch (Exception ex)
                 {
-                    updateParts.Add($"{field.Key} = {field.Value}");
-                }
-                else
-                {
-                    updateParts.Add($"{field.Key} = '{field.Value}'");
+                    MessageBox.Show($"Error: {ex.Message}");
                 }
             }
-
-            string updateQuery = $"UPDATE conferences_table SET {string.Join(", ", updateParts)} WHERE conferenceId = {id};";
-
-            try
+            else
             {
-                connection.ExecuteQuery(updateQuery);
-                MessageBox.Show("Conference updated successfully.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show("No changes detected.");
             }
         }
 
