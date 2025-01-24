@@ -12,6 +12,7 @@ namespace CMS
 {
     public partial class ManageConferenceUI : Form
     {
+        Conference conference = new Conference();
         public ManageConferenceUI()
         {
             InitializeComponent();
@@ -19,7 +20,14 @@ namespace CMS
 
         private void button4_Click(object sender, EventArgs e)
         {
+            int conferenceId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
 
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this conference?", "Confirm Deletion", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                conference.DeleteConference(conferenceId);
+            }
         }
 
         private void createbtn_Click(object sender, EventArgs e)
@@ -44,8 +52,7 @@ namespace CMS
         }
 
         private void ManageConferenceUI_Load(object sender, EventArgs e)
-        {
-            Conference conference = new Conference();
+        {            
             List<Conference> conferencesList = conference.GetAllConferences();
             dataGridView1.DataSource = conferencesList;
         }
