@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,7 @@ namespace CMS
     public partial class SpeakerUI : Form
     {
         private int speakerUserId;
+        private Speaker speaker;
         public SpeakerUI(int loggedInUserId)
         {
             InitializeComponent();
@@ -21,7 +23,21 @@ namespace CMS
 
         private void SpeakerUI_Load(object sender, EventArgs e)
         {
+            try
+            {
+                List<string> Sessions = speaker.GetAssignedSessions(speakerUserId);
 
+                listBox1.Items.Clear();
+
+                foreach (var session in Sessions)
+                {
+                    listBox1.Items.Add(session);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
     }
 }
