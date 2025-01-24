@@ -47,9 +47,9 @@
             this.label1.Location = new System.Drawing.Point(59, 31);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(361, 46);
+            this.label1.Size = new System.Drawing.Size(422, 46);
             this.label1.TabIndex = 0;
-            this.label1.Text = "ACTIVE CONFERENCE";
+            this.label1.Text = "AVAILABLE CONFERENCE";
             // 
             // button1
             // 

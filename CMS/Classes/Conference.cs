@@ -30,10 +30,10 @@ namespace CMS
         }
 
         // Create a new conference
-        public void CreateConference(int id, string name, DateTime date, string venue, string description, int capacity)
+        public void CreateConference(string name, DateTime date, string venue, string description, int capacity)
         {
-            string query = $"INSERT INTO conference_table (conferenceId, name, date, venue, description, capacity) " +
-                           $"VALUES ('{id}', '{name}', '{date.ToString("yyyy-MM-dd")}', '{venue}', '{description}', '{capacity}');";
+            string query = $"INSERT INTO conference_table (name, date, venue, description, capacity) " +
+                           $"VALUES ('{name}', '{date.ToString("yyyy-MM-dd")}', '{venue}', '{description}', '{capacity}');";
 
             try
             {
