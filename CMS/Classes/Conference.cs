@@ -32,7 +32,7 @@ namespace CMS
         // Create a new conference
         public void CreateConference(int id, string name, DateTime date, string venue, string description, int capacity)
         {
-            string query = $"INSERT INTO conference_table (ConferenceId, ConferenceName, Date, Venue, Description, Capacity) " +
+            string query = $"INSERT INTO conference_table (conferenceId, name, date, venue, description, capacity) " +
                            $"VALUES ('{id}', '{name}', '{date.ToString("yyyy-MM-dd")}', '{venue}', '{description}', '{capacity}');";
 
             try
@@ -53,8 +53,8 @@ namespace CMS
         // Edit an existing conference
         public void EditConference(int id, string name, DateTime date, string venue, string description, int capacity)
         {
-            string query = $"UPDATE conference_table SET ConferenceName = '{name}', Date = '{date.ToString("yyyy-MM-dd")}', " +
-                           $"Venue = '{venue}', Description = '{description}', Capacity = '{capacity}' WHERE ConferenceId = '{id}';";
+            string query = $"UPDATE conferences_table SET name = '{name}', date = '{date.ToString("yyyy-MM-dd")}', " +
+                           $"venue = '{venue}', description = '{description}', capacity = '{capacity}' WHERE conferenceId = '{id}';";
 
             try
             {
@@ -74,7 +74,7 @@ namespace CMS
         // Delete a conference
         public void DeleteConference(int id)
         {
-            string query = $"DELETE FROM conference_table WHERE ConferenceId = '{id}';";
+            string query = $"DELETE FROM conferences_table WHERE ConferenceId = '{id}';";
             connection.ExecuteQuery(query);
             MessageBox.Show("Conference deleted successfully.");
         }
@@ -82,7 +82,7 @@ namespace CMS
         // View conference details
         public void ViewDetails(int id)
         {
-            string query = $"SELECT * FROM conference_table WHERE ConferenceId = '{id}';";
+            string query = $"SELECT * FROM conferences_table WHERE ConferenceId = '{id}';";
             if (connection.OpenConnection())
             {
                 using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
