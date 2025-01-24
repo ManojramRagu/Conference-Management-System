@@ -65,10 +65,11 @@
             // 
             // participantsViewGrid
             // 
+            this.participantsViewGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.participantsViewGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.participantsViewGrid.Location = new System.Drawing.Point(63, 70);
             this.participantsViewGrid.Name = "participantsViewGrid";
-            this.participantsViewGrid.RowHeadersWidth = 51;
+            this.participantsViewGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.participantsViewGrid.RowTemplate.Height = 24;
             this.participantsViewGrid.Size = new System.Drawing.Size(661, 232);
             this.participantsViewGrid.TabIndex = 4;

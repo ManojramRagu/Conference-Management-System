@@ -30,13 +30,21 @@ namespace CMS
             if (dbConnection.OpenConnection()) // Open the DB connection from DBConnection
             {
                 string query = @"
-                    SELECT s.sessionID, s.date AS SessionDate, 
-                           c.conferenceID, c.name AS ConferenceName, 
-                           sp.name AS SpeakerName
-                    FROM sessions_table s
-                    JOIN conferences_table c ON s.conferenceID = c.conferenceID
-                    JOIN speakers_table sp ON s.speakerID = sp.speakerID
-                    ORDER BY s.date";
+                                SELECT 
+                                    s.sessionID, 
+                                    s.date AS SessionDate, 
+                                    c.conferenceID, 
+                                    c.name AS ConferenceName, 
+                                    c.date AS ConferenceDate,  
+                                    sp.name AS Speaker 
+                                FROM 
+                                    sessions_table s
+                                JOIN 
+                                    conferences_table c ON s.conferenceID = c.conferenceID
+                                JOIN 
+                                    speakers_table sp ON s.speakerID = sp.speakersID
+                                ORDER BY 
+                                    s.date;";
 
                 MySqlCommand command = new MySqlCommand(query, dbConnection.GetConnection());
                 MySqlDataReader reader = command.ExecuteReader();
@@ -47,9 +55,12 @@ namespace CMS
                     {
                         SessionID = reader.GetInt32(0),
                         ConferenceID = reader.GetInt32(2), // Fetch conferenceID
-                        SessionDetails = $"{reader.GetString(3)} - {reader.GetDateTime(1):d} (Speaker: {reader.GetString(4)})"
+                        ConferenceName = reader.GetString(3), // Fetch conference name
+                        ConferenceDate = reader.GetDateTime(4), // Fetch conference date
+                        Speaker = reader.GetString(5), // Fetch speaker name
                     });
                 }
+
 
                 dbConnection.CloseConnection(); // Close the connection from DBConnection
             }
@@ -87,11 +98,8 @@ namespace CMS
     {
         public int SessionID { get; set; }
         public int ConferenceID { get; set; }  // Add this property to store the conferenceID
-        public string SessionDetails { get; set; }
-
-        public override string ToString()
-        {
-            return SessionDetails;
-        }
+        public string ConferenceName { get; set; }
+        public DateTime ConferenceDate { get; set; }
+        public string Speaker { get; set; }
     }
 }      
