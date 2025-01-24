@@ -20,6 +20,7 @@ namespace CMS
         public DateTime Date { get; set; }
         public string Venue { get; set; }
         public string Description { get; set; }
+        public int Capacity { get; set; }
 
         private DBConnection connection;
 
@@ -29,19 +30,45 @@ namespace CMS
         }
 
         // Create a new conference
-        public void CreateConference(int id, string name, DateTime date, string venue, string description)
+        public void CreateConference(int id, string name, DateTime date, string venue, string description, int capacity)
         {
-            string query = $"INSERT INTO conference_table (ConferenceId, ConferenceName, Date, Venue, Description) VALUES ('{id}', '{name}', '{date.ToString("yyyy-MM-dd")}', '{venue}', '{description}');";
-            connection.ExecuteQuery(query);
-            MessageBox.Show("Conference created successfully.");
+            string query = $"INSERT INTO conference_table (ConferenceId, ConferenceName, Date, Venue, Description, Capacity) " +
+                           $"VALUES ('{id}', '{name}', '{date.ToString("yyyy-MM-dd")}', '{venue}', '{description}', '{capacity}');";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    connection.ExecuteQuery(query);
+                    connection.CloseConnection();
+                    MessageBox.Show("Conference created successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
 
         // Edit an existing conference
-        public void EditConference(int id, string name, DateTime date, string venue, string description)
+        public void EditConference(int id, string name, DateTime date, string venue, string description, int capacity)
         {
-            string query = $"UPDATE conference_table SET ConferenceName = '{name}', Date = '{date.ToString("yyyy-MM-dd")}', Venue = '{venue}', Description = '{description}' WHERE ConferenceId = '{id}';";
-            connection.ExecuteQuery(query);
-            MessageBox.Show("Conference details updated successfully.");
+            string query = $"UPDATE conference_table SET ConferenceName = '{name}', Date = '{date.ToString("yyyy-MM-dd")}', " +
+                           $"Venue = '{venue}', Description = '{description}', Capacity = '{capacity}' WHERE ConferenceId = '{id}';";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    connection.ExecuteQuery(query);
+                    connection.CloseConnection();
+                    MessageBox.Show("Conference details updated successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
 
         // Delete a conference
@@ -74,6 +101,45 @@ namespace CMS
                 }
                 connection.CloseConnection();
             }
+        }
+        public List<Conference> GetAllConferences()
+        {
+            List<Conference> conferences = new List<Conference>();
+            string query = "SELECT conferenceId, name, date, venue, description, capacity FROM conferences_table";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Conference conference = new Conference
+                                {
+                                    ConferenceId = Convert.ToInt32(reader["conferenceID"]),
+                                    ConferenceName = reader["name"].ToString(),
+                                    Date = Convert.ToDateTime(reader["date"]),
+                                    Venue = reader["venue"].ToString(),
+                                    Description = reader["description"].ToString(),
+                                    Capacity = Convert.ToInt32(reader["capacity"]),
+                                };
+
+                                conferences.Add(conference);
+                            }
+                        }
+                    }
+                    connection.CloseConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            return conferences;
         }
     }
 }

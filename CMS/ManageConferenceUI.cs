@@ -42,5 +42,12 @@ namespace CMS
             organiser.Show();
             this.Hide();
         }
+
+        private void ManageConferenceUI_Load(object sender, EventArgs e)
+        {
+            Conference conference = new Conference();
+            List<Conference> conferencesList = conference.GetAllConferences();
+            dataGridView1.DataSource = conferencesList;
+        }
     }
 }
