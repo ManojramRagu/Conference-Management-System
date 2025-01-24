@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace CMS.Classes
 {
-    internal class Speaker
+    internal class Speaker : User
     {
         public int SpeakerID { get; set; }
         public string Name { get; set; }
@@ -40,9 +40,9 @@ namespace CMS.Classes
         }
 
         // Add speaker
-        public void AddSpeaker(int speakerID, string name, string bio, string email, int phone)
+        public void AddSpeaker(int speakerID,int userID, string name, string bio, string email, int phone)
         {
-            string query = $"INSERT INTO speakers_table (speakerID, name, bio, email, phone) VALUES ('{speakerID}', '{name}', '{bio}', '{email}', '{phone}');";
+            string query = $"INSERT INTO speakers_table (speakerID, userID, name, bio, email, phone) VALUES ('{speakerID}', '{userID}', '{name}', '{bio}', '{email}', '{phone}');";
             try
             {
                 connection.ExecuteQuery(query);
@@ -72,6 +72,7 @@ namespace CMS.Classes
                         speakers.Add(new Speaker
                         {
                             SpeakerID = Convert.ToInt32(reader["speakerID"]),
+                            UserID = Convert.ToInt32(reader["userID"]),
                             Name = reader["name"].ToString(),
                             Bio = reader["bio"].ToString(),
                             Email = reader["email"].ToString(),
@@ -105,6 +106,57 @@ namespace CMS.Classes
                 MessageBox.Show($"Error updating speaker details: {ex.Message}");
             }
         }
+
+        public List<string> GetAssignedSessions(int loggedInUserID)
+        {
+            List<string> sessions = new List<string>();
+
+            // Query to fetch the necessary session details for the logged-in user
+            string query = $"SELECT s.title AS SessionTitle, c.name AS ConferenceName, c.venue AS Venue, c.date AS ConferenceDate FROM sessions_table AS s INNER JOIN conferences_table AS c ON s.conferenceID = c.conferenceID INNER JOIN speakers_table AS sp ON s.speakerID = sp.speakersID WHERE sp.userID = '{loggedInUserID}';";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        // Use parameterized query to prevent SQL injection
+                        cmd.Parameters.AddWithValue("@loggedInUserID", loggedInUserID);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Extract required session and conference details
+                                string sessionTitle = reader["SessionTitle"].ToString();
+                                string conferenceName = reader["ConferenceName"].ToString();
+                                string venue = reader["Venue"].ToString();
+                                string conferenceDate = Convert.ToDateTime(reader["ConferenceDate"]).ToString("yyyy-MM-dd");
+          
+
+                                // Build the session detail string
+                                string sessionDetails = $"Session: {sessionTitle}, Conference: {conferenceName}, Venue: {venue}, Date: {conferenceDate}";
+
+                                // Add the session details to the list
+                                sessions.Add(sessionDetails);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error retrieving sessions: {ex.Message}");
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return sessions;
+        }
+
+
 
         // Assign speaker to conference
         //public void AssignSpeakerToConference(int speakerID, int conferenceID)
