@@ -18,80 +18,71 @@ namespace CMS
 {
     public partial class ViewAndRegister : Form
     {
-        public ViewAndRegister()
+        private Participant participant;
+        private int userID;  // Assume this is set based on the logged-in user
+
+        // Constructor where logged-in userID is passed
+        public ViewAndRegister(int loggedInUserID)
         {
             InitializeComponent();
+            participant = new Participant(); // Initialize the Participant class
+            userID = loggedInUserID; // Set the logged-in user ID
+            LoadSessions(); // Load available sessions when the form loads
         }
 
-        private int loggedInUserID;  // Store the logged-in user's ID
-
-        // Constructor that accepts the logged-in user's ID
-        public void RegisterForm(int userID)
-        {  // Initialize the UI components
-            loggedInUserID = userID;  // Store the logged-in user's ID for use during registration
-            LoadSessions();           // Load available sessions into the ListBox
-        }
-
-        // Load available sessions into the ListBox
+        // Method to load available sessions into the ListBox
         private void LoadSessions()
         {
-            // SQL query to retrieve session details from the sessions_table
-            string query = "SELECT sessionID, description FROM sessions_table";
-
-            DBConnection dbConnection = new DBConnection();  // Create a new DBConnection instance
-
-            if (dbConnection.OpenConnection())  // Try to open a connection to the database
-            {
-                MySqlCommand cmd = new MySqlCommand(query, dbConnection.GetConnection());  // Create a command object with the query
-                MySqlDataReader reader = cmd.ExecuteReader();  // Execute the query and get the results
-
-                while (reader.Read())  // Loop through the results
-                {
-                    // Add each session to the ListBox (display only the description of the session)
-                    listBoxSessions.Items.Add(new Session
-                    {
-                        SessionID = reader.GetInt32("sessionID"),  // Get the sessionID
-                        Description = reader.GetString("description")  // Get the session description
-                    });
-                }
-
-                dbConnection.CloseConnection();  // Close the connection once data is retrieved
-            }
-            else
-            {
-                MessageBox.Show("Failed to load sessions.");  // Show an error message if the connection failed
-            }
+            List<SessionItem> sessions = participant.GetSessions(); // Fetch sessions
+            listBox1.DataSource = sessions; // Bind the sessions to the ListBox
         }
 
         // Register button click event handler
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            if (listBoxSessions.SelectedItem != null)  // Check if a session is selected
+            // Get the selected session IDs from the ListBox
+            var selectedSessions = new List<int>();
+
+            // Loop through the selected items in the ListBox and add the sessionID to the list
+            foreach (var item in listBox1.SelectedItems)
             {
-                // Get the selected session from the ListBox
-                Session selectedSession = (Session)listBoxSessions.SelectedItem;
-                // Get the conferenceID from the TextBox
-                int conferenceID = int.Parse(txtConferenceID.Text);
-
-                // Create an instance of the Participant class to handle registration
-                Participant participant = new Participant();
-
-                // Call the RegisterForSession method to register the participant
-                bool registrationSuccess = participant.RegisterForSession(loggedInUserID, conferenceID, selectedSession.SessionID);
-
-                if (registrationSuccess)
-                {
-                    MessageBox.Show("Successfully registered for the session.");  // Show success message
-                }
-                else
-                {
-                    MessageBox.Show("Failed to register.");  // Show failure message
-                }
+                var sessionItem = (SessionItem)item;
+                selectedSessions.Add(sessionItem.SessionID);
             }
-            else
+
+            // Check if any sessions were selected
+            if (selectedSessions.Count == 0)
             {
-                MessageBox.Show("Please select a session to register.");  // Show message if no session is selected
+                MessageBox.Show("Please select at least one session to register.");
+                return;
             }
+
+            // Assuming we get the conferenceID from the first selected session
+            int conferenceID = 0;
+            if (selectedSessions.Count > 0)
+            {
+                var selectedSessionItem = (SessionItem)listBox1.SelectedItems[0];
+                conferenceID = selectedSessionItem.ConferenceID;
+            }
+
+            // Register the user for the selected sessions
+            try
+            {
+                participant.RegisterUserForSessions(userID, selectedSessions, conferenceID);
+                MessageBox.Show("You have been successfully registered for the selected sessions.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while registering: " + ex.Message);
+            }
+
+            // Clear the selection in the ListBox
+            listBox1.ClearSelected();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // This method can be used for additional behavior when the selection changes.
         }
 
         private void ViewAndRegister_Load(object sender, EventArgs e)

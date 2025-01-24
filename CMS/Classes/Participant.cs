@@ -15,5 +15,83 @@ namespace CMS
 {
     internal class Participant : User
     {
-    }      
-}
+        private DBConnection dbConnection;
+
+        public Participant()
+        {
+            dbConnection = new DBConnection(); // Initialize DBConnection
+        }
+
+        // Fetch session data and return as a list
+        public List<SessionItem> GetSessions()
+        {
+            List<SessionItem> sessions = new List<SessionItem>();
+
+            if (dbConnection.OpenConnection()) // Open the DB connection from DBConnection
+            {
+                string query = @"
+                    SELECT s.sessionID, s.date AS SessionDate, 
+                           c.conferenceID, c.name AS ConferenceName, 
+                           sp.name AS SpeakerName
+                    FROM sessions_table s
+                    JOIN conferences_table c ON s.conferenceID = c.conferenceID
+                    JOIN speakers_table sp ON s.speakerID = sp.speakerID
+                    ORDER BY s.date";
+
+                MySqlCommand command = new MySqlCommand(query, dbConnection.GetConnection());
+                MySqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    sessions.Add(new SessionItem
+                    {
+                        SessionID = reader.GetInt32(0),
+                        ConferenceID = reader.GetInt32(2), // Fetch conferenceID
+                        SessionDetails = $"{reader.GetString(3)} - {reader.GetDateTime(1):d} (Speaker: {reader.GetString(4)})"
+                    });
+                }
+
+                dbConnection.CloseConnection(); // Close the connection from DBConnection
+            }
+            return sessions;
+        }
+
+        // Register the user for selected sessions, including conferenceID
+        public void RegisterUserForSessions(int userID, List<int> selectedSessionIDs, int conferenceID)
+        {
+            if (dbConnection.OpenConnection()) // Open the DB connection from DBConnection
+            {
+                foreach (int sessionID in selectedSessionIDs)
+                {
+                    string query = @"
+                        INSERT INTO participants_table (userID, sessionID, conferenceID, registrationDate)
+                        VALUES (@UserID, @SessionID, @ConferenceID, @RegistrationDate)";
+
+                    MySqlCommand command = new MySqlCommand(query, dbConnection.GetConnection());
+                    command.Parameters.AddWithValue("@UserID", userID);
+                    command.Parameters.AddWithValue("@SessionID", sessionID);
+                    command.Parameters.AddWithValue("@ConferenceID", conferenceID); // Add conferenceID
+                    command.Parameters.AddWithValue("@RegistrationDate", DateTime.Now);
+
+                    // Execute the query
+                    command.ExecuteNonQuery();
+                }
+
+                dbConnection.CloseConnection(); // Close the connection from DBConnection
+            }
+        }
+    }
+
+    // Class to represent a session item
+    public class SessionItem
+    {
+        public int SessionID { get; set; }
+        public int ConferenceID { get; set; }  // Add this property to store the conferenceID
+        public string SessionDetails { get; set; }
+
+        public override string ToString()
+        {
+            return SessionDetails;
+        }
+    }
+}      

@@ -51,6 +51,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(674, 212);
             this.listBox1.TabIndex = 1;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -81,7 +82,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ViewAndRegister";
             this.Text = "ViewAndRegister";
-            //this.Load += new System.EventHandler(this.ViewAndRegister_Load);
+            this.Load += new System.EventHandler(this.ViewAndRegister_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

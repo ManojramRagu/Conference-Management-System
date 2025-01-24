@@ -12,14 +12,26 @@ namespace CMS
 {
     public partial class ParticipantUI : Form
     {
-        public ParticipantUI()
+
+        private int speakerUserId;
+        public ParticipantUI(int loggedInUserId)
         {
             InitializeComponent();
+            speakerUserId = loggedInUserId;
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ViewAndRegister participantViewAndRegisterUI = new ViewAndRegister(speakerUserId);
+            this.Hide();
+            participantViewAndRegisterUI.Show();
+
+            //participantViewAndRegister.Hide();
         }
     }
 }
