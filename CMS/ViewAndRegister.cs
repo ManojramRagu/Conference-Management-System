@@ -34,20 +34,21 @@ namespace CMS
         private void LoadSessions()
         {
             List<SessionItem> sessions = participant.GetSessions(); // Fetch sessions
-            listBox1.DataSource = sessions; // Bind the sessions to the ListBox
+            participantsViewGrid.DataSource = sessions; // Bind the sessions to the ListBox
         }
 
         // Register button click event handler
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            // Get the selected session IDs from the ListBox
+            // Get the selected session IDs from the DataGridView
             var selectedSessions = new List<int>();
 
-            // Loop through the selected items in the ListBox and add the sessionID to the list
-            foreach (var item in listBox1.SelectedItems)
+            foreach (DataGridViewRow row in participantsViewGrid.SelectedRows)
             {
-                var sessionItem = (SessionItem)item;
-                selectedSessions.Add(sessionItem.SessionID);
+                if (row.DataBoundItem is SessionItem sessionItem)
+                {
+                    selectedSessions.Add(sessionItem.SessionID);
+                }
             }
 
             // Check if any sessions were selected
@@ -59,10 +60,13 @@ namespace CMS
 
             // Assuming we get the conferenceID from the first selected session
             int conferenceID = 0;
-            if (selectedSessions.Count > 0)
+            if (participantsViewGrid.SelectedRows.Count > 0)
             {
-                var selectedSessionItem = (SessionItem)listBox1.SelectedItems[0];
-                conferenceID = selectedSessionItem.ConferenceID;
+                var selectedRow = participantsViewGrid.SelectedRows[0];
+                if (selectedRow.DataBoundItem is SessionItem selectedSessionItem)
+                {
+                    conferenceID = selectedSessionItem.ConferenceID;
+                }
             }
 
             // Register the user for the selected sessions
@@ -76,8 +80,8 @@ namespace CMS
                 MessageBox.Show("An error occurred while registering: " + ex.Message);
             }
 
-            // Clear the selection in the ListBox
-            listBox1.ClearSelected();
+            // Clear the selection in the DataGridView
+            participantsViewGrid.ClearSelection();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -87,7 +91,12 @@ namespace CMS
 
         private void ViewAndRegister_Load(object sender, EventArgs e)
         {
+           
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
