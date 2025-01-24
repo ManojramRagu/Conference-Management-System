@@ -14,7 +14,6 @@ namespace CMS
     public partial class SpeakerUI : Form
     {
         private int speakerUserId;
-        private Speaker speaker;
         public SpeakerUI(int loggedInUserId)
         {
             InitializeComponent();
@@ -25,6 +24,7 @@ namespace CMS
         {
             try
             {
+                Speaker speaker = new Speaker();
                 List<string> Sessions = speaker.GetAssignedSessions(speakerUserId);
 
                 listBox1.Items.Clear();

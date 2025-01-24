@@ -112,7 +112,7 @@ namespace CMS.Classes
             List<string> sessions = new List<string>();
 
             // Query to fetch the necessary session details for the logged-in user
-            string query = $"SELECT s.title AS SessionTitle, c.name AS ConferenceName, c.venue AS Venue, c.date AS ConferenceDate, c.time AS ConferenceTime FROM sessions_table AS s INNER JOIN conferences_table AS c ON s.conferenceID = c.conferenceID INNER JOIN speakers_table AS sp ON s.speakerID = sp.speakerID WHERE sp.userID = '{loggedInUserID}';";
+            string query = $"SELECT s.title AS SessionTitle, c.name AS ConferenceName, c.venue AS Venue, c.date AS ConferenceDate FROM sessions_table AS s INNER JOIN conferences_table AS c ON s.conferenceID = c.conferenceID INNER JOIN speakers_table AS sp ON s.speakerID = sp.speakersID WHERE sp.userID = '{loggedInUserID}';";
 
             try
             {
@@ -132,10 +132,10 @@ namespace CMS.Classes
                                 string conferenceName = reader["ConferenceName"].ToString();
                                 string venue = reader["Venue"].ToString();
                                 string conferenceDate = Convert.ToDateTime(reader["ConferenceDate"]).ToString("yyyy-MM-dd");
-                                string conferenceTime = reader["ConferenceTime"].ToString();
+          
 
                                 // Build the session detail string
-                                string sessionDetails = $"Session: {sessionTitle}, Conference: {conferenceName}, Venue: {venue}, Date: {conferenceDate}, Time: {conferenceTime}";
+                                string sessionDetails = $"Session: {sessionTitle}, Conference: {conferenceName}, Venue: {venue}, Date: {conferenceDate}";
 
                                 // Add the session details to the list
                                 sessions.Add(sessionDetails);

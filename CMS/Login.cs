@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,7 +26,7 @@ namespace CMS
             User user = new User();
             var loginResult = user.Login(username, password);
 
-            int loggedInUserId = loginResult.Item1;
+            int loggedInUserID = loginResult.Item1;
             string accountType = loginResult.Item2;
 
             if (accountType != null)
@@ -46,7 +47,7 @@ namespace CMS
                         break;
 
                     case "Speaker":
-                        SpeakerUI speakerUI = new SpeakerUI(loggedInUserId);
+                        SpeakerUI speakerUI = new SpeakerUI(loggedInUserID);
                         speakerUI.Show();
                         break;
 
@@ -65,6 +66,11 @@ namespace CMS
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Login_Load(object sender, EventArgs e)
         {
 
         }

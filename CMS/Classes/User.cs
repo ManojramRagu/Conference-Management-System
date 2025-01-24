@@ -97,7 +97,7 @@ namespace CMS
                 MessageBox.Show($"Error: {ex.Message}");
             }
 
-            return new Tuple<int, string>(loggedInUserId, accountType); ;
+            return new Tuple<int, string>(loggedInUserId, accountType);
         }
 
 
