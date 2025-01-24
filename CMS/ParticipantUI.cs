@@ -28,7 +28,7 @@ namespace CMS
         private void button1_Click(object sender, EventArgs e)
         {
             ViewAndRegister participantViewAndRegisterUI = new ViewAndRegister(speakerUserId);
-            this.Hide();
+            this.Hide(); // Hide the current form
             participantViewAndRegisterUI.Show();
 
             //participantViewAndRegister.Hide();
