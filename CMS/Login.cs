@@ -31,7 +31,7 @@ namespace CMS
 
             if (accountType != null)
             {
-                MessageBox.Show("Login successful!");
+                //MessageBox.Show("Login successful!");
 
                 // Redirect based on account type
                 switch (accountType)

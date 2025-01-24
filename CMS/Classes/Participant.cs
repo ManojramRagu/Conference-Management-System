@@ -68,16 +68,14 @@ namespace CMS
                 {
                     sessions.Add(new SessionItem
                     {
-                        SessionID = reader.GetInt32(0),
-                        SessionTitle = reader.GetString(1), // Fetch session title (index 1 based on query order)
-                        ConferenceID = reader.GetInt32(2), // Fetch conferenceID
-                        ConferenceName = reader.GetString(3), // Fetch conference name
-                        ConferenceDate = reader.GetDateTime(4), // Fetch conference date
-                        Speaker = reader.GetString(5), // Fetch speaker name
+                        SessionID = reader.GetInt32(0), // Fetch sessionID
+                        SessionTitle = reader.GetString(1), // Fetch session title
+                        ConferenceID = reader.GetInt32(3), // Fetch conferenceID
+                        ConferenceName = reader.GetString(4), // Fetch conference name
+                        ConferenceDate = reader.GetDateTime(5), // Fetch conference date
+                        Speaker = reader.GetString(6), // Fetch speaker name
                     });
                 }
-
-
 
                 dbConnection.CloseConnection(); // Close the connection from DBConnection
             }
