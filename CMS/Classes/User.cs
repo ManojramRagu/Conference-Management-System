@@ -145,6 +145,38 @@ namespace CMS
 
             return users;
         }
+
+        // Method to get the UserID based on the username
+        public int GetLoginId(string userName)
+        {
+            int loggedInUserID = -1; // Default value indicating no match
+            string query = $"SELECT userID FROM users_table WHERE userName = '{userName}'";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                loggedInUserID = Convert.ToInt32(reader["userID"]);
+                            }
+                        }
+                    }
+                    connection.CloseConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            return loggedInUserID;
+        }
+
     }
 }
 

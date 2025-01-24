@@ -16,5 +16,10 @@ namespace CMS
         {
             InitializeComponent();
         }
+
+        private void SpeakerUI_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

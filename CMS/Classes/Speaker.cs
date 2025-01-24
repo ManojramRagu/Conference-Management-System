@@ -106,6 +106,48 @@ namespace CMS.Classes
             }
         }
 
+        public List<string> GetAssignedSessions(int speakerID)
+        {
+            
+            List<string> sessions = new List<string>();
+            string query = $"SELECT s.title AS SessionTitle, c.name AS ConferenceName, c.venue AS Venue, c.date AS Date, c.time AS Time FROM sessions_table AS s INNER JOIN conferences_table AS c ON s.conferenceID = c.conferenceID WHERE s.speakerID = '{speakerID}';";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string sessionTitle = reader["SessionTitle"].ToString();
+                                string conferenceName = reader["ConferenceName"].ToString();
+                                string venue = reader["Venue"].ToString();
+                                string date = Convert.ToDateTime(reader["Date"]).ToString("yyyy-MM-dd");
+                                string time = reader["Time"].ToString();
+
+                                string sessionDetails = $"Session: {sessionTitle}, Conference: {conferenceName}, Venue: {venue}, Date: {date}, Time: {time}";
+                                sessions.Add(sessionDetails);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error retrieving sessions: {ex.Message}");
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+
+            return sessions;
+        }
+
+
         // Assign speaker to conference
         //public void AssignSpeakerToConference(int speakerID, int conferenceID)
         //{
