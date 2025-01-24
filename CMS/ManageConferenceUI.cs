@@ -20,13 +20,20 @@ namespace CMS
 
         private void button4_Click(object sender, EventArgs e)
         {
-            int conferenceId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
-
-            DialogResult result = MessageBox.Show("Are you sure you want to delete this conference?", "Confirm Deletion", MessageBoxButtons.YesNo);
-
-            if (result == DialogResult.Yes)
+            if (dataGridView1.SelectedRows.Count > 0)
             {
-                conference.DeleteConference(conferenceId);
+                int conferenceId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this conference?", "Confirm Deletion", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    conference.DeleteConference(conferenceId);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a conference to delete.", "No Selection", MessageBoxButtons.OK);
             }
         }
 
