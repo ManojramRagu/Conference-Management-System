@@ -46,8 +46,16 @@ namespace CMS
 
         private void managebtn_Click(object sender, EventArgs e)
         {
-            EditConference editConference = new EditConference();
-            editConference.Show();
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a conference to edit.");
+                return;
+            }
+
+            int conferenceId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["conferenceID"].Value);
+
+            EditConference editForm = new EditConference(conferenceId);
+            editForm.Show();
             this.Hide();
         }
 

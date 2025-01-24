@@ -47,16 +47,38 @@ namespace CMS
         }
 
         // Edit an existing conference
-        public void EditConference(int id, string name, DateTime date, string venue, string description, int capacity)
+        public void EditConference(int id, Dictionary<string, object> updatedFields)
         {
-            string query = $"UPDATE conferences_table SET name = '{name}', date = '{date:yyyy-MM-dd}', " +
-                           $"venue = '{venue}', description = '{description}', capacity = {capacity} " +
-                           $"WHERE conferenceId = {id};";
+            if (updatedFields.Count == 0)
+            {
+                MessageBox.Show("No fields to update.");
+                return;
+            }
+
+            List<string> updateParts = new List<string>();
+
+            foreach (var field in updatedFields)
+            {
+                if (field.Value is DateTime)
+                {
+                    updateParts.Add($"{field.Key} = '{((DateTime)field.Value):yyyy-MM-dd}'");
+                }
+                else if (field.Value is int)
+                {
+                    updateParts.Add($"{field.Key} = {field.Value}");
+                }
+                else
+                {
+                    updateParts.Add($"{field.Key} = '{field.Value}'");
+                }
+            }
+
+            string updateQuery = $"UPDATE conferences_table SET {string.Join(", ", updateParts)} WHERE conferenceId = {id};";
 
             try
             {
-                connection.ExecuteQuery(query);
-                MessageBox.Show("Conference details updated successfully.");
+                connection.ExecuteQuery(updateQuery);
+                MessageBox.Show("Conference updated successfully.");
             }
             catch (Exception ex)
             {
@@ -134,5 +156,43 @@ namespace CMS
 
             return conferences;
         }
+        public Conference GetConferenceById(int id)
+        {
+            string query = $"SELECT name, date, venue, description, capacity FROM conferences_table WHERE conferenceID = {id}";
+            Conference conference = null;
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows && reader.Read())
+                            {
+                                conference = new Conference
+                                {
+                                    ConferenceName = reader["name"].ToString(),
+                                    Date = Convert.ToDateTime(reader["date"]),
+                                    Venue = reader["venue"].ToString(),
+                                    Description = reader["description"].ToString(),
+                                    Capacity = Convert.ToInt32(reader["capacity"])
+                                };
+                            }
+                        }
+                    }
+
+                    connection.CloseConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            return conference;
+        }
+
     }
 }
