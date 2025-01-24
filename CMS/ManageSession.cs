@@ -21,5 +21,26 @@ namespace CMS
         {
 
         }
+
+        private void AddSessionButton_Click(object sender, EventArgs e)
+        {
+            AddNewSession addNewSession = new AddNewSession();
+            addNewSession.Show();
+            this.Hide();
+        }
+
+        private void EditSessionButton_Click(object sender, EventArgs e)
+        {
+            EditSession editSession = new EditSession();
+            editSession.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OrganiserUI organiser = new OrganiserUI();
+            organiser.Show();
+            this.Hide();
+        }
     }
 }

@@ -40,9 +40,10 @@ namespace CMS.Classes
         }
 
         // Add speaker
-        public void AddSpeaker(int speakerID,int userID, string name, string bio, string email, int phone)
+        public void AddSpeaker(string name, string bio, string email, int phone)
         {
-            string query = $"INSERT INTO speakers_table (speakerID, userID, name, bio, email, phone) VALUES ('{speakerID}', '{userID}', '{name}', '{bio}', '{email}', '{phone}');";
+            string query = $"INSERT INTO speakers_table (name, bio, email, phone) VALUES ('{name}', '{bio}', '{email}', '{phone}');";
+
             try
             {
                 connection.ExecuteQuery(query);
@@ -53,6 +54,7 @@ namespace CMS.Classes
                 MessageBox.Show($"Error adding speaker: {ex.Message}");
             }
         }
+
 
         // Get list of speakers
         public List<Speaker> GetSpeakers()
