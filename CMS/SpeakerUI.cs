@@ -12,9 +12,11 @@ namespace CMS
 {
     public partial class SpeakerUI : Form
     {
-        public SpeakerUI()
+        private int speakerUserId;
+        public SpeakerUI(int loggedInUserId)
         {
             InitializeComponent();
+            speakerUserId = loggedInUserId;
         }
 
         private void SpeakerUI_Load(object sender, EventArgs e)

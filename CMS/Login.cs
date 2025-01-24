@@ -46,7 +46,7 @@ namespace CMS
                         break;
 
                     case "Speaker":
-                        SpeakerUI speakerUI = new SpeakerUI();
+                        SpeakerUI speakerUI = new SpeakerUI(loggedInUserId);
                         speakerUI.Show();
                         break;
 
