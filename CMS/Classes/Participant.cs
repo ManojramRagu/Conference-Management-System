@@ -32,7 +32,7 @@ namespace CMS
                 string query = @"
                                 SELECT 
                                     s.sessionID, 
-                                    s.title AS SessionTitle, -- Added session title
+                                    s.title AS SessionTitle,
                                     s.date AS SessionDate, 
                                     c.conferenceID, 
                                     c.name AS ConferenceName, 

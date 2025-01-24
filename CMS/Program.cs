@@ -18,13 +18,10 @@ namespace CMS
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Registration());
             //Application.Run(new User());
-<<<<<<< HEAD
             //Application.Run(new Login())
             Application.Run(new Login());
-=======
             //Application.Run(new Login());
             Application.Run(new OrganiserUI());
->>>>>>> 45f335bf52e40e70db78cdabf2355e5f8641149b
         }
     }
 }
