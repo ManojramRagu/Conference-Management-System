@@ -101,8 +101,8 @@ namespace CMS
                     string speaker = details.Speaker;
 
                     string query = @"
-            INSERT INTO registrations_table (Date, Time, ConferenceName, SessionName, Venue, Speaker)
-            VALUES (@Date, @Time, @ConferenceName, @SessionName, @Venue, @Speaker)";
+                        INSERT INTO registrations_table (Date, Time, ConferenceName, SessionName, Venue, Speaker)
+                        VALUES (@Date, @Time, @ConferenceName, @SessionName, @Venue, @Speaker)";
 
                     MySqlCommand command = new MySqlCommand(query, dbConnection.GetConnection());
                     command.Parameters.AddWithValue("@Date", DateTime.Now.ToString("yyyy-MM-dd"));
@@ -119,5 +119,67 @@ namespace CMS
                 dbConnection.CloseConnection(); // Close the connection from DBConnection
             }
         }
+
+        //public void UnregisterUserForSessions(int userID, List<int> selectedSessionIDs)
+        //{
+        //    if (dbConnection.OpenConnection()) // Open the DB connection from DBConnection
+        //    {
+        //        foreach (int sessionID in selectedSessionIDs)
+        //        {
+        //            string query = $@"
+        //                    DELETE FROM registrations_table
+        //                    WHERE userID = {userID} AND sessionID = {sessionID}";
+
+        //            MySqlCommand command = new MySqlCommand(query, dbConnection.GetConnection());
+        //            command.ExecuteNonQuery();
+        //        }
+
+        //        dbConnection.CloseConnection(); // Close the connection from DBConnection
+        //    }
+        //}
+
+        public List<User> GetRegistrations()
+        {
+            List<User> users = new List<User>();
+            string query = "SELECT * FROM registrations_table";
+
+            try
+            {
+                if (dbConnection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, dbConnection.GetConnection()))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                User user = new User
+                                {
+                                    UserID = Convert.ToInt32(reader["userID"]),
+                                    UserName = reader["userName"].ToString(),
+                                    Password = reader["password"].ToString(),
+                                    AccountType = reader["account_type"].ToString()
+                                };
+
+                                users.Add(user);
+                            }
+                        }
+
+                        dbConnection.CloseConnection();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            return users;
+        }
+
+        //public void UpdateUserForSessions()
+        //{
+
+        //}
     }
 }

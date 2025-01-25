@@ -37,7 +37,11 @@ namespace CMS
 
             try
             {
+<<<<<<< HEAD
                 connection.ExecuteQuery(query); // Assume this method handles connection management
+=======
+                connection.ExecuteQuery(query);
+>>>>>>> 5a6db96161a513cc06120346d0a83c83a3032874
                 MessageBox.Show("Conference created successfully.");
             }
             catch (Exception ex)
@@ -49,21 +53,37 @@ namespace CMS
         // Edit an existing conference
         public void EditConference(int id, string name, DateTime date, string venue, string description, int capacity)
         {
-            string query = $"UPDATE conferences_table SET name = '{name}', date = '{date.ToString("yyyy-MM-dd")}', " +
-                           $"venue = '{venue}', description = '{description}', capacity = '{capacity}' WHERE conferenceId = '{id}';";
+            string query = $"UPDATE conferences_table SET ";
 
-            try
+            List<string> updateFields = new List<string>();
+
+            if (!string.IsNullOrEmpty(name))
+                updateFields.Add($"name = '{name}'");
+            if (!string.IsNullOrEmpty(venue))
+                updateFields.Add($"venue = '{venue}'");
+            if (!string.IsNullOrEmpty(description))
+                updateFields.Add($"description = '{description}'");
+            if (date != DateTime.MinValue)
+                updateFields.Add($"date = '{date:yyyy-MM-dd}'");
+            if (capacity > 0)
+                updateFields.Add($"capacity = {capacity}");
+
+            if (updateFields.Count > 0)
             {
-                if (connection.OpenConnection())
+                query += string.Join(", ", updateFields) + $" WHERE conferenceId = {id};";
+
+                try
                 {
                     connection.ExecuteQuery(query);
-                    connection.CloseConnection();
-                    MessageBox.Show("Conference details updated successfully.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show("No changes detected.");
             }
         }
 
@@ -137,5 +157,43 @@ namespace CMS
 
             return conferences;
         }
+        public Conference GetConferenceById(int id)
+        {
+            string query = $"SELECT name, date, venue, description, capacity FROM conferences_table WHERE conferenceID = {id}";
+            Conference conference = null;
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows && reader.Read())
+                            {
+                                conference = new Conference
+                                {
+                                    ConferenceName = reader["name"].ToString(),
+                                    Date = Convert.ToDateTime(reader["date"]),
+                                    Venue = reader["venue"].ToString(),
+                                    Description = reader["description"].ToString(),
+                                    Capacity = Convert.ToInt32(reader["capacity"])
+                                };
+                            }
+                        }
+                    }
+
+                    connection.CloseConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            return conference;
+        }
+
     }
 }
