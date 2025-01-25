@@ -45,15 +45,33 @@ namespace CMS.Classes
         }
 
         // CREATE SESSION METHOD
-        public void CreateSessions(int sessionID, string sessionTitle, string sessionDescription, int conferenceID, string conferenceName, DateTime conferenceDate, string speaker, string venue)
+        public void CreateSession(string sessionTitle, string sessionDescription, int conferenceID, string conferenceName,DateTime conferenceDate, string speaker,string venue, DateTime startTime, DateTime endTime)
         {
             string query = $@"INSERT INTO sessions_table 
-                            (conferenceID, conferenceName, sessionID, sessionTitle, sessionDescription, conferenceDate, speaker, venue) 
-                            VALUES
-                            ('{conferenceID}', '{conferenceName}', '{sessionID}', '{sessionTitle}', '{sessionDescription}', '{conferenceDate}', '{speaker}', '{venue}');
-            ";
-            connection.ExecuteQuery(query); // WRITES DATA TO THE DATABASE
+                    (conferenceID, conferenceName, sessionTitle, 
+                     sessionDescription, conferenceDate, speaker, 
+                     venue, startTime, endTime) 
+                    VALUES 
+                    ('{conferenceID}', '{conferenceName}', '{sessionTitle}', 
+                     '{sessionDescription}', '{conferenceDate.ToString("yyyy-MM-dd")}', 
+                     '{speaker}', '{venue}', '{startTime.ToString("HH:mm:ss")}', 
+                     '{endTime.ToString("HH:mm:ss")}')";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    connection.ExecuteQuery(query);
+                    connection.CloseConnection();
+                    MessageBox.Show("Session created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         // GET SESSIONS METHOD
         public List<Session> GetSessions()
