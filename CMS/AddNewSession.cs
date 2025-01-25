@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,11 @@ namespace CMS
 {
     public partial class AddNewSession : Form
     {
+        private Session session;
         public AddNewSession()
         {
             InitializeComponent();
+            session = new Session();
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -22,11 +25,18 @@ namespace CMS
 
         }
 
+        //Go Back Button
         private void button2_Click(object sender, EventArgs e)
         {
             ManageSession manageSession = new ManageSession();
             manageSession.Show();
             this.Hide();
+        }
+
+        //Create Session Button
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
