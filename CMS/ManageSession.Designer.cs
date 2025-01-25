@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.RemoveSessionButton = new System.Windows.Forms.Button();
+            this.EditSessionButton = new System.Windows.Forms.Button();
+            this.AddSessionButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.Managebtn = new System.Windows.Forms.Button();
-            this.Editbtn = new System.Windows.Forms.Button();
-            this.Removebtn = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.Removebtn);
-            this.groupBox1.Controls.Add(this.Editbtn);
-            this.groupBox1.Controls.Add(this.Managebtn);
+            this.groupBox1.Controls.Add(this.RemoveSessionButton);
+            this.groupBox1.Controls.Add(this.EditSessionButton);
+            this.groupBox1.Controls.Add(this.AddSessionButton);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.listBox1);
             this.groupBox1.Location = new System.Drawing.Point(97, 70);
@@ -51,13 +51,33 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
-            // listBox1
+            // RemoveSessionButton
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(42, 76);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(516, 134);
-            this.listBox1.TabIndex = 0;
+            this.RemoveSessionButton.Location = new System.Drawing.Point(404, 231);
+            this.RemoveSessionButton.Name = "RemoveSessionButton";
+            this.RemoveSessionButton.Size = new System.Drawing.Size(154, 36);
+            this.RemoveSessionButton.TabIndex = 4;
+            this.RemoveSessionButton.Text = "Remove Session";
+            this.RemoveSessionButton.UseVisualStyleBackColor = true;
+            // 
+            // EditSessionButton
+            // 
+            this.EditSessionButton.Location = new System.Drawing.Point(227, 231);
+            this.EditSessionButton.Name = "EditSessionButton";
+            this.EditSessionButton.Size = new System.Drawing.Size(157, 36);
+            this.EditSessionButton.TabIndex = 3;
+            this.EditSessionButton.Text = "Edit Session";
+            this.EditSessionButton.UseVisualStyleBackColor = true;
+            // 
+            // AddSessionButton
+            // 
+            this.AddSessionButton.Location = new System.Drawing.Point(42, 231);
+            this.AddSessionButton.Name = "AddSessionButton";
+            this.AddSessionButton.Size = new System.Drawing.Size(157, 36);
+            this.AddSessionButton.TabIndex = 2;
+            this.AddSessionButton.Text = "Add Session";
+            this.AddSessionButton.UseVisualStyleBackColor = true;
+            this.AddSessionButton.Click += new System.EventHandler(this.AddSessionButton_Click);
             // 
             // label1
             // 
@@ -69,32 +89,13 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "ACTIVE SESSIONS";
             // 
-            // Managebtn
+            // listBox1
             // 
-            this.Managebtn.Location = new System.Drawing.Point(42, 231);
-            this.Managebtn.Name = "Managebtn";
-            this.Managebtn.Size = new System.Drawing.Size(157, 36);
-            this.Managebtn.TabIndex = 2;
-            this.Managebtn.Text = "Manage Session";
-            this.Managebtn.UseVisualStyleBackColor = true;
-            // 
-            // Editbtn
-            // 
-            this.Editbtn.Location = new System.Drawing.Point(227, 231);
-            this.Editbtn.Name = "Editbtn";
-            this.Editbtn.Size = new System.Drawing.Size(157, 36);
-            this.Editbtn.TabIndex = 3;
-            this.Editbtn.Text = "Edit Session";
-            this.Editbtn.UseVisualStyleBackColor = true;
-            // 
-            // Removebtn
-            // 
-            this.Removebtn.Location = new System.Drawing.Point(404, 231);
-            this.Removebtn.Name = "Removebtn";
-            this.Removebtn.Size = new System.Drawing.Size(154, 36);
-            this.Removebtn.TabIndex = 4;
-            this.Removebtn.Text = "Remove Session";
-            this.Removebtn.UseVisualStyleBackColor = true;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(42, 76);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(516, 134);
+            this.listBox1.TabIndex = 0;
             // 
             // ManageSession
             // 
@@ -114,9 +115,9 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button Removebtn;
-        private System.Windows.Forms.Button Editbtn;
-        private System.Windows.Forms.Button Managebtn;
+        private System.Windows.Forms.Button RemoveSessionButton;
+        private System.Windows.Forms.Button EditSessionButton;
+        private System.Windows.Forms.Button AddSessionButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBox1;
     }

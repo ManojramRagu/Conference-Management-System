@@ -98,6 +98,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddNewSession.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddNewSession.Designer.cs">
+      <DependentUpon>AddNewSession.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddNewSpeaker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +184,9 @@
     <Compile Include="ViewAndRegister.Designer.cs">
       <DependentUpon>ViewAndRegister.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddNewSession.resx">
+      <DependentUpon>AddNewSession.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddNewSpeaker.resx">
       <DependentUpon>AddNewSpeaker.cs</DependentUpon>
     </EmbeddedResource>

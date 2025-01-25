@@ -99,6 +99,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "OrganiserUI";
             this.Text = "OrganiserUI";
+            this.Load += new System.EventHandler(this.OrganiserUI_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

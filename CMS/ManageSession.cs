@@ -21,5 +21,12 @@ namespace CMS
         {
 
         }
+
+        private void AddSessionButton_Click(object sender, EventArgs e)
+        {
+            AddNewSession addNewSession = new AddNewSession();
+            addNewSession.Show();
+            this.Hide();
+        }
     }
 }

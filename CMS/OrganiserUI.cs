@@ -37,5 +37,10 @@ namespace CMS
             manageSpeaker.Show();
             this.Hide();
         }
+
+        private void OrganiserUI_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
