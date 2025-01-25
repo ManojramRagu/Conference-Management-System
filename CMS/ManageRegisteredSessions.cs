@@ -12,9 +12,11 @@ namespace CMS
 {
     public partial class ManageRegisteredSessions : Form
     {
-        public ManageRegisteredSessions()
+        private int userId;
+        public ManageRegisteredSessions(int loggedInUserId)
         {
             InitializeComponent();
+            userId = loggedInUserId;
         }
 
         private void button2_Click(object sender, EventArgs e)

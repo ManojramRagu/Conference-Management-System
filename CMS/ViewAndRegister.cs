@@ -13,6 +13,7 @@ using System.Configuration;
 using System.Data.Common;
 using DatabaseLearning;
 using System.Data.SqlClient;
+using static CMS.Participant;
 
 namespace CMS
 {
@@ -40,7 +41,7 @@ namespace CMS
         // Register button click event handler
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -50,19 +51,29 @@ namespace CMS
 
         private void ViewAndRegister_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             // Get the selected session IDs from the DataGridView
             var selectedSessions = new List<int>();
+            var sessionDetails = new Dictionary<int, (string SessionName, string Venue, string Speaker)>();
+            string conferenceName = string.Empty;
 
             foreach (DataGridViewRow row in participantsViewGrid.SelectedRows)
             {
                 if (row.DataBoundItem is SessionItem sessionItem)
                 {
-                    selectedSessions.Add(sessionItem.SessionID);
+                    selectedSessions.Add(sessionItem.SessionId);  // Updated to use SessionId
+                    // Add session details to dictionary
+                    sessionDetails.Add(sessionItem.SessionId, (sessionItem.SessionTitle, sessionItem.Venue, sessionItem.Speaker));
+
+                    // Set the conference name from the first selected session
+                    if (conferenceName == string.Empty)
+                    {
+                        conferenceName = sessionItem.ConferenceName;
+                    }
                 }
             }
 
@@ -87,7 +98,8 @@ namespace CMS
             // Register the user for the selected sessions
             try
             {
-                participant.RegisterUserForSessions(userID, selectedSessions, conferenceID);
+                // Pass conferenceName and sessionDetails to the method
+                participant.RegisterUserForSessions(userID, selectedSessions, conferenceID, conferenceName, sessionDetails);
                 MessageBox.Show("You have been successfully registered for the selected sessions.");
             }
             catch (Exception ex)
@@ -97,6 +109,16 @@ namespace CMS
 
             // Clear the selection in the DataGridView
             participantsViewGrid.ClearSelection();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // To go back to the previous form
+            //this.Hide(); // Hide the current form
+
+            // Assuming you have a reference to the previous form (Form1)
+            //ParticipantUI participantUI = new ParticipantUI();
+            //participantUI.Show(); // Show the previous form
         }
     }
 }
