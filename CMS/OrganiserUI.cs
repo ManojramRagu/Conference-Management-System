@@ -20,9 +20,21 @@ namespace CMS
         private void managebtn_Click(object sender, EventArgs e)
         {
             ManageConferenceUI manageConferenceUI = new ManageConferenceUI();
-
             manageConferenceUI.Show();
+            this.Hide();
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ManageSession manageSession = new ManageSession();
+            manageSession.Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ManageSpeaker manageSpeaker = new ManageSpeaker();
+            manageSpeaker.Show();
             this.Hide();
         }
     }
