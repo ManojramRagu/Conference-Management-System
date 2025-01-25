@@ -54,7 +54,7 @@ namespace CMS
 
             int conferenceId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["conferenceID"].Value);
 
-            EditConference editForm = new EditConference(conferenceId);
+            EditConference editForm = new EditConference(conferenceId); 
             editForm.Show();
             this.Hide();
         }
