@@ -136,24 +136,26 @@ namespace CMS.Classes
         // DELETE SESSION METHOD
         public void DeleteSession(int sessionID)
         {
-            string query = $@"DELETE FROM sessions_table sessionID = '{sessionID}';";
+            string query = $"DELETE FROM sessions_table WHERE sessionID = '{sessionID}';";
+            connection.ExecuteQuery(query);
+            MessageBox.Show("Session deleted successfully.");
 
-            try
-            {
-                if (connection.OpenConnection())
-                {
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
+            //try
+            //{
+            //    if (connection.OpenConnection())
+            //    {
+            //        using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+            //        {
+            //            cmd.ExecuteNonQuery();
+            //        }
 
-                    connection.CloseConnection();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
+            //        connection.CloseConnection();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Error: {ex.Message}");
+            //}
         }
     }
 }
