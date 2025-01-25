@@ -68,6 +68,7 @@
             this.EditSessionButton.TabIndex = 3;
             this.EditSessionButton.Text = "Edit Session";
             this.EditSessionButton.UseVisualStyleBackColor = true;
+            this.EditSessionButton.Click += new System.EventHandler(this.EditSessionButton_Click);
             // 
             // AddSessionButton
             // 

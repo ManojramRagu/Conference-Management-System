@@ -28,5 +28,12 @@ namespace CMS
             addNewSession.Show();
             this.Hide();
         }
+
+        private void EditSessionButton_Click(object sender, EventArgs e)
+        {
+            EditSession editSession = new EditSession();
+            editSession.Show();
+            this.Hide();
+        }
     }
 }

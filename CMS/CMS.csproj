@@ -114,6 +114,12 @@
     <Compile Include="Classes\Organiser.cs" />
     <Compile Include="Classes\Speaker.cs" />
     <Compile Include="DBconnection.cs" />
+    <Compile Include="EditSession.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditSession.Designer.cs">
+      <DependentUpon>EditSession.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditSpeakerDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +195,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddNewSpeaker.resx">
       <DependentUpon>AddNewSpeaker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditSession.resx">
+      <DependentUpon>EditSession.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditSpeakerDetails.resx">
       <DependentUpon>EditSpeakerDetails.cs</DependentUpon>
