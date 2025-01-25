@@ -12,6 +12,7 @@ namespace CMS
 {
     public partial class ManageConferenceUI : Form
     {
+        Conference conference = new Conference();
         public ManageConferenceUI()
         {
             InitializeComponent();
@@ -19,7 +20,21 @@ namespace CMS
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int conferenceId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
 
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this conference?", "Confirm Deletion", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    conference.DeleteConference(conferenceId);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a conference to delete.", "No Selection", MessageBoxButtons.OK);
+            }
         }
 
         private void createbtn_Click(object sender, EventArgs e)
@@ -31,8 +46,15 @@ namespace CMS
 
         private void managebtn_Click(object sender, EventArgs e)
         {
-            EditConference editConference = new EditConference();
-            editConference.Show();
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a conference to edit.");
+                return;
+            }
+            int conferenceId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+
+            EditConference editForm = new EditConference(conferenceId);
+            editForm.Show();
             this.Hide();
         }
 
@@ -41,6 +63,12 @@ namespace CMS
             OrganiserUI organiser = new OrganiserUI();
             organiser.Show();
             this.Hide();
+        }
+
+        private void ManageConferenceUI_Load(object sender, EventArgs e)
+        {            
+            List<Conference> conferencesList = conference.GetAllConferences();
+            dataGridView1.DataSource = conferencesList;
         }
     }
 }
