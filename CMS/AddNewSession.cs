@@ -104,6 +104,7 @@ namespace CMS
             string Venue = venue.Text;
             DateTime StartTime = startTime.Value;
             DateTime EndTime = endTime.Value;
+            string conferenceName = conferenceDropdown.Text;
 
             if (string.IsNullOrEmpty(sessionTitle) || string.IsNullOrEmpty(sessionDescription) || string.IsNullOrEmpty(Venue))
             {
@@ -124,7 +125,7 @@ namespace CMS
             }
 
             Session session = new Session();
-            session.CreateSession(sessionTitle, sessionDescription, conferenceID, conferenceDropdown.Text, sessionDate, speaker, Venue, StartTime, EndTime);
+            session.CreateSession(sessionTitle, sessionDescription, conferenceID, conferenceName, sessionDate, speaker, Venue, StartTime, EndTime);
 
             MessageBox.Show("Session created successfully!");
         }
