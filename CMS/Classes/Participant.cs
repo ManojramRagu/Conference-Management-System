@@ -31,7 +31,7 @@ namespace CMS
             public string Speaker { get; set; }
             public string Venue { get; set; }
             public DateTime SessionDate { get; internal set; }
-    }
+        }
 
         public Participant()
         {
