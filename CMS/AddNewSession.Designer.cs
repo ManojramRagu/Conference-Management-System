@@ -36,7 +36,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.sessionNameTxt = new System.Windows.Forms.TextBox();
-            this.speakerDropDown = new System.Windows.Forms.ComboBox();
+            this.speakerDropdown = new System.Windows.Forms.ComboBox();
             this.conferenceDropdown = new System.Windows.Forms.ComboBox();
             this.date = new System.Windows.Forms.DateTimePicker();
             this.description = new System.Windows.Forms.TextBox();
@@ -45,8 +45,8 @@
             this.venue = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.startTime = new System.Windows.Forms.DateTimePicker();
+            this.endTime = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label1
@@ -124,25 +124,25 @@
             // sessionNameTxt
             // 
             this.sessionNameTxt.Location = new System.Drawing.Point(493, 141);
-            this.sessionNameTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sessionNameTxt.Margin = new System.Windows.Forms.Padding(4);
             this.sessionNameTxt.Name = "sessionNameTxt";
             this.sessionNameTxt.Size = new System.Drawing.Size(200, 22);
             this.sessionNameTxt.TabIndex = 9;
             // 
-            // speakerDropDown
+            // speakerDropdown
             // 
-            this.speakerDropDown.FormattingEnabled = true;
-            this.speakerDropDown.Location = new System.Drawing.Point(493, 213);
-            this.speakerDropDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.speakerDropDown.Name = "speakerDropDown";
-            this.speakerDropDown.Size = new System.Drawing.Size(200, 24);
-            this.speakerDropDown.TabIndex = 10;
+            this.speakerDropdown.FormattingEnabled = true;
+            this.speakerDropdown.Location = new System.Drawing.Point(493, 213);
+            this.speakerDropdown.Margin = new System.Windows.Forms.Padding(4);
+            this.speakerDropdown.Name = "speakerDropdown";
+            this.speakerDropdown.Size = new System.Drawing.Size(200, 24);
+            this.speakerDropdown.TabIndex = 10;
             // 
             // conferenceDropdown
             // 
             this.conferenceDropdown.FormattingEnabled = true;
             this.conferenceDropdown.Location = new System.Drawing.Point(493, 176);
-            this.conferenceDropdown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.conferenceDropdown.Margin = new System.Windows.Forms.Padding(4);
             this.conferenceDropdown.Name = "conferenceDropdown";
             this.conferenceDropdown.Size = new System.Drawing.Size(200, 24);
             this.conferenceDropdown.TabIndex = 11;
@@ -152,7 +152,7 @@
             this.date.CustomFormat = "MMMM dd, yyyy";
             this.date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.date.Location = new System.Drawing.Point(493, 248);
-            this.date.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.date.Margin = new System.Windows.Forms.Padding(4);
             this.date.Name = "date";
             this.date.Size = new System.Drawing.Size(200, 22);
             this.date.TabIndex = 12;
@@ -161,7 +161,7 @@
             // description
             // 
             this.description.Location = new System.Drawing.Point(493, 282);
-            this.description.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.description.Margin = new System.Windows.Forms.Padding(4);
             this.description.Name = "description";
             this.description.Size = new System.Drawing.Size(200, 22);
             this.description.TabIndex = 13;
@@ -169,7 +169,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(355, 477);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 28);
             this.button1.TabIndex = 17;
@@ -180,7 +180,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(523, 477);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(170, 28);
             this.button2.TabIndex = 31;
@@ -213,31 +213,31 @@
             this.label8.TabIndex = 34;
             this.label8.Text = "End Time:";
             // 
-            // dateTimePicker1
+            // startTime
             // 
-            this.dateTimePicker1.CustomFormat = "hh:mm tt";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(493, 358);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePicker1.TabIndex = 35;
+            this.startTime.CustomFormat = "hh:mm tt";
+            this.startTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.startTime.Location = new System.Drawing.Point(493, 358);
+            this.startTime.Name = "startTime";
+            this.startTime.Size = new System.Drawing.Size(200, 22);
+            this.startTime.TabIndex = 35;
             // 
-            // dateTimePicker2
+            // endTime
             // 
-            this.dateTimePicker2.CustomFormat = "hh:mm tt";
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(493, 398);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePicker2.TabIndex = 36;
+            this.endTime.CustomFormat = "hh:mm tt";
+            this.endTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.endTime.Location = new System.Drawing.Point(493, 398);
+            this.endTime.Name = "endTime";
+            this.endTime.Size = new System.Drawing.Size(200, 22);
+            this.endTime.TabIndex = 36;
             // 
             // AddNewSession
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.endTime);
+            this.Controls.Add(this.startTime);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.venue);
@@ -246,7 +246,7 @@
             this.Controls.Add(this.description);
             this.Controls.Add(this.date);
             this.Controls.Add(this.conferenceDropdown);
-            this.Controls.Add(this.speakerDropDown);
+            this.Controls.Add(this.speakerDropdown);
             this.Controls.Add(this.sessionNameTxt);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label6);
@@ -255,9 +255,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AddNewSession";
             this.Text = "AddNewSession";
+            this.Load += new System.EventHandler(this.AddNewSession_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,7 +274,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox sessionNameTxt;
-        private System.Windows.Forms.ComboBox speakerDropDown;
+        private System.Windows.Forms.ComboBox speakerDropdown;
         private System.Windows.Forms.ComboBox conferenceDropdown;
         private System.Windows.Forms.DateTimePicker date;
         private System.Windows.Forms.TextBox description;
@@ -282,7 +283,7 @@
         private System.Windows.Forms.TextBox venue;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker startTime;
+        private System.Windows.Forms.DateTimePicker endTime;
     }
 }
