@@ -16,5 +16,14 @@ namespace CMS
         {
             InitializeComponent();
         }
+
+        private void managebtn_Click(object sender, EventArgs e)
+        {
+            ManageConferenceUI manageConferenceUI = new ManageConferenceUI();
+
+            manageConferenceUI.Show();
+
+            this.Hide();
+        }
     }
 }

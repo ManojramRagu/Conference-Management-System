@@ -77,6 +77,7 @@
             this.managebtn.TabIndex = 1;
             this.managebtn.Text = "Manage Conference";
             this.managebtn.UseVisualStyleBackColor = true;
+            this.managebtn.Click += new System.EventHandler(this.managebtn_Click);
             // 
             // label1
             // 
