@@ -16,5 +16,12 @@ namespace CMS
         {
             InitializeComponent();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ManageSpeaker manageSpeaker = new ManageSpeaker();
+            manageSpeaker.Show();
+            this.Hide();
+        }
     }
 }

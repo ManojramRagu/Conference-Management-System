@@ -35,5 +35,12 @@ namespace CMS
             editSession.Show();
             this.Hide();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OrganiserUI organiser = new OrganiserUI();
+            organiser.Show();
+            this.Hide();
+        }
     }
 }

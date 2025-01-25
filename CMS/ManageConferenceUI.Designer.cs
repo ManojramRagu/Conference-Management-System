@@ -35,6 +35,7 @@
             this.removebtn = new System.Windows.Forms.Button();
             this.managebtn = new System.Windows.Forms.Button();
             this.createbtn = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.Conference.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,6 +69,7 @@
             // Conference
             // 
             this.Conference.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.Conference.Controls.Add(this.button2);
             this.Conference.Controls.Add(this.removebtn);
             this.Conference.Controls.Add(this.managebtn);
             this.Conference.Controls.Add(this.createbtn);
@@ -110,6 +112,16 @@
             this.createbtn.UseVisualStyleBackColor = true;
             this.createbtn.Click += new System.EventHandler(this.createbtn_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(285, 243);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 29;
+            this.button2.Text = "Go Back";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // ManageConferenceUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -134,5 +146,6 @@
         private System.Windows.Forms.Button removebtn;
         private System.Windows.Forms.Button managebtn;
         private System.Windows.Forms.Button createbtn;
+        private System.Windows.Forms.Button button2;
     }
 }

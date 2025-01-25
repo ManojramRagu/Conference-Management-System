@@ -21,5 +21,12 @@ namespace CMS
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ManageSession manageSession = new ManageSession();
+            manageSession.Show();
+            this.Hide();
+        }
     }
 }
