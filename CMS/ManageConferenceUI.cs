@@ -21,5 +21,12 @@ namespace CMS
         {
 
         }
+
+        private void createbtn_Click(object sender, EventArgs e)
+        {
+            AddNewConference addNewConference = new AddNewConference();
+            addNewConference.Show();
+            this.Hide();
+        }
     }
 }

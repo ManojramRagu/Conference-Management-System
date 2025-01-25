@@ -32,9 +32,9 @@
             this.listofconference = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.Conference = new System.Windows.Forms.GroupBox();
-            this.createbtn = new System.Windows.Forms.Button();
-            this.managebtn = new System.Windows.Forms.Button();
             this.removebtn = new System.Windows.Forms.Button();
+            this.managebtn = new System.Windows.Forms.Button();
+            this.createbtn = new System.Windows.Forms.Button();
             this.Conference.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,14 +80,15 @@
             this.Conference.TabStop = false;
             this.Conference.Text = "Conference";
             // 
-            // createbtn
+            // removebtn
             // 
-            this.createbtn.Location = new System.Drawing.Point(51, 189);
-            this.createbtn.Name = "createbtn";
-            this.createbtn.Size = new System.Drawing.Size(156, 31);
-            this.createbtn.TabIndex = 2;
-            this.createbtn.Text = "Create Conference";
-            this.createbtn.UseVisualStyleBackColor = true;
+            this.removebtn.Location = new System.Drawing.Point(447, 189);
+            this.removebtn.Name = "removebtn";
+            this.removebtn.Size = new System.Drawing.Size(156, 31);
+            this.removebtn.TabIndex = 4;
+            this.removebtn.Text = "Remove Conference";
+            this.removebtn.UseVisualStyleBackColor = true;
+            this.removebtn.Click += new System.EventHandler(this.button4_Click);
             // 
             // managebtn
             // 
@@ -98,15 +99,15 @@
             this.managebtn.Text = "Edit Conference";
             this.managebtn.UseVisualStyleBackColor = true;
             // 
-            // removebtn
+            // createbtn
             // 
-            this.removebtn.Location = new System.Drawing.Point(447, 189);
-            this.removebtn.Name = "removebtn";
-            this.removebtn.Size = new System.Drawing.Size(156, 31);
-            this.removebtn.TabIndex = 4;
-            this.removebtn.Text = "Remove Conference";
-            this.removebtn.UseVisualStyleBackColor = true;
-            this.removebtn.Click += new System.EventHandler(this.button4_Click);
+            this.createbtn.Location = new System.Drawing.Point(51, 189);
+            this.createbtn.Name = "createbtn";
+            this.createbtn.Size = new System.Drawing.Size(156, 31);
+            this.createbtn.TabIndex = 2;
+            this.createbtn.Text = "Create Conference";
+            this.createbtn.UseVisualStyleBackColor = true;
+            this.createbtn.Click += new System.EventHandler(this.createbtn_Click);
             // 
             // ManageConferenceUI
             // 
