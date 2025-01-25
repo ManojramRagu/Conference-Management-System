@@ -13,7 +13,7 @@ namespace CMS
     public partial class EditConference : Form
     {
         private int conferenceId;
-        private Conference currentConference;
+        Conference conference = new Conference();
 
         public EditConference(int id)
         {
@@ -34,8 +34,7 @@ namespace CMS
         }
         private void LoadConferenceData(int conferenceId)
         {
-            Conference conference = new Conference();
-            currentConference = conference.GetConferenceById(conferenceId);
+            var currentConference = conference.GetConferenceById(conferenceId);
 
             if (currentConference != null)
             {
@@ -61,7 +60,7 @@ namespace CMS
 
         private void conferenceUpdate_Click(object sender, EventArgs e)
         {
-            if (currentConference == null)
+            if (conference == null)
             {
                 MessageBox.Show("Error loading conference details.");
                 return;
@@ -76,38 +75,41 @@ namespace CMS
 
             // Track changes to update only modified fields
             bool isUpdated = false;
-            if (newName != currentConference.ConferenceName)
+            if (newName != conference.ConferenceName)
             {
-                currentConference.ConferenceName = newName;
+                conference.ConferenceName = newName;
                 isUpdated = true;
             }
-            if (newVenue != currentConference.Venue)
+            if (newVenue != conference.Venue)
             {
-                currentConference.Venue = newVenue;
+                conference.Venue = newVenue;
                 isUpdated = true;
             }
-            if (newDescription != currentConference.Description)
+            if (newDescription != conference.Description)
             {
-                currentConference.Description = newDescription;
+                conference.Description = newDescription;
                 isUpdated = true;
             }
-            if (newDate != currentConference.Date)
+            if (newDate != conference.Date)
             {
-                currentConference.Date = newDate;
+                conference.Date = newDate;
                 isUpdated = true;
             }
-            if (newCapacity != currentConference.Capacity)
+            if (newCapacity != conference.Capacity)
             {
-                currentConference.Capacity = newCapacity;
+                conference.Capacity = newCapacity;
                 isUpdated = true;
             }
 
             if (isUpdated)
             {
                 Conference updatedConference = new Conference();
-                updatedConference.EditConference(conferenceId, currentConference.ConferenceName, currentConference.Date, currentConference.Venue, currentConference.Description, currentConference.Capacity);
+                updatedConference.EditConference(conferenceId, conference.ConferenceName, conference.Date, conference.Venue, conference.Description, conference.Capacity);
                 MessageBox.Show("Conference details updated successfully.");
                 this.Close();
+                ManageConferenceUI manageConference = new ManageConferenceUI();
+                manageConference.Show();
+                this.Hide();
             }
             else
             {

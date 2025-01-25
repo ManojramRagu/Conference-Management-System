@@ -71,7 +71,6 @@ namespace CMS
                 try
                 {
                     connection.ExecuteQuery(query);
-                    MessageBox.Show("Conference details updated successfully.");
                 }
                 catch (Exception ex)
                 {

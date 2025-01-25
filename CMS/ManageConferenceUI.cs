@@ -51,8 +51,7 @@ namespace CMS
                 MessageBox.Show("Please select a conference to edit.");
                 return;
             }
-
-            int conferenceId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["conferenceID"].Value);
+            int conferenceId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
 
             EditConference editForm = new EditConference(conferenceId);
             editForm.Show();
