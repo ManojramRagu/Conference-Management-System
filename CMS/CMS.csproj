@@ -98,6 +98,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddNewConference.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddNewConference.Designer.cs">
+      <DependentUpon>AddNewConference.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddNewSession.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,12 @@
     <Compile Include="Classes\Organiser.cs" />
     <Compile Include="Classes\Speaker.cs" />
     <Compile Include="DBconnection.cs" />
+    <Compile Include="EditConference.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditConference.Designer.cs">
+      <DependentUpon>EditConference.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditSession.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,11 +202,17 @@
     <Compile Include="ViewAndRegister.Designer.cs">
       <DependentUpon>ViewAndRegister.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddNewConference.resx">
+      <DependentUpon>AddNewConference.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddNewSession.resx">
       <DependentUpon>AddNewSession.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddNewSpeaker.resx">
       <DependentUpon>AddNewSpeaker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditConference.resx">
+      <DependentUpon>EditConference.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditSession.resx">
       <DependentUpon>EditSession.cs</DependentUpon>

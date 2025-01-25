@@ -28,5 +28,12 @@ namespace CMS
             addNewConference.Show();
             this.Hide();
         }
+
+        private void managebtn_Click(object sender, EventArgs e)
+        {
+            EditConference editConference = new EditConference();
+            editConference.Show();
+            this.Hide();
+        }
     }
 }

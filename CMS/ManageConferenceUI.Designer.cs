@@ -98,6 +98,7 @@
             this.managebtn.TabIndex = 3;
             this.managebtn.Text = "Edit Conference";
             this.managebtn.UseVisualStyleBackColor = true;
+            this.managebtn.Click += new System.EventHandler(this.managebtn_Click);
             // 
             // createbtn
             // 
