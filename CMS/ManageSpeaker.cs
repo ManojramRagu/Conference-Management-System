@@ -23,5 +23,12 @@ namespace CMS
             addNewSpeaker.Show();
             this.Hide();
         }
+
+        private void Editbtn_Click(object sender, EventArgs e)
+        {
+            EditSpeakerDetails editSpeakerDetails = new EditSpeakerDetails();
+            editSpeakerDetails.Show();
+            this.Hide();
+        }
     }
 }
