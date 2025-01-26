@@ -19,7 +19,6 @@ namespace CMS
         private Session session;
         private DBConnection connection = new DBConnection();
 
-        // Load Conferences into dropdown
         private void LoadConferences()
         {
             string query = "SELECT conferenceID, name FROM conferences_table";
@@ -50,7 +49,7 @@ namespace CMS
         // Load Speakers into dropdown
         private void LoadSpeakers()
         {
-            string query = "SELECT userID, fullName FROM users_table WHERE account_type = 'Speaker'";
+            string query = "SELECT speakersID, name FROM speakers_table";
 
             try
             {
@@ -62,8 +61,8 @@ namespace CMS
                     adapter.Fill(dt);
 
                     speakerDropdown.DataSource = dt;
-                    speakerDropdown.DisplayMember = "fullName";
-                    speakerDropdown.ValueMember = "userID";
+                    speakerDropdown.DisplayMember = "name";
+                    speakerDropdown.ValueMember = "speakersID";
                     speakerDropdown.SelectedIndex = -1;
 
                     connection.CloseConnection();
@@ -74,6 +73,7 @@ namespace CMS
                 MessageBox.Show("Error loading speakers: " + ex.Message);
             }
         }
+
         public AddNewSession()
         {
             InitializeComponent();
@@ -99,11 +99,10 @@ namespace CMS
             int conferenceID = Convert.ToInt32(conferenceDropdown.SelectedValue);
             string sessionTitle = sessionNameTxt.Text;
             string sessionDescription = description.Text;
-            DateTime sessionDate = date.Value;
-            string speaker = speakerDropdown.SelectedValue?.ToString();
             string Venue = venue.Text;
             DateTime StartTime = startTime.Value;
             DateTime EndTime = endTime.Value;
+            int speakerID = Convert.ToInt32(speakerDropdown.SelectedValue);
             string conferenceName = conferenceDropdown.Text;
 
             if (string.IsNullOrEmpty(sessionTitle) || string.IsNullOrEmpty(sessionDescription) || string.IsNullOrEmpty(Venue))
@@ -124,10 +123,13 @@ namespace CMS
                 return;
             }
 
-            Session session = new Session();
-            session.CreateSession(sessionTitle, sessionDescription, conferenceID, conferenceName, sessionDate, speaker, Venue, StartTime, EndTime);
-
-            MessageBox.Show("Session created successfully!");
+            // Create session using the corrected method
+            session.CreateSession(sessionTitle, sessionDescription, conferenceID, Venue, StartTime, EndTime, speakerID);
+            string query = $@"INSERT INTO session_speakers 
+            (sessionID, speakerID) 
+            VALUES 
+            (LAST_INSERT_ID(), '{speakerID}');";
+            connection.ExecuteQuery(query);
         }
 
         private void AddNewSession_Load(object sender, EventArgs e)
