@@ -29,9 +29,18 @@ namespace CMS
 
         private void Editbtn_Click(object sender, EventArgs e)
         {
-            EditSpeakerDetails editSpeakerDetails = new EditSpeakerDetails();
-            editSpeakerDetails.Show();
-            this.Hide();
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int speakerID = (int)dataGridView1.SelectedRows[0].Cells["SpeakerID"].Value;
+
+                EditSpeakerDetails editSpeakerDetails = new EditSpeakerDetails(speakerID);
+                editSpeakerDetails.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select a speaker to edit.");
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

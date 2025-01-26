@@ -96,7 +96,8 @@ namespace CMS.Classes
         // EDIT SPEAKER
         public void EditSpeaker(int speakerID, string newName, string newBio, string newEmail, int newPhone)
         {
-            string query = $"UPDATE speakers_table SET name = '{newName}', bio = '{newBio}', email = '{newEmail}', phone = '{newPhone}' WHERE speakerID = '{speakerID}';";
+            string query = $"UPDATE speakers_table SET name = '{newName}', bio = '{newBio}', email = '{newEmail}', phone = '{newPhone}' WHERE speakersID = {speakerID};";
+
             try
             {
                 connection.ExecuteQuery(query);
