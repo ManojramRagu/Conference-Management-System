@@ -133,7 +133,6 @@ namespace CMS
             DateTime StartTime = startTime.Value;
             DateTime EndTime = endTime.Value;
 
-            // Assuming you have the session ID available
             session.EditSession(sessionId, SessionName, conferenceID, speakerID, sessionDescription, StartTime, EndTime);
         }
     }

@@ -39,7 +39,7 @@ namespace CMS.Classes
             connection = new DBConnection();
         }
 
-        // Add speaker
+        // CREATE SPEAKER
         public void AddSpeaker(string name, string bio, string email, int phone)
         {
             string query = $"INSERT INTO speakers_table (name, bio, email, phone) VALUES ('{name}', '{bio}', '{email}', '{phone}');";
@@ -56,11 +56,11 @@ namespace CMS.Classes
         }
 
 
-        // Get list of speakers
+        // FETCH SPEAKERS
         public List<Speaker> GetSpeakers()
         {
             List<Speaker> speakers = new List<Speaker>();
-            string query = "SELECT * FROM speakers_table;";
+            string query = "SELECT speakersID, name, bio, email, phone FROM speakers_table;\r\n";
 
             try
             {
@@ -73,8 +73,7 @@ namespace CMS.Classes
                     {
                         speakers.Add(new Speaker
                         {
-                            SpeakerID = Convert.ToInt32(reader["speakerID"]),
-                            UserID = Convert.ToInt32(reader["userID"]),
+                            SpeakerID = Convert.ToInt32(reader["speakersID"]),
                             Name = reader["name"].ToString(),
                             Bio = reader["bio"].ToString(),
                             Email = reader["email"].ToString(),
@@ -94,10 +93,11 @@ namespace CMS.Classes
             return speakers;
         }
 
-        // Edit speaker details
+        // EDIT SPEAKER
         public void EditSpeaker(int speakerID, string newName, string newBio, string newEmail, int newPhone)
         {
-            string query = $"UPDATE speakers_table SET name = '{newName}', bio = '{newBio}', email = '{newEmail}', phone = '{newPhone}' WHERE speakerID = '{speakerID}';";
+            string query = $"UPDATE speakers_table SET name = '{newName}', bio = '{newBio}', email = '{newEmail}', phone = '{newPhone}' WHERE speakersID = {speakerID};";
+
             try
             {
                 connection.ExecuteQuery(query);
@@ -108,12 +108,27 @@ namespace CMS.Classes
                 MessageBox.Show($"Error updating speaker details: {ex.Message}");
             }
         }
+        // DELETE SPEAKER
+        public void DeleteSpeaker(int speakerID)
+        {
+            string query = $"DELETE FROM speakers_table WHERE speakersID = {speakerID};";
 
+            try
+            {
+                connection.ExecuteQuery(query);
+                MessageBox.Show("Speaker deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting speaker: {ex.Message}");
+            }
+        }
+
+        // GET ASSIGNED SESSIONS : Unused Currently
         public List<string> GetAssignedSessions(int loggedInUserID)
         {
             List<string> sessions = new List<string>();
 
-            // Query to fetch the necessary session details for the logged-in user
             string query = $"SELECT s.title AS SessionTitle, c.name AS ConferenceName, c.venue AS Venue, c.date AS ConferenceDate FROM sessions_table AS s INNER JOIN conferences_table AS c ON s.conferenceID = c.conferenceID INNER JOIN speakers_table AS sp ON s.speakerID = sp.speakersID WHERE sp.userID = '{loggedInUserID}';";
 
             try
@@ -122,24 +137,19 @@ namespace CMS.Classes
                 {
                     using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
                     {
-                        // Use parameterized query to prevent SQL injection
                         cmd.Parameters.AddWithValue("@loggedInUserID", loggedInUserID);
 
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                // Extract required session and conference details
                                 string sessionTitle = reader["SessionTitle"].ToString();
                                 string conferenceName = reader["ConferenceName"].ToString();
                                 string venue = reader["Venue"].ToString();
                                 string conferenceDate = Convert.ToDateTime(reader["ConferenceDate"]).ToString("yyyy-MM-dd");
           
-
-                                // Build the session detail string
                                 string sessionDetails = $"Session: {sessionTitle}, Conference: {conferenceName}, Venue: {venue}, Date: {conferenceDate}";
 
-                                // Add the session details to the list
                                 sessions.Add(sessionDetails);
                             }
                         }
@@ -157,37 +167,5 @@ namespace CMS.Classes
 
             return sessions;
         }
-
-
-
-        // Assign speaker to conference
-        //public void AssignSpeakerToConference(int speakerID, int conferenceID)
-        //{
-        //    string query = $"INSERT INTO sessions_table (conferenceID, speakerID) VALUES ('{conferenceID}', '{speakerID}');";
-        //    try
-        //    {
-        //        connection.ExecuteQuery(query);
-        //        MessageBox.Show("Speaker assigned to the conference successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error assigning speaker to the conference: {ex.Message}");
-        //    }
-        //}
-
-        //// Remove speaker from conference
-        //public void RemoveSpeakerFromConference(int speakerID, int conferenceID)
-        //{
-        //    string query = $"DELETE FROM sessions_table WHERE conferenceID = '{conferenceID}' AND speakerID = '{speakerID}';";
-        //    try
-        //    {
-        //        connection.ExecuteQuery(query);
-        //        MessageBox.Show("Speaker removed from the conference successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error removing speaker from the conference: {ex.Message}");
-        //    }
-        //}
     }
 }
