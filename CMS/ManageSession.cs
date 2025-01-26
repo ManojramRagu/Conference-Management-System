@@ -39,9 +39,9 @@ namespace CMS
                 MessageBox.Show("Please select a session to edit.");
                 return;
             }
-            int sessionId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+            int sessionId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["SessionID"].Value);
 
-            EditSession editSession = new EditSession();
+            EditSession editSession = new EditSession(sessionId);
             editSession.Show();
             this.Hide();
         }
