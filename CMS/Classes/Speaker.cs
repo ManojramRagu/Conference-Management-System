@@ -157,37 +157,5 @@ namespace CMS.Classes
 
             return sessions;
         }
-
-
-
-        // Assign speaker to conference
-        //public void AssignSpeakerToConference(int speakerID, int conferenceID)
-        //{
-        //    string query = $"INSERT INTO sessions_table (conferenceID, speakerID) VALUES ('{conferenceID}', '{speakerID}');";
-        //    try
-        //    {
-        //        connection.ExecuteQuery(query);
-        //        MessageBox.Show("Speaker assigned to the conference successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error assigning speaker to the conference: {ex.Message}");
-        //    }
-        //}
-
-        //// Remove speaker from conference
-        //public void RemoveSpeakerFromConference(int speakerID, int conferenceID)
-        //{
-        //    string query = $"DELETE FROM sessions_table WHERE conferenceID = '{conferenceID}' AND speakerID = '{speakerID}';";
-        //    try
-        //    {
-        //        connection.ExecuteQuery(query);
-        //        MessageBox.Show("Speaker removed from the conference successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error removing speaker from the conference: {ex.Message}");
-        //    }
-        //}
     }
 }

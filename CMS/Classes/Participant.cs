@@ -47,7 +47,6 @@ namespace CMS
                                 ORDER BY 
                                     s.date;";
 
-
                 MySqlCommand command = new MySqlCommand(query, dbConnection.GetConnection());
                 MySqlDataReader reader = command.ExecuteReader();
 
