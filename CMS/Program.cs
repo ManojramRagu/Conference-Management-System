@@ -19,6 +19,7 @@ namespace CMS
             //Application.Run(new Registration());
             //Application.Run(new User());
             Application.Run(new OrganiserUI());
+            //test
         }
     }
 //This is to push new branch
