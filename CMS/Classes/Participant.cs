@@ -16,41 +16,39 @@ namespace CMS
 {
     internal class Participant : User
     {
-        private DBConnection connection;
-
         public int UserID { get; set; }
         public string Name { get; set; }
 
         public Participant()
         {
-            Registration registration = new Registration();
+            PRegistration registration = new PRegistration();
         }
 
         // Register the participant for a conference and session
         public void RegisterForConference(int userID, int conferenceID, int sessionID)
         {
-            Registration registration = new Registration();
+            PRegistration registration = new PRegistration();
             registration.Register(userID, conferenceID, sessionID);
         }
 
         // Edit registration details
         public void EditRegistrationDetails(int regID, int conferenceID, int sessionID)
         {
-            Registration registration = new Registration();
+            PRegistration registration = new PRegistration();
             registration.EditRegistration(regID, UserID, conferenceID, sessionID);
         }
 
         // Get participant's registration by regID
         public void GetRegistrationDetails(int regID)
         {
-            Registration registration = new Registration();
+            PRegistration registration = new PRegistration();
             registration.GetRegistration(regID);
         }
 
         // Unregister the participant
         public void Unregister(int regID)
         {
-            Registration registration = new Registration();
+            PRegistration registration = new PRegistration();
             registration.Unregister(regID);
         }
     }
