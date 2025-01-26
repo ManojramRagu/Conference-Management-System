@@ -29,6 +29,8 @@ namespace CMS
                 if (result == DialogResult.Yes)
                 {
                     conference.DeleteConference(conferenceId);
+                    List<Conference> conferencesList = conference.GetAllConferences();
+                    dataGridView1.DataSource = conferencesList;
                 }
             }
             else
