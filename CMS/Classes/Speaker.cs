@@ -109,53 +109,78 @@ namespace CMS.Classes
             }
         }
 
-        public List<string> GetAssignedSessions(int loggedInUserID)
+        // DELETE SPEAKER METHOD
+        public void DeleteSession(int speakerID)
         {
-            List<string> sessions = new List<string>();
+            string query = $@"DELETE FROM speakers_table WHERE speakerID = '{speakerID}';";
+            connection.ExecuteQuery(query);
+            MessageBox.Show("Conference deleted successfully.");
 
-            // Query to fetch the necessary session details for the logged-in user
-            string query = $"SELECT s.title AS SessionTitle, c.name AS ConferenceName, c.venue AS Venue, c.date AS ConferenceDate FROM sessions_table AS s INNER JOIN conferences_table AS c ON s.conferenceID = c.conferenceID INNER JOIN speakers_table AS sp ON s.speakerID = sp.speakersID WHERE sp.userID = '{loggedInUserID}';";
+            //try
+            //{
+            //    if (connection.OpenConnection())
+            //    {
+            //        using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+            //        {
+            //            cmd.ExecuteNonQuery();
+            //        }
 
-            try
-            {
-                if (connection.OpenConnection())
-                {
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
-                    {
-                        // Use parameterized query to prevent SQL injection
-                        cmd.Parameters.AddWithValue("@loggedInUserID", loggedInUserID);
-
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                // Extract required session and conference details
-                                string sessionTitle = reader["SessionTitle"].ToString();
-                                string conferenceName = reader["ConferenceName"].ToString();
-                                string venue = reader["Venue"].ToString();
-                                string conferenceDate = Convert.ToDateTime(reader["ConferenceDate"]).ToString("yyyy-MM-dd");
-          
-
-                                // Build the session detail string
-                                string sessionDetails = $"Session: {sessionTitle}, Conference: {conferenceName}, Venue: {venue}, Date: {conferenceDate}";
-
-                                // Add the session details to the list
-                                sessions.Add(sessionDetails);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error retrieving sessions: {ex.Message}");
-            }
-            finally
-            {
-                connection.CloseConnection();
-            }
-
-            return sessions;
+            //        connection.CloseConnection();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Error: {ex.Message}");
+            //}
         }
+
+        //public List<string> GetAssignedSessions(int loggedInUserID)
+        //{
+        //    List<string> sessions = new List<string>();
+
+        //    // Query to fetch the necessary session details for the logged-in user
+        //    string query = $"SELECT s.title AS SessionTitle, c.name AS ConferenceName, c.venue AS Venue, c.date AS ConferenceDate FROM sessions_table AS s INNER JOIN conferences_table AS c ON s.conferenceID = c.conferenceID INNER JOIN speakers_table AS sp ON s.speakerID = sp.speakersID WHERE sp.userID = '{loggedInUserID}';";
+
+        //    try
+        //    {
+        //        if (connection.OpenConnection())
+        //        {
+        //            using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+        //            {
+        //                // Use parameterized query to prevent SQL injection
+        //                cmd.Parameters.AddWithValue("@loggedInUserID", loggedInUserID);
+
+        //                using (MySqlDataReader reader = cmd.ExecuteReader())
+        //                {
+        //                    while (reader.Read())
+        //                    {
+        //                        // Extract required session and conference details
+        //                        string sessionTitle = reader["SessionTitle"].ToString();
+        //                        string conferenceName = reader["ConferenceName"].ToString();
+        //                        string venue = reader["Venue"].ToString();
+        //                        string conferenceDate = Convert.ToDateTime(reader["ConferenceDate"]).ToString("yyyy-MM-dd");
+
+
+        //                        // Build the session detail string
+        //                        string sessionDetails = $"Session: {sessionTitle}, Conference: {conferenceName}, Venue: {venue}, Date: {conferenceDate}";
+
+        //                        // Add the session details to the list
+        //                        sessions.Add(sessionDetails);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Error retrieving sessions: {ex.Message}");
+        //    }
+        //    finally
+        //    {
+        //        connection.CloseConnection();
+        //    }
+
+        //    return sessions;
+        //}
     }
 }

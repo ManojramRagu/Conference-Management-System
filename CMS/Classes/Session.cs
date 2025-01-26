@@ -136,9 +136,9 @@ namespace CMS.Classes
         // DELETE SESSION METHOD
         public void DeleteSession(int sessionID)
         {
-            string query = $"DELETE FROM sessions_table WHERE sessionID = '{sessionID}';";
+            string query = $@"DELETE FROM sessions_table WHERE sessionID = '{sessionID}';";
             connection.ExecuteQuery(query);
-            MessageBox.Show("Session deleted successfully.");
+            MessageBox.Show("Conference deleted successfully.");
 
             //try
             //{
