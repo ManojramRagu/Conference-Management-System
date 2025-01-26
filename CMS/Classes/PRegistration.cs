@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace CMS.Classes
 {
-    internal class Registration
+    internal class PRegistration
     {
         private DBConnection connection;
 
@@ -21,12 +21,12 @@ namespace CMS.Classes
         public int ConferenceId { get; set; }
         public int SessionID { get; set; }
 
-        public Registration()
+        public PRegistration()
         {
             connection = new DBConnection();
         }
 
-        public Registration(int regID, int userID, DateTime date, DateTime time, int conferenceId, int sessionID)
+        public PRegistration(int regID, int userID, DateTime date, DateTime time, int conferenceId, int sessionID)
         {
             RegID = regID;
             UserID = userID;
@@ -88,9 +88,9 @@ namespace CMS.Classes
         }
 
         // GET REGISTRAIONS METHOD
-        public Registration GetRegistrationById(int regID)
+        public PRegistration GetRegistration(int regID)
         {
-            Registration registration = null;
+            PRegistration registration = null;
             string query = $@"SELECT * FROM registrations_table WHERE regID = {regID}";
 
             try
@@ -103,7 +103,7 @@ namespace CMS.Classes
                         {
                             if (reader.Read()) 
                             {
-                                registration = new Registration
+                                registration = new PRegistration
                                 {
                                     RegID = Convert.ToInt32(reader["regID"]),
                                     UserID = Convert.ToInt32(reader["userID"]),
