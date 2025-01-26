@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,7 +22,37 @@ namespace CMS
         {
             ManageSpeaker manageSpeaker = new ManageSpeaker();
             manageSpeaker.Show();
-            this.Hide();
+            this.Close();
+        }
+
+        private void CreateSpeakerButton_Click(object sender, EventArgs e)
+        {
+            string name = SpeakerNameTxt.Text.Trim();
+            string bio = SpeakerBioTxt.Text.Trim();
+            string email = SpeakerEmailTxt.Text.Trim();
+            string phoneText = SpeakerPhoneTxt.Text.Trim();
+
+            // Check if any field is empty
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(bio) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(phoneText))
+            {
+                MessageBox.Show("All fields are required. Please fill in all details.");
+                return;
+            }
+
+            int phone;
+            if (int.TryParse(phoneText, out phone))
+            {
+                Speaker speaker = new Speaker();
+                speaker.AddSpeaker(name, bio, email, phone);
+
+                ManageSpeaker manageSpeakers = new ManageSpeaker();
+                manageSpeakers.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid phone number.");
+            }
         }
     }
 }

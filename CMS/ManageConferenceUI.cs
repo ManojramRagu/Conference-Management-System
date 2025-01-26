@@ -43,7 +43,7 @@ namespace CMS
         {
             AddNewConference addNewConference = new AddNewConference();
             addNewConference.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void managebtn_Click(object sender, EventArgs e)
@@ -57,14 +57,14 @@ namespace CMS
 
             EditConference editForm = new EditConference(conferenceId);
             editForm.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             OrganiserUI organiser = new OrganiserUI();
             organiser.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void ManageConferenceUI_Load(object sender, EventArgs e)
