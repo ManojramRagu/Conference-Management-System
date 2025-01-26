@@ -60,7 +60,7 @@ namespace CMS.Classes
         public List<Speaker> GetSpeakers()
         {
             List<Speaker> speakers = new List<Speaker>();
-            string query = "SELECT * FROM speakers_table;";
+            string query = "SELECT speakersID, name, bio, email, phone FROM speakers_table;\r\n";
 
             try
             {
@@ -73,8 +73,7 @@ namespace CMS.Classes
                     {
                         speakers.Add(new Speaker
                         {
-                            SpeakerID = Convert.ToInt32(reader["speakerID"]),
-                            UserID = Convert.ToInt32(reader["userID"]),
+                            SpeakerID = Convert.ToInt32(reader["speakersID"]),
                             Name = reader["name"].ToString(),
                             Bio = reader["bio"].ToString(),
                             Email = reader["email"].ToString(),

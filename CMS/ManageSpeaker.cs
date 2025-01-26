@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ namespace CMS
 {
     public partial class ManageSpeaker : Form
     {
+        Speaker speaker = new Speaker();
         public ManageSpeaker()
         {
             InitializeComponent();
@@ -36,6 +38,19 @@ namespace CMS
             OrganiserUI organiser = new OrganiserUI();
             organiser.Show();
             this.Hide();
+        }
+
+        private void ManageSpeaker_Load(object sender, EventArgs e)
+        {
+            List<Speaker> speakersList = speaker.GetSpeakers();
+            dataGridView1.DataSource = speakersList;
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+                if (column.Name != "SpeakerID" && column.Name != "Name" && column.Name != "Bio" && column.Name != "Email" && column.Name != "Phone")
+                {
+                    column.Visible = false;
+                }
+            }
         }
     }
 }
