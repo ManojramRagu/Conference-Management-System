@@ -74,21 +74,21 @@ namespace CMS.Classes
         {
             List<Session> sessions = new List<Session>();
             string query = @"
-            SELECT 
-                s.sessionID, 
-                s.sessionTitle, 
-                s.sessionDescription, 
-                s.conferenceID, 
-                c.name AS conferenceName, 
-                c.date AS conferenceDate, 
-                s.startTime, 
-                s.endTime, 
-                sp.name AS speakerName,
-                ss.speakerID -- Use speakerID from session_speakers table
-            FROM sessions_table s
-            JOIN conferences_table c ON s.conferenceID = c.conferenceID
-            LEFT JOIN session_speakers ss ON s.sessionID = ss.sessionID
-            LEFT JOIN speakers_table sp ON ss.speakerID = sp.speakersID";
+        SELECT 
+            s.sessionID, 
+            s.sessionTitle, 
+            s.sessionDescription, 
+            s.conferenceID, 
+            c.name AS conferenceName, 
+            c.date AS conferenceDate, 
+            c.venue AS conferenceVenue,   -- Venue is fetched from conferences_table
+            s.startTime, 
+            s.endTime, 
+            sp.name AS speakerName
+        FROM sessions_table s 
+        JOIN conferences_table c ON s.conferenceID = c.conferenceID 
+        JOIN session_speakers ss ON s.sessionID = ss.sessionID 
+        JOIN speakers_table sp ON ss.speakerID = sp.speakersID";
 
             try
             {
@@ -105,13 +105,13 @@ namespace CMS.Classes
                                     SessionID = Convert.ToInt32(reader["sessionID"]),
                                     ConferenceID = Convert.ToInt32(reader["conferenceID"]),
                                     ConferenceName = reader["conferenceName"].ToString(),
-                                    ConferenceDate = Convert.ToDateTime(reader["conferenceDate"]),
+                                    ConferenceDate = Convert.ToDateTime(reader["conferenceDate"]),  // This is the conference date
+                                    Venue = reader["conferenceVenue"].ToString(),  // Venue comes from conferences_table
                                     SessionTitle = reader["sessionTitle"].ToString(),
                                     SessionDescription = reader["sessionDescription"].ToString(),
                                     StartTime = DateTime.Today.Add((TimeSpan)reader["startTime"]),
                                     EndTime = DateTime.Today.Add((TimeSpan)reader["endTime"]),
-                                    Speaker = reader["speakerName"].ToString(),
-                                    SpeakerID = Convert.ToInt32(reader["speakerID"])
+                                    Speaker = reader["speakerName"].ToString()
                                 };
 
                                 sessions.Add(session);
