@@ -1,4 +1,5 @@
 ﻿using CMS.Classes;
+using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -50,6 +51,27 @@ namespace CMS
                 {
                     column.Visible = false;
                 }
+            }
+        }
+
+        private void Removebtn_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int speakerId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["SpeakerID"].Value);
+
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this speaker?", "Confirm Deletion", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    speaker.DeleteSpeaker(speakerId);
+                    List<Speaker> speakersList = speaker.GetSpeakers();
+                    dataGridView1.DataSource = speakersList;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a speaker to delete.", "No Selection", MessageBoxButtons.OK);
             }
         }
     }
