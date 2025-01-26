@@ -24,7 +24,9 @@ namespace CMS.Classes
         public DateTime ConferenceDate { get; set; }
         public string Speaker { get; set; }
         public string Venue { get; set; }
-
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public int SpeakerID { get; set; }
         // SESSION CONSTRUCTOR
         public Session(int sessionID, string sessionTitle, string sessionDescription,int conferenceID, string conferenceName, DateTime conferenceDate, string speaker, string venue)
         {
@@ -45,30 +47,24 @@ namespace CMS.Classes
         }
 
         // CREATE SESSION METHOD
-        public void CreateSession(string sessionTitle, string sessionDescription, int conferenceID, string conferenceName,DateTime conferenceDate, string speaker,string venue, DateTime startTime, DateTime endTime)
+        public void CreateSession(string sessionTitle, string sessionDescription, int conferenceID, string venue, DateTime startTime, DateTime endTime, int speakerID)
         {
-            string query = $@"INSERT INTO sessions_table 
-                    (conferenceID, conferenceName, sessionTitle, 
-                     sessionDescription, conferenceDate, speaker, 
-                     venue, startTime, endTime) 
-                    VALUES 
-                    ('{conferenceID}', '{conferenceName}', '{sessionTitle}', 
-                     '{sessionDescription}', '{conferenceDate.ToString("yyyy-MM-dd")}', 
-                     '{speaker}', '{venue}', '{startTime.ToString("HH:mm:ss")}', 
-                     '{endTime.ToString("HH:mm:ss")}')";
+            string query = $@"
+            INSERT INTO sessions_table 
+            (conferenceID, sessionTitle, sessionDescription, venue, startTime, endTime) 
+            VALUES 
+            ('{conferenceID}', '{sessionTitle}', '{sessionDescription}', '{venue}', 
+             '{startTime.ToString("HH:mm:ss")}', '{endTime.ToString("HH:mm:ss")}');";
+
 
             try
             {
-                if (connection.OpenConnection())
-                {
-                    connection.ExecuteQuery(query);
-                    connection.CloseConnection();
-                    MessageBox.Show("Session created successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                connection.ExecuteQuery(query);
+                MessageBox.Show("Session created successfully.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error: {ex.Message}");
             }
         }
 
@@ -77,7 +73,22 @@ namespace CMS.Classes
         public List<Session> GetSessions()
         {
             List<Session> sessions = new List<Session>();
-            string query = "SELECT * FROM sessions_table";
+            string query = @"
+        SELECT 
+            s.sessionID, 
+            s.sessionTitle, 
+            s.sessionDescription, 
+            s.conferenceID, 
+            c.name AS conferenceName, 
+            c.date AS conferenceDate, 
+            c.venue AS conferenceVenue,   -- Venue is fetched from conferences_table
+            s.startTime, 
+            s.endTime, 
+            sp.name AS speakerName
+        FROM sessions_table s 
+        JOIN conferences_table c ON s.conferenceID = c.conferenceID 
+        JOIN session_speakers ss ON s.sessionID = ss.sessionID 
+        JOIN speakers_table sp ON ss.speakerID = sp.speakersID";
 
             try
             {
@@ -94,11 +105,13 @@ namespace CMS.Classes
                                     SessionID = Convert.ToInt32(reader["sessionID"]),
                                     ConferenceID = Convert.ToInt32(reader["conferenceID"]),
                                     ConferenceName = reader["conferenceName"].ToString(),
+                                    ConferenceDate = Convert.ToDateTime(reader["conferenceDate"]),  // This is the conference date
+                                    Venue = reader["conferenceVenue"].ToString(),  // Venue comes from conferences_table
                                     SessionTitle = reader["sessionTitle"].ToString(),
                                     SessionDescription = reader["sessionDescription"].ToString(),
-                                    ConferenceDate = Convert.ToDateTime(reader["conferenceDate"]),
-                                    Speaker = reader["speaker"].ToString(),
-                                    Venue = reader["venue"].ToString()
+                                    StartTime = DateTime.Today.Add((TimeSpan)reader["startTime"]),
+                                    EndTime = DateTime.Today.Add((TimeSpan)reader["endTime"]),
+                                    Speaker = reader["speakerName"].ToString()
                                 };
 
                                 sessions.Add(session);
@@ -118,32 +131,63 @@ namespace CMS.Classes
         }
 
         // EDIT SESSIONS METHOD
-        public void EditSessions(int conferenceID, string conferenceName, int sessionID, string sessionTitle, string sessionDescription, DateTime conferenceDate, string speaker, string venue)
+        public void EditSession(int sessionID, string sessionName, int conferenceID, int speakerID, string sessionDescription, DateTime startTime, DateTime endTime)
         {
-            string query = $@"UPDATE sessions_table 
-                    SET 
-                        conferenceID = '{conferenceID}',
-                        conferenceName = '{conferenceName}',
-                        sessionTitle = '{sessionTitle}',
-                        sessionDescription = '{sessionDescription}',
-                        conferenceDate = '{conferenceDate}',
-                        speaker = '{speaker}',
-                        venue = '{venue}'
-                    WHERE 
-                        sessionID = '{sessionID}';
-            ";
+            // Update the session information in sessions_table
+            string updateSessionQuery = "UPDATE sessions_table SET ";
+            List<string> updateSessionFields = new List<string>();
+
+            // Add session fields to be updated (if changed)
+            if (!string.IsNullOrEmpty(sessionName))
+                updateSessionFields.Add($"sessionTitle = '{sessionName}'");
+            if (conferenceID > 0)
+            if (conferenceID > 0)
+                updateSessionFields.Add($"conferenceID = {conferenceID}");
+            if (!string.IsNullOrEmpty(sessionDescription))
+                updateSessionFields.Add($"sessionDescription = '{sessionDescription}'");
+            if (startTime != DateTime.MinValue)
+                updateSessionFields.Add($"startTime = '{startTime:HH:mm:ss}'");
+            if (endTime != DateTime.MinValue)
+                updateSessionFields.Add($"endTime = '{endTime:HH:mm:ss}'");
+
+            if (updateSessionFields.Count > 0)
+            {
+                // Join the fields and append the sessionID condition
+                updateSessionQuery += string.Join(", ", updateSessionFields) + $" WHERE sessionID = {sessionID};";
+            }
+            else
+            {
+                MessageBox.Show("No session changes detected.");
+                return;
+            }
+
+            // Update the session speaker in session_speakers table
+            string updateSpeakerQuery = "UPDATE session_speakers SET ";
+            List<string> updateSpeakerFields = new List<string>();
+
+            if (speakerID > 0)
+                updateSpeakerFields.Add($"speakerID = {speakerID}");
+
+            if (updateSpeakerFields.Count > 0)
+            {
+                // Join the fields and append the sessionID condition
+                updateSpeakerQuery += string.Join(", ", updateSpeakerFields) + $" WHERE sessionID = {sessionID};";
+            }
+            else
+            {
+                MessageBox.Show("No speaker changes detected.");
+                return;
+            }
 
             try
             {
-                if (connection.OpenConnection())
-                {
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
-                    {
-                        cmd.ExecuteNonQuery(); // Executes the update query
-                    }
+                // Execute the session update query
+                connection.ExecuteQuery(updateSessionQuery);
 
-                    connection.CloseConnection();
-                }
+                // Execute the speaker update query
+                connection.ExecuteQuery(updateSpeakerQuery);
+
+                MessageBox.Show("Session and speaker updated successfully!");
             }
             catch (Exception ex)
             {
@@ -154,26 +198,65 @@ namespace CMS.Classes
         // DELETE SESSION METHOD
         public void DeleteSession(int sessionID)
         {
-            string query = $"DELETE FROM sessions_table WHERE sessionID = '{sessionID}';";
+            string query = $@"
+            DELETE ss, s
+            FROM session_speakers ss
+            JOIN sessions_table s ON ss.sessionID = s.sessionID
+            WHERE s.sessionID = '{sessionID}';";
             connection.ExecuteQuery(query);
             MessageBox.Show("Session deleted successfully.");
-
-            //try
-            //{
-            //    if (connection.OpenConnection())
-            //    {
-            //        using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
-            //        {
-            //            cmd.ExecuteNonQuery();
-            //        }
-
-            //        connection.CloseConnection();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show($"Error: {ex.Message}");
-            //}
         }
+
+        // GETTING A SESSION BY IT'S ID
+        public Session GetSessionById(int sessionID)
+        {
+            Session session = null;
+            string query = $@"
+            SELECT s.sessionID, s.sessionTitle, s.sessionDescription, s.conferenceID, c.name AS conferenceName, c.date AS conferenceDate, 
+                   s.venue, s.startTime, s.endTime, sp.name AS speakerName 
+            FROM sessions_table s 
+            JOIN conferences_table c ON s.conferenceID = c.conferenceID 
+            JOIN session_speakers ss ON s.sessionID = ss.sessionID 
+            JOIN speakers_table sp ON ss.speakerID = sp.speakersID 
+            WHERE s.sessionID = {sessionID};";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read()) // If a record is found
+                            {
+                                session = new Session
+                                {
+                                    SessionID = Convert.ToInt32(reader["sessionID"]),
+                                    ConferenceID = Convert.ToInt32(reader["conferenceID"]),
+                                    ConferenceName = reader["conferenceName"].ToString(),
+                                    ConferenceDate = Convert.ToDateTime(reader["conferenceDate"]),
+                                    SessionTitle = reader["sessionTitle"].ToString(),
+                                    SessionDescription = reader["sessionDescription"].ToString(),
+                                    Venue = reader["venue"].ToString(),
+                                    StartTime = DateTime.Today.Add((TimeSpan)reader["startTime"]),
+                                    EndTime = DateTime.Today.Add((TimeSpan)reader["endTime"]),
+                                    Speaker = reader["speakerName"].ToString()
+                                };
+                            }
+                        }
+
+                        connection.CloseConnection();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            return session; // Returns null if no session found
+        }
+
     }
 }
