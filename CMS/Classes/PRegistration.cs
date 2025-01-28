@@ -47,19 +47,21 @@ namespace CMS.Classes
              '{DateTime.Now.ToString("HH:mm:ss")}', 
              '{conferenceID}', 
              '{sessionID}')";
-            try
-            {
-                connection.OpenConnection();
-                connection.ExecuteQuery(query);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.CloseConnection();
-            }
+
+            connection.ExecuteQuery(query);
+            //try
+            //{
+            //    connection.OpenConnection();
+            //    connection.ExecuteQuery(query);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Error: {ex.Message}");
+            //}
+            //finally
+            //{
+            //    connection.CloseConnection();
+            //}
         }
 
 

@@ -40,7 +40,7 @@ namespace CMS
         // Method to add user to the database
         public void AddUser(int userID, string userName, string password, string account_type)
         {
-            string query = $"INSERT INTO users_table (userID, userName, password, account_type) VALUES ('{userID}', '{userName}', '{password}', '{account_type}');";
+            string query = $"INSERT INTO users_table (userName, password, account_type) VALUES ('{userName}', '{password}', '{account_type}');";
             connection.ExecuteQuery(query); // writes the data to the respective table in the database
         }
 

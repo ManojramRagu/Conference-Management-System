@@ -1,40 +1,40 @@
-﻿using MySql.Data.MySqlClient;
+﻿using CMS.Classes;
+using DatabaseLearning;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+//using System.Data;
+//using System.Data.Common;y
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Mysqlx.Prepare;
-using System.Configuration;
-using System.Data.Common;
-using DatabaseLearning;
-using System.Data.SqlClient;
 
 namespace CMS
 {
     public partial class ViewAndRegister : Form
     {
+        Session session = new Session();
+        User user = new User();
         private Participant participant;
         private int userID;  // Assume this is set based on the logged-in user
 
         // Constructor where logged-in userID is passed
-        public ViewAndRegister(int loggedInUserID)
+        public ViewAndRegister()
         {
             InitializeComponent();
-            participant = new Participant(); // Initialize the Participant class
-            userID = loggedInUserID; // Set the logged-in user ID
+            //participant = new Participant(); // Initialize the Participant class
+            //userID = loggedInUserID; // Set the logged-in user ID
             //LoadSessions(); // Load available sessions when the form loads
         }
 
         // Method to load available sessions into the ListBox
         private void LoadSessions()
         {
-            //List<SessionItem> sessions = participant.GetSessions(); // Fetch sessions
-            //participantsViewGrid.DataSource = sessions; // Bind the sessions to the ListBox
+            List<Session> sessionList = session.GetSessions();
+            participantsViewGrid.DataSource = sessionList;
         }
 
         // Register button click event handler
@@ -50,7 +50,24 @@ namespace CMS
 
         private void ViewAndRegister_Load(object sender, EventArgs e)
         {
+            LoadSessions();
 
+        }
+
+        private void participantsViewGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int conferenceID = Convert.ToInt32(participantsViewGrid.SelectedRows[0].Cells["ConferenceID"].Value);
+            int sessionID = Convert.ToInt32(participantsViewGrid.SelectedRows[0].Cells["SessionID"].Value);
+            Participant participant = new Participant();
+            string username = "savi";
+            userID = user.GetLoginId(username);
+            participant.RegisterForConference(userID, conferenceID, sessionID);
+            //participant.RegisterForConference(userID, conferenceID, sessionID);
         }
 
         //private void button1_Click(object sender, EventArgs e)
