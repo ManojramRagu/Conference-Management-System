@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CMS
 {
-    public partial class Registration : Form
+    public partial class RegistrationUI : Form
     {
-        public Registration()
+        public RegistrationUI()
         {
             InitializeComponent();
         }

@@ -27,6 +27,7 @@ namespace CMS.Classes
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int SpeakerID { get; set; }
+
         // SESSION CONSTRUCTOR
         public Session(int sessionID, string sessionTitle, string sessionDescription,int conferenceID, string conferenceName, DateTime conferenceDate, string speaker, string venue)
         {
@@ -81,7 +82,7 @@ namespace CMS.Classes
             s.conferenceID, 
             c.name AS conferenceName, 
             c.date AS conferenceDate, 
-            c.venue AS conferenceVenue,   -- Venue is fetched from conferences_table
+            c.venue AS conferenceVenue,  
             s.startTime, 
             s.endTime, 
             sp.name AS speakerName

@@ -1,6 +1,6 @@
 ﻿namespace CMS
 {
-    partial class Registration
+    partial class RegistrationUI
     {
         /// <summary>
         /// Required designer variable.
@@ -36,8 +36,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.enterPwdAgain = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.accountType = new System.Windows.Forms.Label();
             this.accountTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.accountType = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,15 +118,6 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             // 
-            // accountType
-            // 
-            this.accountType.AutoSize = true;
-            this.accountType.Location = new System.Drawing.Point(49, 87);
-            this.accountType.Name = "accountType";
-            this.accountType.Size = new System.Drawing.Size(87, 16);
-            this.accountType.TabIndex = 7;
-            this.accountType.Text = "Account type:";
-            // 
             // accountTypeComboBox
             // 
             this.accountTypeComboBox.FormattingEnabled = true;
@@ -139,6 +130,15 @@
             this.accountTypeComboBox.Size = new System.Drawing.Size(100, 24);
             this.accountTypeComboBox.TabIndex = 8;
             this.accountTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.accountTypeComboBox_SelectedIndexChanged);
+            // 
+            // accountType
+            // 
+            this.accountType.AutoSize = true;
+            this.accountType.Location = new System.Drawing.Point(49, 87);
+            this.accountType.Name = "accountType";
+            this.accountType.Size = new System.Drawing.Size(87, 16);
+            this.accountType.TabIndex = 7;
+            this.accountType.Text = "Account type:";
             // 
             // Registration
             // 

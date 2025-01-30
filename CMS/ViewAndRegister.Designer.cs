@@ -46,9 +46,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(199, 334);
+            this.button1.Location = new System.Drawing.Point(187, 334);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 36);
+            this.button1.Size = new System.Drawing.Size(179, 36);
             this.button1.TabIndex = 2;
             this.button1.Text = "Register";
             this.button1.UseVisualStyleBackColor = true;
@@ -56,9 +56,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(441, 334);
+            this.button2.Location = new System.Drawing.Point(418, 334);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(81, 23);
+            this.button2.Size = new System.Drawing.Size(198, 36);
             this.button2.TabIndex = 3;
             this.button2.Text = "Go Back";
             this.button2.UseVisualStyleBackColor = true;
@@ -68,11 +68,14 @@
             this.participantsViewGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.participantsViewGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.participantsViewGrid.Location = new System.Drawing.Point(63, 70);
+            this.participantsViewGrid.MultiSelect = false;
             this.participantsViewGrid.Name = "participantsViewGrid";
             this.participantsViewGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.participantsViewGrid.RowTemplate.Height = 24;
+            this.participantsViewGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.participantsViewGrid.Size = new System.Drawing.Size(661, 232);
             this.participantsViewGrid.TabIndex = 4;
+            this.participantsViewGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.participantsViewGrid_CellContentClick);
             // 
             // ViewAndRegister
             // 

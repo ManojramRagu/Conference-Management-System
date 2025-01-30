@@ -16,10 +16,12 @@ namespace CMS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Registration());
+            //Application.Run(new RegistrationUI());
+            //Application.Run(new OrganiserUI());
+            Application.Run(new ViewAndRegister());
             //Application.Run(new User());
-            Application.Run(new OrganiserUI());
+            //Application.Run(new OrganiserUI());
+            //Application.Run(new Login());
         }
     }
-//This is to push new branch
 }
