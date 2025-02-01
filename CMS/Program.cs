@@ -17,9 +17,9 @@ namespace CMS
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //Application.Run(new Login());
+            Application.Run(new Login());
 
-            Application.Run(new ManageSession());
+            //Application.Run(new ManageSession());
             //Application.Run(new OrganiserUI());
             //Application.Run(new ViewAndRegister());
             //Application.Run(new User());
