@@ -139,14 +139,17 @@
             // 
             // date
             // 
+            this.date.Checked = false;
             this.date.CustomFormat = "MMMM dd, yyyy";
+            this.date.Enabled = false;
             this.date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.date.Location = new System.Drawing.Point(493, 248);
             this.date.Margin = new System.Windows.Forms.Padding(4);
+            this.date.MinDate = new System.DateTime(2025, 2, 2, 0, 0, 0, 0);
             this.date.Name = "date";
             this.date.Size = new System.Drawing.Size(200, 22);
             this.date.TabIndex = 12;
-            this.date.Value = new System.DateTime(2025, 1, 24, 22, 8, 1, 0);
+            this.date.Value = new System.DateTime(2025, 2, 2, 0, 0, 0, 0);
             // 
             // description
             // 

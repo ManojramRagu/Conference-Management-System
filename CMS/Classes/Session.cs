@@ -137,11 +137,9 @@ namespace CMS.Classes
         // EDIT SESSIONS METHOD
         public void EditSession(int sessionID, string sessionName, int conferenceID, int speakerID, string sessionDescription, DateTime startTime, DateTime endTime)
         {
-            // Update the session information in sessions_table
             string updateSessionQuery = "UPDATE sessions_table SET ";
             List<string> updateSessionFields = new List<string>();
 
-            // Add session fields to be updated (if changed)
             if (!string.IsNullOrEmpty(sessionName))
                 updateSessionFields.Add($"sessionTitle = '{sessionName}'");
             if (conferenceID > 0)
@@ -156,7 +154,6 @@ namespace CMS.Classes
 
             if (updateSessionFields.Count > 0)
             {
-                // Join the fields and append the sessionID condition
                 updateSessionQuery += string.Join(", ", updateSessionFields) + $" WHERE sessionID = {sessionID};";
             }
             else
@@ -164,8 +161,6 @@ namespace CMS.Classes
                 MessageBox.Show("No session changes detected.");
                 return;
             }
-
-            // Update the session speaker in session_speakers table
             string updateSpeakerQuery = "UPDATE session_speakers SET ";
             List<string> updateSpeakerFields = new List<string>();
 
@@ -174,7 +169,6 @@ namespace CMS.Classes
 
             if (updateSpeakerFields.Count > 0)
             {
-                // Join the fields and append the sessionID condition
                 updateSpeakerQuery += string.Join(", ", updateSpeakerFields) + $" WHERE sessionID = {sessionID};";
             }
             else
@@ -185,13 +179,8 @@ namespace CMS.Classes
 
             try
             {
-                // Execute the session update query
                 connection.ExecuteQuery(updateSessionQuery);
-
-                // Execute the speaker update query
                 connection.ExecuteQuery(updateSpeakerQuery);
-
-                MessageBox.Show("Session and speaker updated successfully!");
             }
             catch (Exception ex)
             {

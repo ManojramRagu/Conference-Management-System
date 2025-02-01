@@ -18,10 +18,34 @@ namespace CMS
     {
         private Session session;
         private DBConnection connection = new DBConnection();
+        public AddNewSession()
+        {
+            InitializeComponent();
+            session = new Session();
+            
+            //Loading Venue/Date of selected Conference
+            conferenceDropdown.SelectedIndexChanged += (sender, e) =>
+            {
+                if (conferenceDropdown.SelectedIndex != -1)
+                {
+                    DataRowView selectedRow = conferenceDropdown.SelectedItem as DataRowView;
+                    if (selectedRow != null)
+                    {
+                        venue.Text = selectedRow["venue"].ToString();
+                        date.Text = Convert.ToDateTime(selectedRow["date"]).ToString("yyyy-MM-dd");
+                    }
+                }
+                else
+                {
+                    venue.Text = "";
+                    date.Text = "";
+                }
+            };
+        }
 
         private void LoadConferences()
         {
-            string query = "SELECT conferenceID, name, venue FROM conferences_table";
+            string query = "SELECT conferenceID, name, venue, date FROM conferences_table";
 
             try
             {
@@ -35,9 +59,10 @@ namespace CMS
                     conferenceDropdown.DataSource = dt;
                     conferenceDropdown.DisplayMember = "name";
                     conferenceDropdown.ValueMember = "conferenceID";
-                    conferenceDropdown.SelectedIndex = -1; // Ensures nothing is selected initially
+                    conferenceDropdown.SelectedIndex = -1;
 
-                    venue.Text = ""; // Ensure venue textbox is empty when the form loads
+                    venue.Text = "";
+                    date.Text = "";
 
                     connection.CloseConnection();
                 }
@@ -75,30 +100,6 @@ namespace CMS
             {
                 MessageBox.Show("Error loading speakers: " + ex.Message);
             }
-        }
-
-        public AddNewSession()
-        {
-            InitializeComponent();
-            session = new Session();
-
-            //Load the Venue of selected Conference
-            conferenceDropdown.SelectedIndexChanged += (sender, e) =>
-            {
-                if (conferenceDropdown.SelectedIndex != -1)
-                {
-                    DataRowView selectedRow = conferenceDropdown.SelectedItem as DataRowView;
-                    if (selectedRow != null)
-                    {
-                        venue.Text = selectedRow["venue"].ToString();
-                    }
-                }
-                else
-                {
-                    venue.Text = "";
-                }
-            };
-
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -144,6 +145,13 @@ namespace CMS
                 return;
             }
 
+            if ((EndTime - StartTime).TotalMinutes < 30)
+            {
+                MessageBox.Show("End time must be at least 30 minutes after the start time.");
+                endTime.Value = StartTime.AddMinutes(30);
+                return;
+            }
+
             // Create session using the corrected method
             session.CreateSession(sessionTitle, sessionDescription, conferenceID, Venue, StartTime, EndTime, speakerID);
             string query = $@"INSERT INTO session_speakers 
@@ -154,8 +162,9 @@ namespace CMS
 
             ManageSession manageSession = new ManageSession();
             manageSession.Show();
-            this.Close();
+            this.Hide();
         }
+
 
         private void AddNewSession_Load(object sender, EventArgs e)
         {
