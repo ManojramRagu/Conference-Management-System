@@ -43,7 +43,10 @@ namespace CMS
             if (int.TryParse(phoneText, out phone))
             {
                 Speaker speaker = new Speaker();
-                speaker.AddSpeaker(name, bio, email, phone);
+                User user = new User();
+                user.AddUser(name, "admin", "Speaker");
+                int userId = user.GetUsers(name); //Polymorphism
+                speaker.AddSpeaker(name, bio, email, phone, userId);
 
                 ManageSpeaker manageSpeakers = new ManageSpeaker();
                 manageSpeakers.Show();

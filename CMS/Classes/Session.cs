@@ -27,6 +27,7 @@ namespace CMS.Classes
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public int SpeakerID { get; set; }
+        public string SpeakerName { get; set; }
 
         // SESSION CONSTRUCTOR
         public Session(int sessionID, string sessionTitle, string sessionDescription,int conferenceID, string conferenceName, DateTime conferenceDate, string speaker, string venue)
@@ -107,8 +108,8 @@ namespace CMS.Classes
                                     SessionID = Convert.ToInt32(reader["sessionID"]),
                                     ConferenceID = Convert.ToInt32(reader["conferenceID"]),
                                     ConferenceName = reader["conferenceName"].ToString(),
-                                    ConferenceDate = Convert.ToDateTime(reader["conferenceDate"]),  // This is the conference date
-                                    Venue = reader["conferenceVenue"].ToString(),  // Venue comes from conferences_table
+                                    ConferenceDate = Convert.ToDateTime(reader["conferenceDate"]),
+                                    Venue = reader["conferenceVenue"].ToString(),
                                     SessionTitle = reader["sessionTitle"].ToString(),
                                     SessionDescription = reader["sessionDescription"].ToString(),
                                     StartTime = DateTime.Today.Add((TimeSpan)reader["startTime"]),

@@ -1,4 +1,5 @@
 ﻿using CMS.Classes;
+using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace CMS
     public partial class SpeakerUI : Form
     {
         private int speakerUserId;
+        Speaker speaker = new Speaker();
         public SpeakerUI(int loggedInUserId)
         {
             InitializeComponent();
@@ -22,22 +24,8 @@ namespace CMS
 
         private void SpeakerUI_Load(object sender, EventArgs e)
         {
-            try
-            {
-                Speaker speaker = new Speaker();
-                List<string> Sessions = speaker.GetAssignedSessions(speakerUserId);
-
-                listBox1.Items.Clear();
-
-                foreach (var session in Sessions)
-                {
-                    listBox1.Items.Add(session);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
+            List<Classes.Session> speakersSessionList = speaker.GetAssignedSessions(speakerUserId);
+            dataGridView1.DataSource = speakersSessionList;
         }
     }
 }

@@ -40,9 +40,9 @@ namespace CMS.Classes
         }
 
         // CREATE SPEAKER
-        public void AddSpeaker(string name, string bio, string email, int phone)
+        public void AddSpeaker(string name, string bio, string email, int phone, int userId)
         {
-            string query = $"INSERT INTO speakers_table (name, bio, email, phone) VALUES ('{name}', '{bio}', '{email}', '{phone}');";
+            string query = $"INSERT INTO speakers_table (name, bio, email, phone, userID) VALUES ('{name}', '{bio}', '{email}', '{phone}', '{userId}');";
 
             try
             {
@@ -124,12 +124,26 @@ namespace CMS.Classes
             }
         }
 
-        // GET ASSIGNED SESSIONS : Unused Currently
-        public List<string> GetAssignedSessions(int loggedInUserID)
+        // GET ASSIGNED SESSIONS
+        public List<Session> GetAssignedSessions(int loggedInUserID)
         {
-            List<string> sessions = new List<string>();
+            List<Session> speakerSessions = new List<Session>();
 
-            string query = $"SELECT s.title AS SessionTitle, c.name AS ConferenceName, c.venue AS Venue, c.date AS ConferenceDate FROM sessions_table AS s INNER JOIN conferences_table AS c ON s.conferenceID = c.conferenceID INNER JOIN speakers_table AS sp ON s.speakerID = sp.speakersID WHERE sp.userID = '{loggedInUserID}';";
+            string query = $@"
+    SELECT 
+        s.sessionID, 
+        s.sessionTitle AS SessionTitle, 
+        s.sessionDescription AS SessionDescription, 
+        c.name AS ConferenceName, 
+        c.date AS ConferenceDate, 
+        c.venue AS Venue,
+        sp.name AS SpeakerName,
+        sp.speakersID AS SpeakerID
+    FROM sessions_table AS s
+    INNER JOIN conferences_table AS c ON s.conferenceID = c.conferenceID
+    INNER JOIN session_speakers AS ss ON s.sessionID = ss.sessionID
+    INNER JOIN speakers_table AS sp ON ss.speakerID = sp.speakersID
+    WHERE sp.userID = {loggedInUserID};";
 
             try
             {
@@ -137,20 +151,23 @@ namespace CMS.Classes
                 {
                     using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
                     {
-                        cmd.Parameters.AddWithValue("@loggedInUserID", loggedInUserID);
-
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                string sessionTitle = reader["SessionTitle"].ToString();
-                                string conferenceName = reader["ConferenceName"].ToString();
-                                string venue = reader["Venue"].ToString();
-                                string conferenceDate = Convert.ToDateTime(reader["ConferenceDate"]).ToString("yyyy-MM-dd");
-          
-                                string sessionDetails = $"Session: {sessionTitle}, Conference: {conferenceName}, Venue: {venue}, Date: {conferenceDate}";
+                                Session session = new Session
+                                {
+                                    SessionID = Convert.ToInt32(reader["sessionID"]),
+                                    ConferenceName = reader["ConferenceName"].ToString(),
+                                    ConferenceDate = Convert.ToDateTime(reader["ConferenceDate"]),
+                                    Venue = reader["Venue"].ToString(),
+                                    SessionTitle = reader["SessionTitle"].ToString(),
+                                    SessionDescription = reader["SessionDescription"].ToString(),
+                                    SpeakerName = reader["SpeakerName"].ToString(),
+                                    SpeakerID = Convert.ToInt32(reader["SpeakerID"])
+                                };
 
-                                sessions.Add(sessionDetails);
+                                speakerSessions.Add(session);
                             }
                         }
                     }
@@ -165,7 +182,8 @@ namespace CMS.Classes
                 connection.CloseConnection();
             }
 
-            return sessions;
+            return speakerSessions;
         }
+
     }
 }
