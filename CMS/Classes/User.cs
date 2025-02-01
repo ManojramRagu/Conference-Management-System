@@ -10,6 +10,7 @@ using MySql.Data.MySqlClient;
 using DatabaseLearning;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CMS
 {
@@ -26,7 +27,7 @@ namespace CMS
         // Constructor
         public User(int userID, string userName, string password, string accountType)
         {
-            UserID = userID;
+            //UserID = userID;
             UserName = userName;
             Password = password;
             AccountType = accountType;
@@ -38,11 +39,35 @@ namespace CMS
         }
 
         // Method to add user to the database
-        public void AddUser(int userID, string userName, string password, string account_type)
+        public void AddUser(string userName, string password, string account_type)
         {
             string query = $"INSERT INTO users_table (userName, password, account_type) VALUES ('{userName}', '{password}', '{account_type}');";
             connection.ExecuteQuery(query); // writes the data to the respective table in the database
         }
+
+        //public int GetUserID(string username)
+        //{ 
+        //    string query = $"SELECT userID FROM users_table WHERE userName = '{username}'";
+
+        //    //return connection.ExecuteQuery(query);
+
+        //    if (connection.OpenConnection())
+        //    {
+        //        using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+        //        {
+        //            using (MySqlDataReader reader = cmd.ExecuteReader())
+        //            {
+        //                if (reader.Read())
+        //                {
+        //                    return Convert.ToInt32(reader["userID"]);
+        //                } else { return -1; }
+        //            }
+        //        }
+        //    } else
+        //    {
+        //        return -1;
+        //    }
+        //}
 
         // Method to register user
         public void RegisterUser(string userName, string password, string confirmPassword, string account_type)
@@ -51,7 +76,7 @@ namespace CMS
             {
                 if (!IsUsernameExists(userName))
                 {
-                    AddUser(UserID, userName, password, account_type);
+                    AddUser(userName, password, account_type);
                     MessageBox.Show("Successfully registered!");
                 }
                 else
@@ -146,6 +171,33 @@ namespace CMS
             }
 
             return users;
+        }
+
+        //Polymosphism via method overloading
+        public int GetUsers(string username)
+        {
+            string query = $"SELECT userID FROM users_table WHERE userName = '{username}'";
+
+            //return connection.ExecuteQuery(query);
+
+            if (connection.OpenConnection())
+            {
+                using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return Convert.ToInt32(reader["userID"]);
+                        }
+                        else { return -1; }
+                    }
+                }
+            }
+            else
+            {
+                return -1;
+            }
         }
 
         // Method to get the UserID based on the username
