@@ -42,6 +42,10 @@ namespace CMS
             {
                 MessageBox.Show("Please select an account type.");
             }
+
+            Login login = new Login();
+            login.Show();
+            this.Close();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

@@ -39,16 +39,19 @@ namespace CMS
                     case "Participant":
                         ParticipantUI participantUI = new ParticipantUI(loggedInUserID);
                         participantUI.Show();
+                        this.Close();
                         break;
 
                     case "Organizer":
                         OrganiserUI organizerUI = new OrganiserUI();
                         organizerUI.Show();
+                        this.Close();
                         break;
 
                     case "Speaker":
                         SpeakerUI speakerUI = new SpeakerUI(loggedInUserID);
                         speakerUI.Show();
+                        this.Close();
                         break;
 
                     default:
@@ -73,6 +76,13 @@ namespace CMS
         private void Login_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            RegistrationUI registrationUI = new RegistrationUI();
+            registrationUI.Show();
+            this.Hide();
         }
     }
 }
