@@ -59,7 +59,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(261, 99);
+            this.label2.Location = new System.Drawing.Point(362, 93);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(102, 16);
@@ -69,7 +69,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(265, 134);
+            this.label3.Location = new System.Drawing.Point(381, 127);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 16);
@@ -79,7 +79,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(269, 168);
+            this.label4.Location = new System.Drawing.Point(398, 168);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 16);
@@ -89,7 +89,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(277, 203);
+            this.label6.Location = new System.Drawing.Point(382, 205);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(81, 16);
@@ -99,7 +99,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(273, 236);
+            this.label7.Location = new System.Drawing.Point(390, 237);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(74, 16);
@@ -109,7 +109,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(265, 257);
+            this.label8.Location = new System.Drawing.Point(392, 271);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(71, 16);
@@ -120,11 +120,11 @@
             // 
             this.endTime.CustomFormat = "HH:mm tt";
             this.endTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.endTime.Location = new System.Drawing.Point(389, 273);
+            this.endTime.Location = new System.Drawing.Point(495, 266);
             this.endTime.Margin = new System.Windows.Forms.Padding(4);
             this.endTime.Name = "endTime";
             this.endTime.ShowUpDown = true;
-            this.endTime.Size = new System.Drawing.Size(265, 22);
+            this.endTime.Size = new System.Drawing.Size(176, 22);
             this.endTime.TabIndex = 23;
             // 
             // startTime
@@ -132,50 +132,51 @@
             this.startTime.CustomFormat = "HH:mm tt";
             this.startTime.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
             this.startTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.startTime.Location = new System.Drawing.Point(389, 240);
+            this.startTime.Location = new System.Drawing.Point(495, 233);
             this.startTime.Margin = new System.Windows.Forms.Padding(4);
             this.startTime.Name = "startTime";
             this.startTime.ShowUpDown = true;
-            this.startTime.Size = new System.Drawing.Size(265, 22);
+            this.startTime.Size = new System.Drawing.Size(176, 22);
             this.startTime.TabIndex = 22;
             // 
             // description
             // 
-            this.description.Location = new System.Drawing.Point(389, 213);
+            this.description.Location = new System.Drawing.Point(495, 203);
             this.description.Margin = new System.Windows.Forms.Padding(4);
             this.description.Name = "description";
-            this.description.Size = new System.Drawing.Size(160, 22);
+            this.description.Size = new System.Drawing.Size(176, 22);
             this.description.TabIndex = 21;
             // 
             // conferenceDropdown
             // 
             this.conferenceDropdown.FormattingEnabled = true;
-            this.conferenceDropdown.Location = new System.Drawing.Point(389, 135);
+            this.conferenceDropdown.Location = new System.Drawing.Point(495, 128);
             this.conferenceDropdown.Margin = new System.Windows.Forms.Padding(4);
             this.conferenceDropdown.Name = "conferenceDropdown";
-            this.conferenceDropdown.Size = new System.Drawing.Size(160, 24);
+            this.conferenceDropdown.Size = new System.Drawing.Size(176, 24);
             this.conferenceDropdown.TabIndex = 19;
             // 
             // speakerDropdown
             // 
+            this.speakerDropdown.AllowDrop = true;
             this.speakerDropdown.FormattingEnabled = true;
-            this.speakerDropdown.Location = new System.Drawing.Point(389, 168);
+            this.speakerDropdown.Location = new System.Drawing.Point(495, 166);
             this.speakerDropdown.Margin = new System.Windows.Forms.Padding(4);
             this.speakerDropdown.Name = "speakerDropdown";
-            this.speakerDropdown.Size = new System.Drawing.Size(160, 24);
+            this.speakerDropdown.Size = new System.Drawing.Size(176, 24);
             this.speakerDropdown.TabIndex = 18;
             // 
             // sessionName
             // 
-            this.sessionName.Location = new System.Drawing.Point(389, 101);
+            this.sessionName.Location = new System.Drawing.Point(495, 94);
             this.sessionName.Margin = new System.Windows.Forms.Padding(4);
             this.sessionName.Name = "sessionName";
-            this.sessionName.Size = new System.Drawing.Size(132, 22);
+            this.sessionName.Size = new System.Drawing.Size(176, 22);
             this.sessionName.TabIndex = 17;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(367, 363);
+            this.button1.Location = new System.Drawing.Point(422, 315);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
@@ -186,7 +187,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(495, 363);
+            this.button2.Location = new System.Drawing.Point(550, 315);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
