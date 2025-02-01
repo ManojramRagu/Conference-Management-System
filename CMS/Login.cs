@@ -39,19 +39,16 @@ namespace CMS
                     case "Participant":
                         ParticipantUI participantUI = new ParticipantUI(loggedInUserID);
                         participantUI.Show();
-                        this.Close();
                         break;
 
                     case "Organizer":
                         OrganiserUI organizerUI = new OrganiserUI();
                         organizerUI.Show();
-                        this.Close();
                         break;
 
                     case "Speaker":
                         SpeakerUI speakerUI = new SpeakerUI(loggedInUserID);
                         speakerUI.Show();
-                        this.Close();
                         break;
 
                     default:
