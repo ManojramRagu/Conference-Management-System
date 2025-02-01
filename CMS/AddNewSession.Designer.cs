@@ -34,7 +34,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.sessionNameTxt = new System.Windows.Forms.TextBox();
             this.speakerDropdown = new System.Windows.Forms.ComboBox();
             this.conferenceDropdown = new System.Windows.Forms.ComboBox();
@@ -42,11 +41,12 @@
             this.description = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.venue = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.startTime = new System.Windows.Forms.DateTimePicker();
             this.endTime = new System.Windows.Forms.DateTimePicker();
+            this.label9 = new System.Windows.Forms.Label();
+            this.venue = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -110,16 +110,6 @@
             this.label6.Size = new System.Drawing.Size(84, 16);
             this.label6.TabIndex = 5;
             this.label6.Text = "Description : ";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(406, 317);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(52, 16);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Venue :";
             // 
             // sessionNameTxt
             // 
@@ -188,13 +178,6 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // venue
-            // 
-            this.venue.Location = new System.Drawing.Point(493, 317);
-            this.venue.Name = "venue";
-            this.venue.Size = new System.Drawing.Size(200, 22);
-            this.venue.TabIndex = 32;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -230,6 +213,25 @@
             this.endTime.Name = "endTime";
             this.endTime.Size = new System.Drawing.Size(200, 22);
             this.endTime.TabIndex = 36;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(406, 317);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(52, 16);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Venue :";
+            // 
+            // venue
+            // 
+            this.venue.Enabled = false;
+            this.venue.Location = new System.Drawing.Point(493, 317);
+            this.venue.Name = "venue";
+            this.venue.ReadOnly = true;
+            this.venue.Size = new System.Drawing.Size(200, 22);
+            this.venue.TabIndex = 32;
             // 
             // AddNewSession
             // 
@@ -272,7 +274,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox sessionNameTxt;
         private System.Windows.Forms.ComboBox speakerDropdown;
         private System.Windows.Forms.ComboBox conferenceDropdown;
@@ -280,10 +281,11 @@
         private System.Windows.Forms.TextBox description;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox venue;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DateTimePicker startTime;
         private System.Windows.Forms.DateTimePicker endTime;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox venue;
     }
 }
