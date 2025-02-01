@@ -91,29 +91,7 @@ namespace CMS
             MessageBox.Show("Conference deleted successfully.");
         }
 
-        // View conference details
-        public void ViewDetails(int id)
-        {
-            string query = $"SELECT * FROM conferences_table WHERE ConferenceId = '{id}';";
-            if (connection.OpenConnection())
-            {
-                using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
-                {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            MessageBox.Show($"ID: {reader["ConferenceId"]}, Name: {reader["ConferenceName"]}, Date: {reader["Date"]}, Venue: {reader["Venue"]}, Description: {reader["Description"]}");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Conference not found.");
-                        }
-                    }
-                }
-                connection.CloseConnection();
-            }
-        }
+        // Get all available Conferences
         public List<Conference> GetAllConferences()
         {
             List<Conference> conferences = new List<Conference>();
@@ -153,6 +131,8 @@ namespace CMS
 
             return conferences;
         }
+
+        // Get Conference by ID
         public Conference GetConferenceById(int id)
         {
             string query = $"SELECT name, date, venue, description, capacity FROM conferences_table WHERE conferenceID = {id}";

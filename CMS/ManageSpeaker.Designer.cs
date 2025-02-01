@@ -30,11 +30,11 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button2 = new System.Windows.Forms.Button();
             this.Editbtn = new System.Windows.Forms.Button();
             this.Removebtn = new System.Windows.Forms.Button();
             this.AddNewSpeakerbtn = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -62,18 +62,33 @@
             this.groupBox1.Controls.Add(this.AddNewSpeakerbtn);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(151, 36);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(1205, 422);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(80, 107);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(727, 245);
+            this.dataGridView1.TabIndex = 31;
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(707, 374);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
             this.button2.TabIndex = 30;
@@ -84,7 +99,7 @@
             // Editbtn
             // 
             this.Editbtn.Location = new System.Drawing.Point(861, 300);
-            this.Editbtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Editbtn.Margin = new System.Windows.Forms.Padding(4);
             this.Editbtn.Name = "Editbtn";
             this.Editbtn.Size = new System.Drawing.Size(248, 52);
             this.Editbtn.TabIndex = 4;
@@ -95,7 +110,7 @@
             // Removebtn
             // 
             this.Removebtn.Location = new System.Drawing.Point(861, 206);
-            this.Removebtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Removebtn.Margin = new System.Windows.Forms.Padding(4);
             this.Removebtn.Name = "Removebtn";
             this.Removebtn.Size = new System.Drawing.Size(248, 50);
             this.Removebtn.TabIndex = 3;
@@ -106,7 +121,7 @@
             // AddNewSpeakerbtn
             // 
             this.AddNewSpeakerbtn.Location = new System.Drawing.Point(861, 107);
-            this.AddNewSpeakerbtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AddNewSpeakerbtn.Margin = new System.Windows.Forms.Padding(4);
             this.AddNewSpeakerbtn.Name = "AddNewSpeakerbtn";
             this.AddNewSpeakerbtn.Size = new System.Drawing.Size(248, 54);
             this.AddNewSpeakerbtn.TabIndex = 2;
@@ -114,23 +129,13 @@
             this.AddNewSpeakerbtn.UseVisualStyleBackColor = true;
             this.AddNewSpeakerbtn.Click += new System.EventHandler(this.AddNewSpeakerbtn_Click);
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(80, 107);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(727, 245);
-            this.dataGridView1.TabIndex = 31;
-            // 
             // ManageSpeaker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1526, 540);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ManageSpeaker";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageSpeaker";

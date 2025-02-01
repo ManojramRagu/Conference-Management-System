@@ -21,7 +21,7 @@ namespace CMS
 
         private void LoadConferences()
         {
-            string query = "SELECT conferenceID, name FROM conferences_table";
+            string query = "SELECT conferenceID, name, venue FROM conferences_table";
 
             try
             {
@@ -35,7 +35,9 @@ namespace CMS
                     conferenceDropdown.DataSource = dt;
                     conferenceDropdown.DisplayMember = "name";
                     conferenceDropdown.ValueMember = "conferenceID";
-                    conferenceDropdown.SelectedIndex = -1;
+                    conferenceDropdown.SelectedIndex = -1; // Ensures nothing is selected initially
+
+                    venue.Text = ""; // Ensure venue textbox is empty when the form loads
 
                     connection.CloseConnection();
                 }
@@ -45,6 +47,7 @@ namespace CMS
                 MessageBox.Show("Error loading conferences: " + ex.Message);
             }
         }
+
 
         // Load Speakers into dropdown
         private void LoadSpeakers()
@@ -78,6 +81,24 @@ namespace CMS
         {
             InitializeComponent();
             session = new Session();
+
+            //Load the Venue of selected Conference
+            conferenceDropdown.SelectedIndexChanged += (sender, e) =>
+            {
+                if (conferenceDropdown.SelectedIndex != -1)
+                {
+                    DataRowView selectedRow = conferenceDropdown.SelectedItem as DataRowView;
+                    if (selectedRow != null)
+                    {
+                        venue.Text = selectedRow["venue"].ToString();
+                    }
+                }
+                else
+                {
+                    venue.Text = "";
+                }
+            };
+
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -90,7 +111,7 @@ namespace CMS
         {
             ManageSession manageSession = new ManageSession();
             manageSession.Show();
-            this.Hide();
+            this.Close();
         }
 
         //Create Session Button
@@ -130,6 +151,10 @@ namespace CMS
             VALUES 
             (LAST_INSERT_ID(), '{speakerID}');";
             connection.ExecuteQuery(query);
+
+            ManageSession manageSession = new ManageSession();
+            manageSession.Show();
+            this.Close();
         }
 
         private void AddNewSession_Load(object sender, EventArgs e)

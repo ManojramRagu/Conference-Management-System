@@ -95,7 +95,7 @@
             // SpeakerNameTxt
             // 
             this.SpeakerNameTxt.Location = new System.Drawing.Point(373, 158);
-            this.SpeakerNameTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SpeakerNameTxt.Margin = new System.Windows.Forms.Padding(4);
             this.SpeakerNameTxt.Name = "SpeakerNameTxt";
             this.SpeakerNameTxt.Size = new System.Drawing.Size(132, 22);
             this.SpeakerNameTxt.TabIndex = 5;
@@ -103,7 +103,7 @@
             // SpeakerEmailTxt
             // 
             this.SpeakerEmailTxt.Location = new System.Drawing.Point(373, 191);
-            this.SpeakerEmailTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SpeakerEmailTxt.Margin = new System.Windows.Forms.Padding(4);
             this.SpeakerEmailTxt.Name = "SpeakerEmailTxt";
             this.SpeakerEmailTxt.Size = new System.Drawing.Size(132, 22);
             this.SpeakerEmailTxt.TabIndex = 6;
@@ -111,7 +111,7 @@
             // SpeakerPhoneTxt
             // 
             this.SpeakerPhoneTxt.Location = new System.Drawing.Point(373, 224);
-            this.SpeakerPhoneTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SpeakerPhoneTxt.Margin = new System.Windows.Forms.Padding(4);
             this.SpeakerPhoneTxt.Name = "SpeakerPhoneTxt";
             this.SpeakerPhoneTxt.Size = new System.Drawing.Size(132, 22);
             this.SpeakerPhoneTxt.TabIndex = 7;
@@ -119,7 +119,7 @@
             // SpeakerBioTxt
             // 
             this.SpeakerBioTxt.Location = new System.Drawing.Point(373, 257);
-            this.SpeakerBioTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SpeakerBioTxt.Margin = new System.Windows.Forms.Padding(4);
             this.SpeakerBioTxt.Multiline = true;
             this.SpeakerBioTxt.Name = "SpeakerBioTxt";
             this.SpeakerBioTxt.Size = new System.Drawing.Size(320, 89);
@@ -128,7 +128,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(468, 391);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 9;
@@ -139,7 +139,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(595, 391);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
             this.button2.TabIndex = 31;
@@ -163,9 +163,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "EditSpeakerDetails";
-            this.Text = "EditSpeakerDetails";
+            this.Text = "7";
             this.Load += new System.EventHandler(this.EditSpeakerDetails_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

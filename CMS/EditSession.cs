@@ -112,16 +112,7 @@ namespace CMS
         {
             LoadConferences();
             LoadSpeakers();
-
-            if (sessionId > 0)
-            {
-                LoadSessionData(sessionId);
-            }
-            else
-            {
-                MessageBox.Show("No session selected. Please select a session from the list.");
-                this.Close();
-            }
+            LoadSessionData(sessionId);
         }
 
         private void button1_Click(object sender, EventArgs e)
