@@ -85,7 +85,8 @@ namespace CMS.Classes
             c.venue AS conferenceVenue,  
             s.startTime, 
             s.endTime, 
-            sp.name AS speakerName
+            sp.name AS speakerName,
+            sp.speakersID as speakerID
         FROM sessions_table s 
         JOIN conferences_table c ON s.conferenceID = c.conferenceID 
         JOIN session_speakers ss ON s.sessionID = ss.sessionID 
@@ -112,7 +113,8 @@ namespace CMS.Classes
                                     SessionDescription = reader["sessionDescription"].ToString(),
                                     StartTime = DateTime.Today.Add((TimeSpan)reader["startTime"]),
                                     EndTime = DateTime.Today.Add((TimeSpan)reader["endTime"]),
-                                    Speaker = reader["speakerName"].ToString()
+                                    Speaker = reader["speakerName"].ToString(),
+                                    SpeakerID = Convert.ToInt32(reader["speakerID"])
                                 };
 
                                 sessions.Add(session);
@@ -214,7 +216,7 @@ namespace CMS.Classes
             Session session = null;
             string query = $@"
             SELECT s.sessionID, s.sessionTitle, s.sessionDescription, s.conferenceID, c.name AS conferenceName, c.date AS conferenceDate, 
-                   s.venue, s.startTime, s.endTime, sp.name AS speakerName 
+                   s.venue, s.startTime, s.endTime, sp.name AS speakerName , sp.speakersID AS speakerID
             FROM sessions_table s 
             JOIN conferences_table c ON s.conferenceID = c.conferenceID 
             JOIN session_speakers ss ON s.sessionID = ss.sessionID 
@@ -242,7 +244,8 @@ namespace CMS.Classes
                                     Venue = reader["venue"].ToString(),
                                     StartTime = DateTime.Today.Add((TimeSpan)reader["startTime"]),
                                     EndTime = DateTime.Today.Add((TimeSpan)reader["endTime"]),
-                                    Speaker = reader["speakerName"].ToString()
+                                    Speaker = reader["speakerName"].ToString(),
+                                    SpeakerID = Convert.ToInt32(reader["speakerID"])
                                 };
                             }
                         }
