@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,24 +15,57 @@ namespace CMS
     {
         private int conferenceId;
         Conference conference = new Conference();
+        private string oldName, oldVenue, oldDescription;
+        private DateTime oldDate;
+        private int oldCapacity;
 
         public EditConference(int id)
         {
             InitializeComponent();
             conferenceId = id;
         }
-        private void EditConference_Load(object sender, EventArgs e)
+        // Functions
+        private bool CheckConferenceChange()
         {
-            if (conferenceId > 0)
+            // Update only changed fields
+            string newName = conferenceName.Text.Trim();
+            string newVenue = conferenceVenue.Text.Trim();
+            string newDescription = conferenceDescription.Text.Trim();
+            DateTime newDate = conferenceDate.Value;
+            int newCapacity = (int)conferenceCapacity.Value;
+
+            //if (conferenceName.TextChanged == null) { }
+
+            // Checks for changes
+            bool isUpdated = false;
+
+            if (newName != oldName)
             {
-                LoadConferenceData(conferenceId);
+                conference.ConferenceName = newName;
+                isUpdated = true;
             }
-            else
+            if (newVenue != oldVenue)
             {
-                MessageBox.Show("No conference selected. Please select a conference from the list.");
-                this.Close();
+                conference.Venue = newVenue;
+                isUpdated = true;
             }
-        }
+            if (newDescription != oldDescription)
+            {
+                conference.Description = newDescription;
+                isUpdated = true;
+            }
+            if (newDate != oldDate)
+            {
+                conference.Date = newDate;
+                isUpdated = true;
+            }
+            if (newCapacity != oldCapacity)
+            {
+                conference.Capacity = newCapacity;
+                isUpdated = true;
+            }
+            return isUpdated;
+        }   
         private void LoadConferenceData(int conferenceId)
         {
             var currentConference = conference.GetConferenceById(conferenceId);
@@ -43,6 +77,12 @@ namespace CMS
                 conferenceDescription.Text = currentConference.Description;
                 conferenceDate.Value = currentConference.Date;
                 conferenceCapacity.Value = currentConference.Capacity;
+
+                oldName = currentConference.ConferenceName;
+                oldVenue = currentConference.Venue;
+                oldDescription = currentConference.Description;
+                oldDate = currentConference.Date;
+                oldCapacity = currentConference.Capacity;
             }
             else
             {
@@ -51,11 +91,26 @@ namespace CMS
             }
         }
 
+        // Go Back Butoon
         private void button2_Click(object sender, EventArgs e)
         {
-            ManageConferenceUI manageConference = new ManageConferenceUI();
-            manageConference.Show();
-            this.Hide();
+            if (CheckConferenceChange())
+            {
+                DialogResult result = MessageBox.Show("Are you sure you want to leave unsaved changes?", "Unsaved Changes", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    ManageConferenceUI manageConference1 = new ManageConferenceUI();
+                    manageConference1.Show();
+                    this.Hide();
+                }
+            }
+            else
+            {
+                ManageConferenceUI manageConference2 = new ManageConferenceUI();
+                manageConference2.Show();
+                this.Hide();
+            }  
         }
 
         private void conferenceUpdate_Click(object sender, EventArgs e)
@@ -66,47 +121,13 @@ namespace CMS
                 return;
             }
 
-            // Compare and update only changed fields
-            string newName = conferenceName.Text.Trim();
-            string newVenue = conferenceVenue.Text.Trim();
-            string newDescription = conferenceDescription.Text.Trim();
-            DateTime newDate = conferenceDate.Value;
-            int newCapacity = (int)conferenceCapacity.Value;
-
-            // Track changes to update only modified fields
-            bool isUpdated = false;
-            if (newName != conference.ConferenceName)
-            {
-                conference.ConferenceName = newName;
-                isUpdated = true;
-            }
-            if (newVenue != conference.Venue)
-            {
-                conference.Venue = newVenue;
-                isUpdated = true;
-            }
-            if (newDescription != conference.Description)
-            {
-                conference.Description = newDescription;
-                isUpdated = true;
-            }
-            if (newDate != conference.Date)
-            {
-                conference.Date = newDate;
-                isUpdated = true;
-            }
-            if (newCapacity != conference.Capacity)
-            {
-                conference.Capacity = newCapacity;
-                isUpdated = true;
-            }
-
-            if (isUpdated)
+            if (CheckConferenceChange())
             {
                 Conference updatedConference = new Conference();
                 updatedConference.EditConference(conferenceId, conference.ConferenceName, conference.Date, conference.Venue, conference.Description, conference.Capacity);
                 MessageBox.Show("Conference details updated successfully.");
                 this.Close();
+
                 ManageConferenceUI manageConference = new ManageConferenceUI();
                 manageConference.Show();
                 this.Hide();
@@ -115,6 +136,11 @@ namespace CMS
             {
                 MessageBox.Show("No changes were made.");
             }
+        }
+
+        private void EditConference_Load(object sender, EventArgs e)
+        {
+            LoadConferenceData(conferenceId);
         }
     }
 }

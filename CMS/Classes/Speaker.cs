@@ -130,20 +130,18 @@ namespace CMS.Classes
             List<Session> speakerSessions = new List<Session>();
 
             string query = $@"
-    SELECT 
-        s.sessionID, 
-        s.sessionTitle AS SessionTitle, 
-        s.sessionDescription AS SessionDescription, 
-        c.name AS ConferenceName, 
-        c.date AS ConferenceDate, 
-        c.venue AS Venue,
-        sp.name AS SpeakerName,
-        sp.speakersID AS SpeakerID
-    FROM sessions_table AS s
-    INNER JOIN conferences_table AS c ON s.conferenceID = c.conferenceID
-    INNER JOIN session_speakers AS ss ON s.sessionID = ss.sessionID
-    INNER JOIN speakers_table AS sp ON ss.speakerID = sp.speakersID
-    WHERE sp.userID = {loggedInUserID};";
+            SELECT 
+                s.sessionTitle AS SessionTitle, 
+                c.name AS ConferenceName, 
+                c.date AS ConferenceDate, 
+                c.venue AS Venue,
+                s.startTime AS StartTime,
+                s.endTime AS EndTime
+            FROM sessions_table AS s
+            INNER JOIN conferences_table AS c ON s.conferenceID = c.conferenceID
+            INNER JOIN session_speakers AS ss ON s.sessionID = ss.sessionID
+            INNER JOIN speakers_table AS sp ON ss.speakerID = sp.speakersID
+            WHERE sp.userID = {loggedInUserID};";
 
             try
             {
@@ -157,14 +155,12 @@ namespace CMS.Classes
                             {
                                 Session session = new Session
                                 {
-                                    SessionID = Convert.ToInt32(reader["sessionID"]),
                                     ConferenceName = reader["ConferenceName"].ToString(),
                                     ConferenceDate = Convert.ToDateTime(reader["ConferenceDate"]),
                                     Venue = reader["Venue"].ToString(),
                                     SessionTitle = reader["SessionTitle"].ToString(),
-                                    SessionDescription = reader["SessionDescription"].ToString(),
-                                    SpeakerName = reader["SpeakerName"].ToString(),
-                                    SpeakerID = Convert.ToInt32(reader["SpeakerID"])
+                                    StartTime = DateTime.Today.Add((TimeSpan)reader["startTime"]),
+                                    EndTime = DateTime.Today.Add((TimeSpan)reader["endTime"]),
                                 };
 
                                 speakerSessions.Add(session);
@@ -184,6 +180,5 @@ namespace CMS.Classes
 
             return speakerSessions;
         }
-
     }
 }
