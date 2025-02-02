@@ -38,19 +38,19 @@ namespace CMS
             // Input validations
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(venue) || string.IsNullOrEmpty(description))
             {
-                MessageBox.Show("Please fill in all the required fields.");
+                MessageBox.Show("Please fill in all the required fields.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (capacity <= 0)
             {
-                MessageBox.Show("Please enter a valid capacity.");
+                MessageBox.Show("Please enter a valid capacity.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (date.Date <= DateTime.Now.Date)
             {
-                MessageBox.Show("Please select an upcoming date.");
+                MessageBox.Show("Please select an upcoming date.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

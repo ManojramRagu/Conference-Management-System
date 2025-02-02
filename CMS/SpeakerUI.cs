@@ -35,6 +35,9 @@ namespace CMS
             dataGridView1.Columns["ConferenceID"].Visible = false;
             dataGridView1.Columns["SessionTime"].Visible = false;
             dataGridView1.Columns["Speaker"].Visible = false;
+
+            dataGridView1.Columns["StartTime"].DefaultCellStyle.Format = "hh:mm tt";
+            dataGridView1.Columns["EndTime"].DefaultCellStyle.Format = "hh:mm tt";
         }
     }
 }

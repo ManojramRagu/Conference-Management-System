@@ -71,6 +71,7 @@ namespace CMS
         {            
             List<Conference> conferencesList = conference.GetAllConferences();
             dataGridView1.DataSource = conferencesList;
+            dataGridView1.Columns["ConferenceID"].Visible = false;
         }
     }
 }

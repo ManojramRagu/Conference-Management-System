@@ -67,41 +67,43 @@ namespace CMS
             string newName = SpeakerNameTxt.Text.Trim();
             string newBio = SpeakerBioTxt.Text.Trim();
             string newEmail = SpeakerEmailTxt.Text.Trim();
-            int newPhone;
+            string newPhoneText = SpeakerPhoneTxt.Text.Trim();
 
-            if (!int.TryParse(SpeakerPhoneTxt.Text.Trim(), out newPhone))
+            // Check for empty fields
+            if (string.IsNullOrEmpty(newName) || string.IsNullOrEmpty(newBio) ||
+                string.IsNullOrEmpty(newEmail) || string.IsNullOrEmpty(newPhoneText))
+            {
+                MessageBox.Show("All fields are required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
-
-            bool isUpdated = false;
-
-            if (newName != oldName) 
-            {
-                isUpdated = true;
-            }
-            if (newBio != oldBio)
-            {
-                isUpdated = true;
-            }
-            if (newEmail != oldEmail)
-            {
-                isUpdated = true;
-            }
-            if (newPhone != oldPhone)
-            {
-                isUpdated = true;
             }
 
-            return isUpdated;
+            // Validate phone number
+            if (!int.TryParse(newPhoneText, out int newPhone) || newPhoneText.Length != 10)
+            {
+                MessageBox.Show("Phone number must be exactly 10 digits.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return (newName != oldName || newBio != oldBio || newEmail != oldEmail || newPhone != oldPhone);
         }
+
 
 
         //GO BACK BUTTON
         private void button2_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(SpeakerNameTxt.Text) ||
+                string.IsNullOrWhiteSpace(SpeakerBioTxt.Text) ||
+                string.IsNullOrWhiteSpace(SpeakerEmailTxt.Text) ||
+                string.IsNullOrWhiteSpace(SpeakerPhoneTxt.Text))
+            {
+                MessageBox.Show("You cannot leave with empty fields. Please fill all details.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (CheckSpeakerChange())
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to leave unsaved changes?", "Unsaved Changes", MessageBoxButtons.YesNo);
-
+                DialogResult result = MessageBox.Show("Are you sure you want to leave unsaved changes?", "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     ManageSpeaker manageSpeaker = new ManageSpeaker();
@@ -109,43 +111,29 @@ namespace CMS
                     this.Close();
                 }
             }
-            else
-            {
-                ManageSpeaker manageSpeaker = new ManageSpeaker();
-                manageSpeaker.Show();
-                this.Close();
-            }
         }
 
         //UPDATE SPEAKER BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
-            if (CheckSpeakerChange())
+            if (!CheckSpeakerChange())
             {
-                string newName = SpeakerNameTxt.Text.Trim();
-                string newBio = SpeakerBioTxt.Text.Trim();
-                string newEmail = SpeakerEmailTxt.Text.Trim();
-                int newPhone;
-
-                if (int.TryParse(SpeakerPhoneTxt.Text.Trim(), out newPhone))
-                {
-                    Speaker speaker = new Speaker();
-                    speaker.EditSpeaker(speakerID, newName, newBio, newEmail, newPhone);
-
-                    ManageSpeaker manageSpeaker = new ManageSpeaker();
-                    manageSpeaker.Show();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Please enter a valid phone number.");
-                }
+                return;
             }
-            else
-            {
-                MessageBox.Show("No changes were made.");
-            }
+
+            string newName = SpeakerNameTxt.Text.Trim();
+            string newBio = SpeakerBioTxt.Text.Trim();
+            string newEmail = SpeakerEmailTxt.Text.Trim();
+            int newPhone = int.Parse(SpeakerPhoneTxt.Text.Trim());
+
+            Speaker speaker = new Speaker();
+            speaker.EditSpeaker(speakerID, newName, newBio, newEmail, newPhone);
+
+            ManageSpeaker manageSpeaker = new ManageSpeaker();
+            manageSpeaker.Show();
+            this.Close();
         }
+
 
 
         private void EditSpeakerDetails_Load(object sender, EventArgs e)

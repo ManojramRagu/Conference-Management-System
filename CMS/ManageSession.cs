@@ -23,6 +23,24 @@ namespace CMS
         {
             List<Session> sessionList = session.GetSessions();
             dataGridView1.DataSource = sessionList;
+
+            dataGridView1.Columns["SessionTime"].Visible = false;
+            dataGridView1.Columns["SpeakerName"].Visible = false;
+            dataGridView1.Columns["SessionID"].Visible = false;
+            dataGridView1.Columns["SpeakerID"].Visible = false;
+            dataGridView1.Columns["ConferenceID"].Visible = false;
+
+            dataGridView1.Columns["SessionTitle"].DisplayIndex = 0;
+            dataGridView1.Columns["ConferenceName"].DisplayIndex = 1;
+            dataGridView1.Columns["Speaker"].DisplayIndex = 2;
+            dataGridView1.Columns["SessionDescription"].DisplayIndex = 3;
+            dataGridView1.Columns["Venue"].DisplayIndex = 4;
+            dataGridView1.Columns["ConferenceDate"].DisplayIndex = 5;
+            dataGridView1.Columns["StartTime"].DisplayIndex = 6;
+            dataGridView1.Columns["EndTime"].DisplayIndex = 7;
+
+            dataGridView1.Columns["StartTime"].DefaultCellStyle.Format = "hh:mm tt";
+            dataGridView1.Columns["EndTime"].DefaultCellStyle.Format = "hh:mm tt";
         }
 
         private void AddSessionButton_Click(object sender, EventArgs e)
