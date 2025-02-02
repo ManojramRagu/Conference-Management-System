@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,10 @@ namespace CMS
 {
     public partial class ParticipantUI : Form
     {
+        PRegistration PRegistration = new PRegistration();
 
         private int speakerUserId;
+        //private int RegID;
         public ParticipantUI(int loggedInUserId)
         {
             InitializeComponent();
@@ -37,6 +40,13 @@ namespace CMS
             {
                 MessageBox.Show("User ID is not set.");
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ManageRegisteredSessions manageRegisteredSessionsUI = new ManageRegisteredSessions(speakerUserId);
+            manageRegisteredSessionsUI.Show();
+            this.Close();
         }
     }
 }

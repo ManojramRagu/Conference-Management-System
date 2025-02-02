@@ -73,6 +73,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(715, 219);
             this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // ManageRegisteredSessions
             // 
@@ -85,6 +86,7 @@
             this.Controls.Add(this.button1);
             this.Name = "ManageRegisteredSessions";
             this.Text = "ManageRegisteredSessions";
+            this.Load += new System.EventHandler(this.ManageRegisteredSessions_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -39,7 +39,7 @@ namespace CMS
         public void GetRegistrationDetails(int regID)
         {
             //PRegistration registration = new PRegistration();
-            registration.GetRegistration(regID);
+            registration.GetRegistrations();
         }
 
         // Unregister the participant

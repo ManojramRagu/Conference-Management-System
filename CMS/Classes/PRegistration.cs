@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using MySqlX.XDevAPI;
 
 namespace CMS.Classes
 {
-    internal class PRegistration
+    public class PRegistration
     {
         private DBConnection connection;
 
@@ -20,6 +21,11 @@ namespace CMS.Classes
         public DateTime Time { get; set; }
         public int ConferenceId { get; set; }
         public int SessionID { get; set; }
+
+        public string ConferenceName { get; set; }
+        public string SessionTitle { get; set; }
+        public string Venue { get; set; }
+        public string SpeakerName { get; set; }
 
         public PRegistration()
         {
@@ -48,19 +54,13 @@ namespace CMS.Classes
              '{conferenceID}', 
              '{sessionID}')";
 
-            //connection.ExecuteQuery(query);
             try
             {
-                //connection.OpenConnection();
                 connection.ExecuteQuery(query);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}");
-            }
-            finally
-            {
-                //connection.CloseConnection();
             }
         }
 
@@ -88,12 +88,15 @@ namespace CMS.Classes
             }
         }
 
-        // GET REGISTRAIONS METHOD
-        public PRegistration GetRegistration(int regID)
+        public List<PRegistration> GetRegistrations()
         {
-            PRegistration registration = null;
-            string query = $@"SELECT * FROM registrations_table WHERE regID = {regID}";
-
+            List<PRegistration> registrations = new List<PRegistration>();
+            string query = @"SELECT r.regID, r.date, r.time, s.sessionTitle, c.name AS conferenceName, c.venue, sp.name
+                     FROM registrations_table r
+                     JOIN sessions_table s ON r.sessionID = s.sessionID
+                     JOIN conferences_table c ON r.conferenceId = c.conferenceID
+                     JOIN session_speakers ss ON r.sessionID = ss.sessionID
+                     JOIN speakers_table sp ON ss.speakerID = sp.speakersID";
             try
             {
                 if (connection.OpenConnection())
@@ -102,17 +105,20 @@ namespace CMS.Classes
                     {
                         using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read()) 
+                            while (reader.Read())
                             {
-                                registration = new PRegistration
+                                PRegistration registration = new PRegistration
                                 {
-                                    RegID = Convert.ToInt32(reader["regID"]),
-                                    UserID = Convert.ToInt32(reader["userID"]),
-                                    ConferenceId = Convert.ToInt32(reader["conferenceID"]),
-                                    SessionID = Convert.ToInt32(reader["sessionID"]),
-                                    Date = Convert.ToDateTime(reader["date"]),
-                                    Time = Convert.ToDateTime(reader["time"])
+                                    RegID = reader.GetInt32("regID"),
+                                    Date = reader.GetDateTime("date"),
+                                    Time = DateTime.Parse(reader["time"].ToString()),
+                                    SessionTitle = reader["sessionTitle"].ToString(),
+                                    SpeakerName = reader["name"].ToString(),
+                                    ConferenceName = reader["conferenceName"].ToString(),
+                                    Venue = reader["venue"].ToString()
                                 };
+
+                                registrations.Add(registration);
                             }
                         }
 
@@ -125,7 +131,8 @@ namespace CMS.Classes
                 MessageBox.Show($"Error: {ex.Message}");
             }
 
-            return registration;
+            return registrations;
+
         }
 
         // DELETE REGISTRATION
@@ -134,16 +141,12 @@ namespace CMS.Classes
             string query = $@"DELETE FROM registrations_table WHERE regID = '{regID}'";
             try
             {
-                connection.OpenConnection();
+                //connection.OpenConnection();
                 connection.ExecuteQuery(query);
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
-            finally
-            {
-                connection.CloseConnection();
+                MessageBox.Show($"Error: {ex.Message}");
             }
         }
     }

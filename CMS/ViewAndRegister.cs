@@ -17,7 +17,7 @@ namespace CMS
     public partial class ViewAndRegister : Form
     {
         Session session = new Session();
-        User user = new User();
+        //User user = new User();
         private Participant participant;
         private int userID;  // Assume this is set based on the logged-in user
 
@@ -51,6 +51,11 @@ namespace CMS
         private void ViewAndRegister_Load(object sender, EventArgs e)
         {
             LoadSessions();
+            participantsViewGrid.Columns["SpeakerID"].Visible = false;
+            participantsViewGrid.Columns["SpeakerName"].Visible = false;
+            participantsViewGrid.Columns["SessionID"].Visible = false;
+            participantsViewGrid.Columns["ConferenceID"].Visible = false;
+            participantsViewGrid.Columns["SessionTime"].Visible = false;
         }
 
         private void participantsViewGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -68,50 +73,11 @@ namespace CMS
             //participant.RegisterForConference(userID, conferenceID, sessionID);
         }
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    // Get the selected session IDs from the DataGridView
-        //    var selectedSessions = new List<int>();
-
-        //    foreach (DataGridViewRow row in participantsViewGrid.SelectedRows)
-        //    {
-        //        if (row.DataBoundItem is SessionItem sessionItem)
-        //        {
-        //            selectedSessions.Add(sessionItem.SessionID);
-        //        }
-        //    }
-
-        //    // Check if any sessions were selected
-        //    if (selectedSessions.Count == 0)
-        //    {
-        //        MessageBox.Show("Please select at least one session to register.");
-        //        return;
-        //    }
-
-        //    // Assuming we get the conferenceID from the first selected session
-        //    int conferenceID = 0;
-        //    if (participantsViewGrid.SelectedRows.Count > 0)
-        //    {
-        //        var selectedRow = participantsViewGrid.SelectedRows[0];
-        //        if (selectedRow.DataBoundItem is SessionItem selectedSessionItem)
-        //        {
-        //            conferenceID = selectedSessionItem.ConferenceID;
-        //        }
-        //    }
-
-        //    // Register the user for the selected sessions
-        //    try
-        //    {
-        //        participant.RegisterUserForSessions(userID, selectedSessions, conferenceID);
-        //        MessageBox.Show("You have been successfully registered for the selected sessions.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("An error occurred while registering: " + ex.Message);
-        //    }
-
-        //    // Clear the selection in the DataGridView
-        //    participantsViewGrid.ClearSelection();
-        //}
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ParticipantUI participantUI = new ParticipantUI(userID);
+            participantUI.Show();
+            this.Hide();
+        }
     }
 }
