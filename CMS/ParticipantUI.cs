@@ -16,7 +16,6 @@ namespace CMS
         PRegistration PRegistration = new PRegistration();
 
         private int speakerUserId;
-        //private int RegID;
         public ParticipantUI(int loggedInUserId)
         {
             InitializeComponent();
@@ -30,7 +29,7 @@ namespace CMS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (speakerUserId != null)
+            if (speakerUserId > 0)
             {
                 ViewAndRegister participantViewAndRegisterUI = new ViewAndRegister(speakerUserId);
                 this.Hide();
