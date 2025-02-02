@@ -26,51 +26,7 @@ namespace CMS
         {
             InitializeComponent();
             sessionId = id;
-        }
-        private bool CheckSessionChange()
-        {
-            string newSessionName = sessionName.Text.Trim();
-            string newSessionDescription = description.Text.Trim();
-            DateTime newStartTime = startTime.Value;
-            DateTime newEndTime = endTime.Value;
-            int newConferenceID = (int)conferenceDropdown.SelectedValue;
-            int newSpeakerID = (int)speakerDropdown.SelectedValue;
-
-            bool isUpdated = false;
-
-            if (newSessionName != oldSessionName)
-            {
-                session.SessionTitle = newSessionName;
-                isUpdated = true;
-            }
-            if (newSessionDescription != oldSessionDescription)
-            {
-                session.SessionDescription = newSessionDescription;
-                isUpdated = true;
-            }
-            if (newStartTime != oldStartTime)
-            {
-                session.StartTime = newStartTime;
-                isUpdated = true;
-            }
-            if (newEndTime != oldEndTime)
-            {
-                session.EndTime = newEndTime;
-                isUpdated = true;
-            }
-            if (newConferenceID != oldConferenceID)
-            {
-                session.ConferenceID = newConferenceID;
-                isUpdated = true;
-            }
-            if (newSpeakerID != oldSpeakerID)
-            {
-                session.SpeakerID = newSpeakerID;
-                isUpdated = true;
-            }
-
-            return isUpdated;
-        }
+        }     
 
         private void LoadConferences()
         {
@@ -154,6 +110,52 @@ namespace CMS
                 MessageBox.Show("Session not found.");
                 this.Close();
             }
+        }
+
+        // Check for changes in Input field
+        private bool CheckSessionChange()
+        {
+            string newSessionName = sessionName.Text.Trim();
+            string newSessionDescription = description.Text.Trim();
+            DateTime newStartTime = startTime.Value;
+            DateTime newEndTime = endTime.Value;
+            int newConferenceID = (int)conferenceDropdown.SelectedValue;
+            int newSpeakerID = (int)speakerDropdown.SelectedValue;
+
+            bool isUpdated = false;
+
+            if (newSessionName != oldSessionName)
+            {
+                session.SessionTitle = newSessionName;
+                isUpdated = true;
+            }
+            if (newSessionDescription != oldSessionDescription)
+            {
+                session.SessionDescription = newSessionDescription;
+                isUpdated = true;
+            }
+            if (newStartTime != oldStartTime)
+            {
+                session.StartTime = newStartTime;
+                isUpdated = true;
+            }
+            if (newEndTime != oldEndTime)
+            {
+                session.EndTime = newEndTime;
+                isUpdated = true;
+            }
+            if (newConferenceID != oldConferenceID)
+            {
+                session.ConferenceID = newConferenceID;
+                isUpdated = true;
+            }
+            if (newSpeakerID != oldSpeakerID)
+            {
+                session.SpeakerID = newSpeakerID;
+                isUpdated = true;
+            }
+
+            return isUpdated;
         }
 
         // Go Back Button
