@@ -47,9 +47,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(206, 112);
+            this.button1.Location = new System.Drawing.Point(168, 121);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 37);
+            this.button1.Size = new System.Drawing.Size(200, 45);
             this.button1.TabIndex = 1;
             this.button1.Text = "View and Register";
             this.button1.UseVisualStyleBackColor = true;
@@ -57,9 +57,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(218, 174);
+            this.button2.Location = new System.Drawing.Point(168, 190);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(105, 45);
+            this.button2.Size = new System.Drawing.Size(200, 45);
             this.button2.TabIndex = 2;
             this.button2.Text = "Manage Registrations";
             this.button2.UseVisualStyleBackColor = true;
