@@ -29,7 +29,7 @@ namespace CMS
         {
             if (speakerUserId != null)
             {
-                ViewAndRegister participantViewAndRegisterUI = new ViewAndRegister();
+                ViewAndRegister participantViewAndRegisterUI = new ViewAndRegister(speakerUserId);
                 this.Hide();
                 participantViewAndRegisterUI.Show();
             }

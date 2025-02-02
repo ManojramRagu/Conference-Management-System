@@ -36,51 +36,33 @@ namespace CMS.Classes
             SessionID = sessionID;
         }
 
-        // CREATE REGISTRATION
-        //public void Register(int userID, int conferenceID, int sessionID)
-        //{
-        //    string query = $@"INSERT INTO registrations_table 
-        //    (userID, date, time, conferenceID, sessionID) 
-        //    VALUES 
-        //    ('{userID}', 
-        //     '{DateTime.Now.ToString("yyyy-MM-dd")}', 
-        //     '{DateTime.Now.ToString("HH:mm:ss")}', 
-        //     '{conferenceID}', 
-        //     '{sessionID}')";
-
-        //    connection.ExecuteQuery(query);
-            //try
-            //{
-            //    connection.OpenConnection();
-            //    connection.ExecuteQuery(query);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show($"Error: {ex.Message}");
-            //}
-            //finally
-            //{
-            //    connection.CloseConnection();
-            //}
-        //}
-
-        // CREATE PARTICIPANT REGISTRATIONS
+        //CREATE REGISTRATION
         public void Register(int userID, int conferenceID, int sessionID)
         {
-            string query = $@"INSERT INTO registrations_table (userID, date, time, conferenceID, sessionID) 
-                            VALUES ('{userID}', '{DateTime.Now.ToString("yyyy-MM-dd")}', '{DateTime.Now.ToString("HH:mm:ss")}', 
-                            '{conferenceID}', '{sessionID}');";
+            string query = $@"INSERT INTO registrations_table 
+            (userID, date, time, conferenceID, sessionID) 
+            VALUES 
+            ('{userID}', 
+             '{DateTime.Now.ToString("yyyy-MM-dd")}', 
+             '{DateTime.Now.ToString("HH:mm:ss")}', 
+             '{conferenceID}', 
+             '{sessionID}')";
 
+            //connection.ExecuteQuery(query);
             try
             {
+                //connection.OpenConnection();
                 connection.ExecuteQuery(query);
-                MessageBox.Show("Registration successful.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error during registration: {ex.Message}");
+                MessageBox.Show($"Error: {ex.Message}");
             }
-
+            finally
+            {
+                //connection.CloseConnection();
+            }
+        }
 
         public void EditRegistration(int regID, int userID, int conferenceID, int sessionID)
         {

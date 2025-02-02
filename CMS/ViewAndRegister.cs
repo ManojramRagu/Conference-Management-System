@@ -22,11 +22,11 @@ namespace CMS
         private int userID;  // Assume this is set based on the logged-in user
 
         // Constructor where logged-in userID is passed
-        public ViewAndRegister()
+        public ViewAndRegister(int loggedInUserID)
         {
             InitializeComponent();
             //participant = new Participant(); // Initialize the Participant class
-            //userID = loggedInUserID; // Set the logged-in user ID
+            userID = loggedInUserID; // Set the logged-in user ID
             //LoadSessions(); // Load available sessions when the form loads
         }
 
@@ -51,7 +51,6 @@ namespace CMS
         private void ViewAndRegister_Load(object sender, EventArgs e)
         {
             LoadSessions();
-
         }
 
         private void participantsViewGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -65,7 +64,6 @@ namespace CMS
             int sessionID = Convert.ToInt32(participantsViewGrid.SelectedRows[0].Cells["SessionID"].Value);
             Participant participant = new Participant();
             string username = "savi";
-            userID = user.GetLoginId(username);
             participant.RegisterForConference(userID, conferenceID, sessionID);
             //participant.RegisterForConference(userID, conferenceID, sessionID);
         }
