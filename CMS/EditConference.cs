@@ -115,17 +115,33 @@ namespace CMS
 
         private void conferenceUpdate_Click(object sender, EventArgs e)
         {
-            if (conference == null)
+            // Validating Inputs
+            if (string.IsNullOrWhiteSpace(conferenceName.Text))
             {
-                MessageBox.Show("Error loading conference details.");
+                MessageBox.Show("Conference Name cannot be empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(conferenceVenue.Text))
+            {
+                MessageBox.Show("Venue cannot be empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(conferenceDescription.Text))
+            {
+                MessageBox.Show("Description cannot be empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (conferenceCapacity.Value <= 0)
+            {
+                MessageBox.Show("Capacity must be greater than zero.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // Check for Change and call fnction
             if (CheckConferenceChange())
             {
-                Conference updatedConference = new Conference();
-                updatedConference.EditConference(conferenceId, conference.ConferenceName, conference.Date, conference.Venue, conference.Description, conference.Capacity);
-                MessageBox.Show("Conference details updated successfully.");
+                conference.EditConference(conferenceId, conference.ConferenceName, conference.Date, conference.Venue, conference.Description, conference.Capacity);
+                MessageBox.Show("Conference details updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
 
                 ManageConferenceUI manageConference = new ManageConferenceUI();
@@ -134,9 +150,10 @@ namespace CMS
             }
             else
             {
-                MessageBox.Show("No changes were made.");
+                MessageBox.Show("No changes were made.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
 
         private void EditConference_Load(object sender, EventArgs e)
         {

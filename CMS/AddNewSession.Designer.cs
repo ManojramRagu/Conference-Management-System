@@ -204,7 +204,9 @@
             this.startTime.CustomFormat = "hh:mm tt";
             this.startTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.startTime.Location = new System.Drawing.Point(493, 358);
+            this.startTime.MinDate = new System.DateTime(2025, 2, 2, 0, 0, 0, 0);
             this.startTime.Name = "startTime";
+            this.startTime.ShowUpDown = true;
             this.startTime.Size = new System.Drawing.Size(200, 22);
             this.startTime.TabIndex = 35;
             // 
@@ -213,7 +215,9 @@
             this.endTime.CustomFormat = "hh:mm tt";
             this.endTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.endTime.Location = new System.Drawing.Point(493, 398);
+            this.endTime.MinDate = new System.DateTime(2025, 2, 2, 0, 0, 0, 0);
             this.endTime.Name = "endTime";
+            this.endTime.ShowUpDown = true;
             this.endTime.Size = new System.Drawing.Size(200, 22);
             this.endTime.TabIndex = 36;
             // 

@@ -31,31 +31,45 @@ namespace CMS
             string bio = SpeakerBioTxt.Text.Trim();
             string email = SpeakerEmailTxt.Text.Trim();
             string phoneText = SpeakerPhoneTxt.Text.Trim();
-
-            // Check if any field is empty
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(bio) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(phoneText))
+            string userName = speakerUserName.Text.Trim();
+            string password = speakerPassword.Text.Trim();
+            
+            // Validations
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(bio) ||
+                string.IsNullOrEmpty(email) || string.IsNullOrEmpty(phoneText) ||
+                string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("All fields are required. Please fill in all details.");
+                MessageBox.Show("Please fill in all details.");
                 return;
             }
 
-            int phone;
-            if (int.TryParse(phoneText, out phone))
+            if (!name.All(char.IsLetter))
             {
-                Speaker speaker = new Speaker();
-                User user = new User();
-                user.AddUser(name, "admin", "Speaker");
-                int userId = user.GetUsers(name); //Polymorphism
-                speaker.AddSpeaker(name, bio, email, phone, userId);
+                MessageBox.Show("Name must only have letters.");
+                return;
+            }
 
-                ManageSpeaker manageSpeakers = new ManageSpeaker();
-                manageSpeakers.Show();
-                this.Close();
-            }
-            else
+            if (!long.TryParse(phoneText, out long phone) || phoneText.Length != 10)
             {
-                MessageBox.Show("Please enter a valid phone number.");
+                MessageBox.Show("Please enter a 10 digit phone number.");
+                return;
             }
+
+            Speaker speaker = new Speaker();
+            User user = new User();
+            user.AddUser(userName, password, "Speaker");
+            int userId = user.GetUsers(userName);
+            speaker.AddSpeaker(name, bio, email, (int)phone, userId);
+
+            ManageSpeaker manageSpeakers = new ManageSpeaker();
+            manageSpeakers.Show();
+            this.Close();
+        }
+
+
+        private void AddNewSpeaker_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
