@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,9 +24,6 @@ namespace CMS
             //Application.Run(new ViewAndRegister());
             //Application.Run(new User());
             //Application.Run(new OrganiserUI());
-            //Application.Run(new ParticipantUI(4));
-            //Application.Run(new ManageRegisteredSessions(4));
-            //Application.Run(new AddNewSpeaker());
         }
     }
 }
