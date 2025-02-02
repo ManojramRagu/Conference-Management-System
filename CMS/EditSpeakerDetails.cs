@@ -141,8 +141,6 @@ namespace CMS
             this.Close();
         }
 
-
-
         private void EditSpeakerDetails_Load(object sender, EventArgs e)
         {
             LoadSpeakerData(speakerID);
