@@ -69,7 +69,6 @@ namespace CMS
             int sessionID = Convert.ToInt32(participantsViewGrid.SelectedRows[0].Cells["SessionID"].Value);
             Participant participant = new Participant();
             participant.RegisterForConference(userID, conferenceID, sessionID);
-            MessageBox.Show("Succesfully registered to session","Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button2_Click(object sender, EventArgs e)
