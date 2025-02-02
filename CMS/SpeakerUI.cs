@@ -26,6 +26,15 @@ namespace CMS
         {
             List<Classes.Session> speakersSessionList = speaker.GetAssignedSessions(speakerUserId);
             dataGridView1.DataSource = speakersSessionList;
+
+            // Removing unncessary Columbs
+            dataGridView1.Columns["SessionID"].Visible = false;
+            dataGridView1.Columns["SessionDescription"].Visible = false;
+            dataGridView1.Columns["SpeakerName"].Visible = false;
+            dataGridView1.Columns["SpeakerID"].Visible = false;
+            dataGridView1.Columns["ConferenceID"].Visible = false;
+            dataGridView1.Columns["SessionTime"].Visible = false;
+            dataGridView1.Columns["Speaker"].Visible = false;
         }
     }
 }

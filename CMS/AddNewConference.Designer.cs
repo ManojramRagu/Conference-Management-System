@@ -106,24 +106,24 @@
             // 
             // conferenceName
             // 
-            this.conferenceName.Location = new System.Drawing.Point(487, 110);
-            this.conferenceName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.conferenceName.Location = new System.Drawing.Point(473, 110);
+            this.conferenceName.Margin = new System.Windows.Forms.Padding(4);
             this.conferenceName.Name = "conferenceName";
-            this.conferenceName.Size = new System.Drawing.Size(132, 22);
+            this.conferenceName.Size = new System.Drawing.Size(235, 22);
             this.conferenceName.TabIndex = 6;
             // 
             // conferenceVenue
             // 
             this.conferenceVenue.Location = new System.Drawing.Point(473, 214);
-            this.conferenceVenue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.conferenceVenue.Margin = new System.Windows.Forms.Padding(4);
             this.conferenceVenue.Name = "conferenceVenue";
-            this.conferenceVenue.Size = new System.Drawing.Size(132, 22);
+            this.conferenceVenue.Size = new System.Drawing.Size(235, 22);
             this.conferenceVenue.TabIndex = 8;
             // 
             // conferenceDescription
             // 
             this.conferenceDescription.Location = new System.Drawing.Point(473, 273);
-            this.conferenceDescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.conferenceDescription.Margin = new System.Windows.Forms.Padding(4);
             this.conferenceDescription.Multiline = true;
             this.conferenceDescription.Name = "conferenceDescription";
             this.conferenceDescription.Size = new System.Drawing.Size(235, 66);
@@ -132,9 +132,9 @@
             // conferenceCapacity
             // 
             this.conferenceCapacity.Location = new System.Drawing.Point(473, 373);
-            this.conferenceCapacity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.conferenceCapacity.Margin = new System.Windows.Forms.Padding(4);
             this.conferenceCapacity.Name = "conferenceCapacity";
-            this.conferenceCapacity.Size = new System.Drawing.Size(160, 22);
+            this.conferenceCapacity.Size = new System.Drawing.Size(235, 22);
             this.conferenceCapacity.TabIndex = 10;
             // 
             // conferenceDate
@@ -142,16 +142,17 @@
             this.conferenceDate.CustomFormat = "MMMM dd, yyyy";
             this.conferenceDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.conferenceDate.Location = new System.Drawing.Point(473, 165);
-            this.conferenceDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.conferenceDate.Margin = new System.Windows.Forms.Padding(4);
+            this.conferenceDate.MinDate = new System.DateTime(2025, 2, 1, 0, 0, 0, 0);
             this.conferenceDate.Name = "conferenceDate";
-            this.conferenceDate.Size = new System.Drawing.Size(204, 22);
+            this.conferenceDate.Size = new System.Drawing.Size(235, 22);
             this.conferenceDate.TabIndex = 13;
-            this.conferenceDate.Value = new System.DateTime(2025, 1, 24, 22, 8, 1, 0);
+            this.conferenceDate.Value = new System.DateTime(2025, 2, 1, 0, 0, 0, 0);
             // 
             // createConference
             // 
-            this.createConference.Location = new System.Drawing.Point(409, 446);
-            this.createConference.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.createConference.Location = new System.Drawing.Point(404, 434);
+            this.createConference.Margin = new System.Windows.Forms.Padding(4);
             this.createConference.Name = "createConference";
             this.createConference.Size = new System.Drawing.Size(100, 28);
             this.createConference.TabIndex = 14;
@@ -161,8 +162,8 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(579, 446);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Location = new System.Drawing.Point(552, 434);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
             this.button2.TabIndex = 15;
@@ -188,7 +189,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AddNewConference";
             this.Text = "AddNewConference";
             ((System.ComponentModel.ISupportInitialize)(this.conferenceCapacity)).EndInit();
