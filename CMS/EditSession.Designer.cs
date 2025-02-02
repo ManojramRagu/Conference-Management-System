@@ -122,6 +122,7 @@
             this.endTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.endTime.Location = new System.Drawing.Point(495, 266);
             this.endTime.Margin = new System.Windows.Forms.Padding(4);
+            this.endTime.MinDate = new System.DateTime(2025, 2, 2, 0, 0, 0, 0);
             this.endTime.Name = "endTime";
             this.endTime.ShowUpDown = true;
             this.endTime.Size = new System.Drawing.Size(176, 22);
@@ -134,6 +135,7 @@
             this.startTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.startTime.Location = new System.Drawing.Point(495, 233);
             this.startTime.Margin = new System.Windows.Forms.Padding(4);
+            this.startTime.MinDate = new System.DateTime(2025, 2, 2, 0, 0, 0, 0);
             this.startTime.Name = "startTime";
             this.startTime.ShowUpDown = true;
             this.startTime.Size = new System.Drawing.Size(176, 22);

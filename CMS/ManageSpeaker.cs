@@ -54,13 +54,11 @@ namespace CMS
         {
             List<Speaker> speakersList = speaker.GetSpeakers();
             dataGridView1.DataSource = speakersList;
-            foreach (DataGridViewColumn column in dataGridView1.Columns)
-            {
-                if (column.Name != "SpeakerID" && column.Name != "Name" && column.Name != "Bio" && column.Name != "Email" && column.Name != "Phone")
-                {
-                    column.Visible = false;
-                }
-            }
+            dataGridView1.Columns["SpeakerID"].Visible = false;
+            dataGridView1.Columns["UserID"].Visible = false;
+            dataGridView1.Columns["UserName"].Visible = false;
+            dataGridView1.Columns["Password"].Visible = false;
+            dataGridView1.Columns["AccountType"].Visible = false;
         }
 
         private void Removebtn_Click(object sender, EventArgs e)

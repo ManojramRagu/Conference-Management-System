@@ -47,11 +47,11 @@ namespace CMS.Classes
             try
             {
                 connection.ExecuteQuery(query);
-                MessageBox.Show("Speaker added successfully.");
+                MessageBox.Show("Speaker added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error adding speaker: {ex.Message}");
+                MessageBox.Show($"Error adding speaker: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -87,7 +87,7 @@ namespace CMS.Classes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error retrieving speakers: {ex.Message}");
+                MessageBox.Show($"Error retrieving speakers: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return speakers;
@@ -101,11 +101,11 @@ namespace CMS.Classes
             try
             {
                 connection.ExecuteQuery(query);
-                MessageBox.Show("Speaker details updated successfully.");
+                MessageBox.Show("Speaker details updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error updating speaker details: {ex.Message}");
+                MessageBox.Show($"Error updating speaker details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         // DELETE SPEAKER
@@ -116,11 +116,11 @@ namespace CMS.Classes
             try
             {
                 connection.ExecuteQuery(query);
-                MessageBox.Show("Speaker deleted successfully.");
+                MessageBox.Show("Speaker deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error deleting speaker: {ex.Message}");
+                MessageBox.Show($"Error deleting speaker: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -171,7 +171,7 @@ namespace CMS.Classes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error retrieving sessions: {ex.Message}");
+                MessageBox.Show($"Error retrieving sessions: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
