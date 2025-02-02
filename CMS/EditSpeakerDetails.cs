@@ -57,7 +57,7 @@ namespace CMS
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error retrieving speaker details: {ex.Message}");
+                MessageBox.Show($"Error retrieving speaker details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -73,14 +73,14 @@ namespace CMS
             if (string.IsNullOrEmpty(newName) || string.IsNullOrEmpty(newBio) ||
                 string.IsNullOrEmpty(newEmail) || string.IsNullOrEmpty(newPhoneText))
             {
-                MessageBox.Show("All fields are required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("All fields are required.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
             // Validate phone number
             if (!int.TryParse(newPhoneText, out int newPhone) || newPhoneText.Length != 10)
             {
-                MessageBox.Show("Phone number must be exactly 10 digits.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Phone number must be exactly 10 digits.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
