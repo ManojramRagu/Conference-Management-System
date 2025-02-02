@@ -111,6 +111,12 @@ namespace CMS
                     this.Close();
                 }
             }
+            else
+            {
+                ManageSpeaker manageSpeaker = new ManageSpeaker();
+                manageSpeaker.Show();
+                this.Close();
+            }
         }
 
         //UPDATE SPEAKER BUTTON
@@ -118,6 +124,7 @@ namespace CMS
         {
             if (!CheckSpeakerChange())
             {
+                MessageBox.Show("No Changes Made.");
                 return;
             }
 
