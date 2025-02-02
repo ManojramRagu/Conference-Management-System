@@ -37,18 +37,18 @@ namespace CMS.Classes
         }
 
         // CREATE REGISTRATION
-        public void Register(int userID, int conferenceID, int sessionID)
-        {
-            string query = $@"INSERT INTO registrations_table 
-            (userID, date, time, conferenceID, sessionID) 
-            VALUES 
-            ('{userID}', 
-             '{DateTime.Now.ToString("yyyy-MM-dd")}', 
-             '{DateTime.Now.ToString("HH:mm:ss")}', 
-             '{conferenceID}', 
-             '{sessionID}')";
+        //public void Register(int userID, int conferenceID, int sessionID)
+        //{
+        //    string query = $@"INSERT INTO registrations_table 
+        //    (userID, date, time, conferenceID, sessionID) 
+        //    VALUES 
+        //    ('{userID}', 
+        //     '{DateTime.Now.ToString("yyyy-MM-dd")}', 
+        //     '{DateTime.Now.ToString("HH:mm:ss")}', 
+        //     '{conferenceID}', 
+        //     '{sessionID}')";
 
-            connection.ExecuteQuery(query);
+        //    connection.ExecuteQuery(query);
             //try
             //{
             //    connection.OpenConnection();
@@ -62,7 +62,24 @@ namespace CMS.Classes
             //{
             //    connection.CloseConnection();
             //}
-        }
+        //}
+
+        // CREATE PARTICIPANT REGISTRATIONS
+        public void Register(int userID, int conferenceID, int sessionID)
+        {
+            string query = $@"INSERT INTO registrations_table (userID, date, time, conferenceID, sessionID) 
+                            VALUES ('{userID}', '{DateTime.Now.ToString("yyyy-MM-dd")}', '{DateTime.Now.ToString("HH:mm:ss")}', 
+                            '{conferenceID}', '{sessionID}');";
+
+            try
+            {
+                connection.ExecuteQuery(query);
+                MessageBox.Show("Registration successful.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during registration: {ex.Message}");
+            }
 
 
         public void EditRegistration(int regID, int userID, int conferenceID, int sessionID)
