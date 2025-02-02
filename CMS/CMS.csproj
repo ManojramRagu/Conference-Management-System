@@ -183,12 +183,6 @@
     <Compile Include="ParticipantUI.Designer.cs">
       <DependentUpon>ParticipantUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="participantViewAndRegister.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="participantViewAndRegister.Designer.cs">
-      <DependentUpon>participantViewAndRegister.cs</DependentUpon>
-    </Compile>
     <Compile Include="RegistrationUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,9 +242,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ParticipantUI.resx">
       <DependentUpon>ParticipantUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="participantViewAndRegister.resx">
-      <DependentUpon>participantViewAndRegister.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RegistrationUI.resx">
       <DependentUpon>RegistrationUI.cs</DependentUpon>

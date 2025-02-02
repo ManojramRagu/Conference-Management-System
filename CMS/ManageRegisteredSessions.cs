@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CMS.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +13,48 @@ namespace CMS
 {
     public partial class ManageRegisteredSessions : Form
     {
-        public ManageRegisteredSessions()
+        private int userID;  // Assume this is set based on the logged-in user
+        PRegistration registration = new PRegistration();
+
+        public ManageRegisteredSessions(int loggedInUserID)
         {
             InitializeComponent();
+            userID = loggedInUserID;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            ParticipantUI participantUI = new ParticipantUI(userID);
+            participantUI.Show();
+            this.Hide();
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int RegID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["RegID"].Value);
+            MessageBox.Show(RegID.ToString());
+            registration.Unregister(RegID);
+        }
+
+        public void LoadSession()
+        {
+            List<PRegistration> registrationList = registration.GetRegistrations();
+            //MessageBox.Show(registrationList.ToString());
+            dataGridView1.DataSource = registrationList;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void ManageRegisteredSessions_Load(object sender, EventArgs e)
+        {
+            LoadSession();
+            dataGridView1.Columns["RegID"].Visible = false;
+            dataGridView1.Columns["UserID"].Visible = false;
+            dataGridView1.Columns["conferenceID"].Visible = false;
+            dataGridView1.Columns["SessionID"].Visible = false;
         }
     }
 }

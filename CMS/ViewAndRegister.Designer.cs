@@ -62,14 +62,18 @@
             this.button2.TabIndex = 3;
             this.button2.Text = "Go Back";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // participantsViewGrid
             // 
+            this.participantsViewGrid.AllowUserToAddRows = false;
+            this.participantsViewGrid.AllowUserToDeleteRows = false;
             this.participantsViewGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.participantsViewGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.participantsViewGrid.Location = new System.Drawing.Point(63, 70);
             this.participantsViewGrid.MultiSelect = false;
             this.participantsViewGrid.Name = "participantsViewGrid";
+            this.participantsViewGrid.ReadOnly = true;
             this.participantsViewGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.participantsViewGrid.RowTemplate.Height = 24;
             this.participantsViewGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
