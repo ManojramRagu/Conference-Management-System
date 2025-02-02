@@ -38,11 +38,11 @@ namespace CMS
             try
             {
                 connection.ExecuteQuery(query);
-                MessageBox.Show("Conference created successfully.");
+                MessageBox.Show("Conference created successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -74,12 +74,12 @@ namespace CMS
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error: {ex.Message}");
+                    MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("No changes detected.");
+                MessageBox.Show("No changes detected.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -88,7 +88,7 @@ namespace CMS
         {
             string query = $"DELETE FROM conferences_table WHERE ConferenceId = '{id}';";
             connection.ExecuteQuery(query);
-            MessageBox.Show("Conference deleted successfully.");
+            MessageBox.Show("Conference deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Get all available Conferences
@@ -126,7 +126,7 @@ namespace CMS
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return conferences;
@@ -165,7 +165,7 @@ namespace CMS
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return conference;
