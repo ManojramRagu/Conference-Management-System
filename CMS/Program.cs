@@ -24,6 +24,7 @@ namespace CMS
             //Application.Run(new ViewAndRegister());
             //Application.Run(new User());
             //Application.Run(new OrganiserUI());
+            Application.Run(new ParticipantUI(4));
         }
     }
 }

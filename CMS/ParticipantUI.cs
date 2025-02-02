@@ -27,18 +27,16 @@ namespace CMS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //if (speakerUserId != null)
-            //{
-            //    ViewAndRegister participantViewAndRegisterUI = new ViewAndRegister(speakerUserId);
-            //    this.Hide();
-            //    participantViewAndRegisterUI.Show();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("User ID is not set.");
-            //}
-
-            //participantViewAndRegister.Hide();
+            if (speakerUserId != null)
+            {
+                ViewAndRegister participantViewAndRegisterUI = new ViewAndRegister();
+                this.Hide();
+                participantViewAndRegisterUI.Show();
+            }
+            else
+            {
+                MessageBox.Show("User ID is not set.");
+            }
         }
     }
 }
