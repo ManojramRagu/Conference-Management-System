@@ -58,6 +58,7 @@ namespace CMS
                 else
                 {
                     MessageBox.Show("Username already exists. Try a different username.");
+                    return;
                 }
             }
             else
@@ -85,7 +86,6 @@ namespace CMS
                             {
                                 loggedInUserId = Convert.ToInt32(reader["userID"]);
                                 accountType = reader["account_type"].ToString();
-                                Console.WriteLine($"Successful login for user: {userName}, Account Type: {accountType}, userID: {loggedInUserId}");
                             }
                         }
 
@@ -124,7 +124,7 @@ namespace CMS
                 MessageBox.Show($"Error checking username: {ex.Message}");
             }
 
-            return false; // Default return if error occurs
+            return false;
         }
 
         // Get the list of users from the database
@@ -202,7 +202,7 @@ namespace CMS
         // Method to get the UserID based on the username
         public int GetLoginId(string userName)
         {
-            int loggedInUserID = -1; // Default value indicating no match
+            int loggedInUserID = -1;
             string query = $"SELECT userID FROM users_table WHERE userName = '{userName}'";
 
             try
