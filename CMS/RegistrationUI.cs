@@ -17,55 +17,38 @@ namespace CMS
             InitializeComponent();
         }
 
-        //private void Registration_Load(object sender, EventArgs e)
-        //{
-        //    // Add account types to the ComboBox
-        //    accountTypeComboBox.Items.Add("Admin");
-        //    accountTypeComboBox.Items.Add("User");
-        //    accountTypeComboBox.Items.Add("Guest");
-        //}
-
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            string username = usernameBox.Text;
-            string password = PasswordBox.Text;
-            string confirmPassword = enterPwdAgain.Text;
+            string username = usernameBox.Text.Trim();
+            string password = PasswordBox.Text.Trim();
+            string confirmPassword = enterPwdAgain.Text.Trim();
 
-            // Check if an account type is selected and handle accordingly
-            if (accountTypeComboBox.SelectedItem != null)
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
             {
-                string account_type = accountTypeComboBox.SelectedItem.ToString();
-                User user = new User();
-                user.RegisterUser(username, password, confirmPassword, account_type);
+                MessageBox.Show("All fields are required.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else
+
+            if (password != confirmPassword)
             {
-                MessageBox.Show("Please select an account type.");
+                MessageBox.Show("Passwords do not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+
+            if (accountTypeComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an account type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string account_type = accountTypeComboBox.SelectedItem.ToString();
+
+            User user = new User();
+            user.RegisterUser(username, password, confirmPassword, account_type);
 
             Login login = new Login();
             login.Show();
             this.Close();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void enterPwdAgain_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void accountTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
         }
     }
 }
