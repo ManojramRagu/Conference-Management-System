@@ -32,14 +32,13 @@ namespace CMS
         private void button1_Click(object sender, EventArgs e)
         {
             int RegID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["RegID"].Value);
-            MessageBox.Show(RegID.ToString());
             registration.Unregister(RegID);
+            MessageBox.Show("Successfully unregistered from session.","Unregistered",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
         public void LoadSession()
         {
             List<PRegistration> registrationList = registration.GetRegistrations();
-            //MessageBox.Show(registrationList.ToString());
             dataGridView1.DataSource = registrationList;
         }
 
