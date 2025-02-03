@@ -45,7 +45,13 @@ namespace CMS
 
             User user = new User();
             user.RegisterUser(username, password, confirmPassword, account_type);
+            Login login = new Login();
+            login.Show();
+            this.Close();
+        }
 
+        private void goBack_Click(object sender, EventArgs e)
+        {
             Login login = new Login();
             login.Show();
             this.Close();

@@ -38,6 +38,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.accountTypeComboBox = new System.Windows.Forms.ComboBox();
             this.accountType = new System.Windows.Forms.Label();
+            this.goBack = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +48,6 @@
             this.usernameBox.Name = "usernameBox";
             this.usernameBox.Size = new System.Drawing.Size(100, 22);
             this.usernameBox.TabIndex = 0;
-            //this.usernameBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Username
             // 
@@ -57,13 +57,12 @@
             this.Username.Size = new System.Drawing.Size(73, 16);
             this.Username.TabIndex = 1;
             this.Username.Text = "Username:";
-            //this.Username.Click += new System.EventHandler(this.label1_Click);
             // 
             // loginBtn
             // 
-            this.loginBtn.Location = new System.Drawing.Point(52, 201);
+            this.loginBtn.Location = new System.Drawing.Point(52, 189);
             this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(247, 23);
+            this.loginBtn.Size = new System.Drawing.Size(247, 29);
             this.loginBtn.TabIndex = 2;
             this.loginBtn.Text = "Create Account";
             this.loginBtn.UseVisualStyleBackColor = true;
@@ -101,10 +100,10 @@
             this.enterPwdAgain.Name = "enterPwdAgain";
             this.enterPwdAgain.Size = new System.Drawing.Size(100, 22);
             this.enterPwdAgain.TabIndex = 6;
-            //this.enterPwdAgain.TextChanged += new System.EventHandler(this.enterPwdAgain_TextChanged);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.goBack);
             this.groupBox1.Controls.Add(this.accountTypeComboBox);
             this.groupBox1.Controls.Add(this.accountType);
             this.groupBox1.Controls.Add(this.enterPwdAgain);
@@ -128,7 +127,6 @@
             this.accountTypeComboBox.Name = "accountTypeComboBox";
             this.accountTypeComboBox.Size = new System.Drawing.Size(100, 24);
             this.accountTypeComboBox.TabIndex = 8;
-            //this.accountTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.accountTypeComboBox_SelectedIndexChanged);
             // 
             // accountType
             // 
@@ -138,6 +136,16 @@
             this.accountType.Size = new System.Drawing.Size(87, 16);
             this.accountType.TabIndex = 7;
             this.accountType.Text = "Account type:";
+            // 
+            // goBack
+            // 
+            this.goBack.Location = new System.Drawing.Point(52, 224);
+            this.goBack.Name = "goBack";
+            this.goBack.Size = new System.Drawing.Size(247, 29);
+            this.goBack.TabIndex = 9;
+            this.goBack.Text = "Return to Login";
+            this.goBack.UseVisualStyleBackColor = true;
+            this.goBack.Click += new System.EventHandler(this.goBack_Click);
             // 
             // RegistrationUI
             // 
@@ -168,6 +176,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label accountType;
         private System.Windows.Forms.ComboBox accountTypeComboBox;
+        private System.Windows.Forms.Button goBack;
     }
 }
 

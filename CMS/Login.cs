@@ -23,6 +23,12 @@ namespace CMS
             string username = textBox1.Text;
             string password = textBox2.Text;
 
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Fields cannot be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             User user = new User();
             var loginResult = user.Login(username, password);
 
@@ -31,7 +37,7 @@ namespace CMS
 
             if (accountType != null)
             {
-                MessageBox.Show("Login successful!");
+                MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Redirect based on account type
                 switch (accountType)
@@ -52,7 +58,7 @@ namespace CMS
                         break;
 
                     default:
-                        MessageBox.Show("Unknown account type.");
+                        MessageBox.Show("Unknown account type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
 
@@ -61,7 +67,7 @@ namespace CMS
             }
             else
             {
-                MessageBox.Show("Invalid username or password.");
+                MessageBox.Show("Invalid username or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
