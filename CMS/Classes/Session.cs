@@ -48,25 +48,92 @@ namespace CMS.Classes
             connection = new DBConnection();
         }
 
-        // CREATE SESSION METHOD
-        public void CreateSession(string sessionTitle, string sessionDescription, int conferenceID, string venue, DateTime startTime, DateTime endTime, int speakerID)
+        // CHECK IF SESSIONS COLLIDE
+        public bool IsSessionInvalid(string sessionTitle, string sessionDescription, int conferenceID, string venue, DateTime startTime, DateTime endTime, int speakerID)
         {
-            string query = $@"
-            INSERT INTO sessions_table 
-            (conferenceID, sessionTitle, sessionDescription, venue, startTime, endTime) 
-            VALUES 
-            ('{conferenceID}', '{sessionTitle}', '{sessionDescription}', '{venue}', 
-             '{startTime.ToString("HH:mm:ss")}', '{endTime.ToString("HH:mm:ss")}');";
-
+            DBConnection connection = new DBConnection();
+            string checkQuery = $@"
+            SELECT COUNT(*) FROM sessions_table s
+            JOIN session_speakers ss ON s.sessionID = ss.sessionID
+            WHERE 
+                (
+                    (s.sessionTitle = '{sessionTitle}' AND s.sessionDescription = '{sessionDescription}' 
+                     AND s.conferenceID = {conferenceID} AND s.venue = '{venue}' 
+                     AND s.startTime = '{startTime:yyyy-MM-dd HH:mm:ss}' AND s.endTime = '{endTime:yyyy-MM-dd HH:mm:ss}')
+                )
+                OR 
+                (
+                    (s.conferenceID = {conferenceID} AND s.startTime < '{endTime:yyyy-MM-dd HH:mm:ss}' AND s.endTime > '{startTime:yyyy-MM-dd HH:mm:ss}')
+                )
+                OR
+                (
+                    (s.sessionTitle = '{sessionTitle}' AND s.venue <> '{venue}' 
+                     AND s.startTime < '{endTime:yyyy-MM-dd HH:mm:ss}' AND s.endTime > '{startTime:yyyy-MM-dd HH:mm:ss}')
+                )
+                OR
+                (
+                    (ss.speakerID = {speakerID} AND s.startTime < '{endTime:yyyy-MM-dd HH:mm:ss}' AND s.endTime > '{startTime:yyyy-MM-dd HH:mm:ss}')
+                );";
 
             try
             {
-                connection.ExecuteQuery(query);
-                MessageBox.Show("Session created successfully.");
+                if (connection.OpenConnection())
+                {
+                    MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection.GetConnection());
+                    int conflictCount = Convert.ToInt32(checkCommand.ExecuteScalar());
+                    return conflictCount > 0;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+            return true;
+        }
+
+        // CREATE A NEW SESSIONS
+        public void CreateSession(string sessionTitle, string sessionDescription, int conferenceID, string venue, DateTime startTime, DateTime endTime, int speakerID)
+        {
+            if (IsSessionInvalid(sessionTitle, sessionDescription, conferenceID, venue, startTime, endTime, speakerID))
+            {
+                MessageBox.Show("Error: Session conflicts with existing sessions or the speaker is unavailable.", "Conflict Detected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                DBConnection connection = new DBConnection();
+                try
+                {
+                    if (connection.OpenConnection())
+                    {
+                        string insertSessionQuery = $@"
+                    INSERT INTO sessions_table (conferenceID, sessionTitle, sessionDescription, venue, startTime, endTime) 
+                    VALUES ('{conferenceID}', '{sessionTitle}', '{sessionDescription}', '{venue}', '{startTime:yyyy-MM-dd HH:mm:ss}', '{endTime:yyyy-MM-dd HH:mm:ss}');";
+
+                        MySqlCommand insertSessionCommand = new MySqlCommand(insertSessionQuery, connection.GetConnection());
+                        insertSessionCommand.ExecuteNonQuery();
+
+                        string insertSpeakerQuery = $@"
+                    INSERT INTO session_speakers (sessionID, speakerID) 
+                    VALUES (LAST_INSERT_ID(), '{speakerID}');";
+
+                        MySqlCommand insertSpeakerCommand = new MySqlCommand(insertSpeakerQuery, connection.GetConnection());
+                        insertSpeakerCommand.ExecuteNonQuery();
+
+                        MessageBox.Show("Session created successfully.", "Session Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.CloseConnection();
+                }
             }
         }
 
@@ -76,22 +143,22 @@ namespace CMS.Classes
         {
             List<Session> sessions = new List<Session>();
             string query = @"
-        SELECT 
-            s.sessionID, 
-            s.sessionTitle, 
-            s.sessionDescription, 
-            s.conferenceID, 
-            c.name AS conferenceName, 
-            c.date AS conferenceDate, 
-            c.venue AS conferenceVenue,  
-            s.startTime, 
-            s.endTime, 
-            sp.name AS speakerName,
-            sp.speakersID as speakerID
-        FROM sessions_table s 
-        JOIN conferences_table c ON s.conferenceID = c.conferenceID 
-        JOIN session_speakers ss ON s.sessionID = ss.sessionID 
-        JOIN speakers_table sp ON ss.speakerID = sp.speakersID";
+            SELECT 
+                s.sessionID, 
+                s.sessionTitle, 
+                s.sessionDescription, 
+                s.conferenceID, 
+                c.name AS conferenceName, 
+                c.date AS conferenceDate, 
+                c.venue AS conferenceVenue,  
+                s.startTime, 
+                s.endTime, 
+                sp.name AS speakerName,
+                sp.speakersID as speakerID
+            FROM sessions_table s 
+            JOIN conferences_table c ON s.conferenceID = c.conferenceID 
+            JOIN session_speakers ss ON s.sessionID = ss.sessionID 
+            JOIN speakers_table sp ON ss.speakerID = sp.speakersID";
 
             try
             {
