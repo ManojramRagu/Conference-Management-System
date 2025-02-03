@@ -154,11 +154,7 @@ namespace CMS
 
             // Create session using the corrected method
             session.CreateSession(sessionTitle, sessionDescription, conferenceID, Venue, StartTime, EndTime, speakerID);
-            string query = $@"INSERT INTO session_speakers 
-            (sessionID, speakerID) 
-            VALUES 
-            (LAST_INSERT_ID(), '{speakerID}');";
-            connection.ExecuteQuery(query);
+            
 
             ManageSession manageSession = new ManageSession();
             manageSession.Show();

@@ -58,16 +58,22 @@ namespace CMS.Classes
             ('{conferenceID}', '{sessionTitle}', '{sessionDescription}', '{venue}', 
              '{startTime.ToString("HH:mm:ss")}', '{endTime.ToString("HH:mm:ss")}');";
 
+            string Sesquery = $@"INSERT INTO session_speakers
+            (sessionID, speakerID) 
+            VALUES 
+            (LAST_INSERT_ID(), '{speakerID}');";
 
             try
             {
                 connection.ExecuteQuery(query);
+                connection.ExecuteQuery(Sesquery);
                 MessageBox.Show("Session created successfully.");
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}");
             }
+
         }
 
 
