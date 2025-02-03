@@ -18,8 +18,8 @@ namespace CMS
     {
         Session session = new Session();
         //User user = new User();
-        private Participant participant;
-        private int userID;  // Assume this is set based on the logged-in user
+        //private Participant participant;
+        private int userID;
 
         // Constructor where logged-in userID is passed
         public ViewAndRegister(int loggedInUserID)
@@ -68,9 +68,7 @@ namespace CMS
             int conferenceID = Convert.ToInt32(participantsViewGrid.SelectedRows[0].Cells["ConferenceID"].Value);
             int sessionID = Convert.ToInt32(participantsViewGrid.SelectedRows[0].Cells["SessionID"].Value);
             Participant participant = new Participant();
-            string username = "savi";
             participant.RegisterForConference(userID, conferenceID, sessionID);
-            //participant.RegisterForConference(userID, conferenceID, sessionID);
         }
 
         private void button2_Click(object sender, EventArgs e)

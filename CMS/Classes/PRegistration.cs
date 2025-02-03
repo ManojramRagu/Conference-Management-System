@@ -45,22 +45,47 @@ namespace CMS.Classes
         //CREATE REGISTRATION
         public void Register(int userID, int conferenceID, int sessionID)
         {
-            string query = $@"INSERT INTO registrations_table 
-            (userID, date, time, conferenceID, sessionID) 
-            VALUES 
-            ('{userID}', 
-             '{DateTime.Now.ToString("yyyy-MM-dd")}', 
-             '{DateTime.Now.ToString("HH:mm:ss")}', 
-             '{conferenceID}', 
-             '{sessionID}')";
+            string checkQuery = $@"SELECT COUNT(*) FROM registrations_table 
+                               WHERE userID = '{userID}' AND sessionID = '{sessionID}'";
 
             try
             {
-                connection.ExecuteQuery(query);
+                if (connection.OpenConnection())
+                {
+                    // Check if the user is already registered
+                    MySqlCommand checkCmd = new MySqlCommand(checkQuery, connection.GetConnection());
+                    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Already registered for this session.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        connection.CloseConnection();
+                        return;
+                    }
+
+                    // Continues if not registered
+                    string query = $@"INSERT INTO registrations_table 
+                                  (userID, date, time, conferenceID, sessionID) 
+                                  VALUES 
+                                  ('{userID}', 
+                                   '{DateTime.Now.ToString("yyyy-MM-dd")}', 
+                                   '{DateTime.Now.ToString("HH:mm:ss")}', 
+                                   '{conferenceID}', 
+                                   '{sessionID}')";
+
+                    MySqlCommand insertCmd = new MySqlCommand(query, connection.GetConnection());
+                    insertCmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Successfully registered for the session!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                connection.CloseConnection();
             }
         }
 

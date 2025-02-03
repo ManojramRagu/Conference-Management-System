@@ -45,30 +45,6 @@ namespace CMS
             connection.ExecuteQuery(query); // writes the data to the respective table in the database
         }
 
-        //public int GetUserID(string username)
-        //{ 
-        //    string query = $"SELECT userID FROM users_table WHERE userName = '{username}'";
-
-        //    //return connection.ExecuteQuery(query);
-
-        //    if (connection.OpenConnection())
-        //    {
-        //        using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
-        //        {
-        //            using (MySqlDataReader reader = cmd.ExecuteReader())
-        //            {
-        //                if (reader.Read())
-        //                {
-        //                    return Convert.ToInt32(reader["userID"]);
-        //                } else { return -1; }
-        //            }
-        //        }
-        //    } else
-        //    {
-        //        return -1;
-        //    }
-        //}
-
         // Method to register user
         public void RegisterUser(string userName, string password, string confirmPassword, string account_type)
         {
