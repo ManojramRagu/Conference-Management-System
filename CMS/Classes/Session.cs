@@ -143,22 +143,22 @@ namespace CMS.Classes
         {
             List<Session> sessions = new List<Session>();
             string query = @"
-        SELECT 
-            s.sessionID, 
-            s.sessionTitle, 
-            s.sessionDescription, 
-            s.conferenceID, 
-            c.name AS conferenceName, 
-            c.date AS conferenceDate, 
-            c.venue AS conferenceVenue,  
-            s.startTime, 
-            s.endTime, 
-            sp.name AS speakerName,
-            sp.speakersID as speakerID
-        FROM sessions_table s 
-        JOIN conferences_table c ON s.conferenceID = c.conferenceID 
-        JOIN session_speakers ss ON s.sessionID = ss.sessionID 
-        JOIN speakers_table sp ON ss.speakerID = sp.speakersID";
+            SELECT 
+                s.sessionID, 
+                s.sessionTitle, 
+                s.sessionDescription, 
+                s.conferenceID, 
+                c.name AS conferenceName, 
+                c.date AS conferenceDate, 
+                c.venue AS conferenceVenue,  
+                s.startTime, 
+                s.endTime, 
+                sp.name AS speakerName,
+                sp.speakersID as speakerID
+            FROM sessions_table s 
+            JOIN conferences_table c ON s.conferenceID = c.conferenceID 
+            JOIN session_speakers ss ON s.sessionID = ss.sessionID 
+            JOIN speakers_table sp ON ss.speakerID = sp.speakersID";
 
             try
             {
