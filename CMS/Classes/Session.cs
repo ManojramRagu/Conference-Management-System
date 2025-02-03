@@ -47,6 +47,8 @@ namespace CMS.Classes
         {
             connection = new DBConnection();
         }
+
+        // CHECK IF SESSIONS COLLIDE
         public bool IsSessionInvalid(string sessionTitle, string sessionDescription, int conferenceID, string venue, DateTime startTime, DateTime endTime, int speakerID)
         {
             DBConnection connection = new DBConnection();
@@ -90,34 +92,49 @@ namespace CMS.Classes
             {
                 connection.CloseConnection();
             }
-            return true; // Assume invalid if an error occurs
+            return true;
         }
-        // CREATE SESSION METHOD
+
+        // CREATE A NEW SESSIONS
         public void CreateSession(string sessionTitle, string sessionDescription, int conferenceID, string venue, DateTime startTime, DateTime endTime, int speakerID)
         {
-            string query = $@"
-            INSERT INTO sessions_table 
-            (conferenceID, sessionTitle, sessionDescription, venue, startTime, endTime) 
-            VALUES 
-            ('{conferenceID}', '{sessionTitle}', '{sessionDescription}', '{venue}', 
-             '{startTime.ToString("HH:mm:ss")}', '{endTime.ToString("HH:mm:ss")}');";
-
-            string Sesquery = $@"INSERT INTO session_speakers
-            (sessionID, speakerID) 
-            VALUES 
-            (LAST_INSERT_ID(), '{speakerID}');";
-
-            try
+            if (IsSessionInvalid(sessionTitle, sessionDescription, conferenceID, venue, startTime, endTime, speakerID))
             {
-                connection.ExecuteQuery(query);
-                connection.ExecuteQuery(Sesquery);
-                MessageBox.Show("Session created successfully." , "Session Created",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Error: Session conflicts with existing sessions or the speaker is unavailable.", "Conflict Detected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                DBConnection connection = new DBConnection();
+                try
+                {
+                    if (connection.OpenConnection())
+                    {
+                        string insertSessionQuery = $@"
+                    INSERT INTO sessions_table (conferenceID, sessionTitle, sessionDescription, venue, startTime, endTime) 
+                    VALUES ('{conferenceID}', '{sessionTitle}', '{sessionDescription}', '{venue}', '{startTime:yyyy-MM-dd HH:mm:ss}', '{endTime:yyyy-MM-dd HH:mm:ss}');";
 
+                        MySqlCommand insertSessionCommand = new MySqlCommand(insertSessionQuery, connection.GetConnection());
+                        insertSessionCommand.ExecuteNonQuery();
+
+                        string insertSpeakerQuery = $@"
+                    INSERT INTO session_speakers (sessionID, speakerID) 
+                    VALUES (LAST_INSERT_ID(), '{speakerID}');";
+
+                        MySqlCommand insertSpeakerCommand = new MySqlCommand(insertSpeakerQuery, connection.GetConnection());
+                        insertSpeakerCommand.ExecuteNonQuery();
+
+                        MessageBox.Show("Session created successfully.", "Session Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    connection.CloseConnection();
+                }
+            }
         }
 
 
