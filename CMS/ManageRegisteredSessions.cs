@@ -29,17 +29,34 @@ namespace CMS
             this.Hide();
         }
 
+        // Remove Button
         private void button1_Click(object sender, EventArgs e)
         {
-            int RegID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["RegID"].Value);
-            MessageBox.Show(RegID.ToString());
-            registration.Unregister(RegID);
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int RegID = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["RegID"].Value);
+
+                DialogResult result = MessageBox.Show("Are you sure you want to unregister from this session?", "Confirm Unregistration", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    registration.Unregister(RegID);
+
+                    List<PRegistration> updatedRegistrations = registration.GetRegistrations();
+                    dataGridView1.DataSource = updatedRegistrations;
+
+                    MessageBox.Show("Successfully Unregistered", "Unregistered",  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a session to unregister from.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         public void LoadSession()
         {
             List<PRegistration> registrationList = registration.GetRegistrations();
-            //MessageBox.Show(registrationList.ToString());
             dataGridView1.DataSource = registrationList;
         }
 
