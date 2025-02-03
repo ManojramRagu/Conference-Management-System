@@ -47,7 +47,51 @@ namespace CMS.Classes
         {
             connection = new DBConnection();
         }
+        public bool IsSessionInvalid(string sessionTitle, string sessionDescription, int conferenceID, string venue, DateTime startTime, DateTime endTime, int speakerID)
+        {
+            DBConnection connection = new DBConnection();
+            string checkQuery = $@"
+            SELECT COUNT(*) FROM sessions_table s
+            JOIN session_speakers ss ON s.sessionID = ss.sessionID
+            WHERE 
+                (
+                    (s.sessionTitle = '{sessionTitle}' AND s.sessionDescription = '{sessionDescription}' 
+                     AND s.conferenceID = {conferenceID} AND s.venue = '{venue}' 
+                     AND s.startTime = '{startTime:yyyy-MM-dd HH:mm:ss}' AND s.endTime = '{endTime:yyyy-MM-dd HH:mm:ss}')
+                )
+                OR 
+                (
+                    (s.conferenceID = {conferenceID} AND s.startTime < '{endTime:yyyy-MM-dd HH:mm:ss}' AND s.endTime > '{startTime:yyyy-MM-dd HH:mm:ss}')
+                )
+                OR
+                (
+                    (s.sessionTitle = '{sessionTitle}' AND s.venue <> '{venue}' 
+                     AND s.startTime < '{endTime:yyyy-MM-dd HH:mm:ss}' AND s.endTime > '{startTime:yyyy-MM-dd HH:mm:ss}')
+                )
+                OR
+                (
+                    (ss.speakerID = {speakerID} AND s.startTime < '{endTime:yyyy-MM-dd HH:mm:ss}' AND s.endTime > '{startTime:yyyy-MM-dd HH:mm:ss}')
+                );";
 
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    MySqlCommand checkCommand = new MySqlCommand(checkQuery, connection.GetConnection());
+                    int conflictCount = Convert.ToInt32(checkCommand.ExecuteScalar());
+                    return conflictCount > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+            return true; // Assume invalid if an error occurs
+        }
         // CREATE SESSION METHOD
         public void CreateSession(string sessionTitle, string sessionDescription, int conferenceID, string venue, DateTime startTime, DateTime endTime, int speakerID)
         {
@@ -67,11 +111,11 @@ namespace CMS.Classes
             {
                 connection.ExecuteQuery(query);
                 connection.ExecuteQuery(Sesquery);
-                MessageBox.Show("Session created successfully.");
+                MessageBox.Show("Session created successfully." , "Session Created",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
