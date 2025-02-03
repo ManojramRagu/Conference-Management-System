@@ -47,7 +47,7 @@
             this.usernameBox.Name = "usernameBox";
             this.usernameBox.Size = new System.Drawing.Size(100, 22);
             this.usernameBox.TabIndex = 0;
-            this.usernameBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            //this.usernameBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Username
             // 
@@ -57,7 +57,7 @@
             this.Username.Size = new System.Drawing.Size(73, 16);
             this.Username.TabIndex = 1;
             this.Username.Text = "Username:";
-            this.Username.Click += new System.EventHandler(this.label1_Click);
+            //this.Username.Click += new System.EventHandler(this.label1_Click);
             // 
             // loginBtn
             // 
@@ -101,7 +101,7 @@
             this.enterPwdAgain.Name = "enterPwdAgain";
             this.enterPwdAgain.Size = new System.Drawing.Size(100, 22);
             this.enterPwdAgain.TabIndex = 6;
-            this.enterPwdAgain.TextChanged += new System.EventHandler(this.enterPwdAgain_TextChanged);
+            //this.enterPwdAgain.TextChanged += new System.EventHandler(this.enterPwdAgain_TextChanged);
             // 
             // groupBox1
             // 
@@ -123,13 +123,12 @@
             this.accountTypeComboBox.FormattingEnabled = true;
             this.accountTypeComboBox.Items.AddRange(new object[] {
             "Participant",
-            "Speaker",
             "Organizer"});
             this.accountTypeComboBox.Location = new System.Drawing.Point(199, 85);
             this.accountTypeComboBox.Name = "accountTypeComboBox";
             this.accountTypeComboBox.Size = new System.Drawing.Size(100, 24);
             this.accountTypeComboBox.TabIndex = 8;
-            this.accountTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.accountTypeComboBox_SelectedIndexChanged);
+            //this.accountTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.accountTypeComboBox_SelectedIndexChanged);
             // 
             // accountType
             // 
@@ -140,7 +139,7 @@
             this.accountType.TabIndex = 7;
             this.accountType.Text = "Account type:";
             // 
-            // Registration
+            // RegistrationUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -148,7 +147,7 @@
             this.Controls.Add(this.Username);
             this.Controls.Add(this.usernameBox);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Registration";
+            this.Name = "RegistrationUI";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
