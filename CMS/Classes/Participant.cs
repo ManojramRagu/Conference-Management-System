@@ -16,7 +16,6 @@ namespace CMS
 {
     internal class Participant : User
     {
-        //public int UserID { get; set; }
         public string Name { get; set; }
 
         PRegistration registration = new PRegistration();
@@ -26,27 +25,6 @@ namespace CMS
         {
             //PRegistration registration = new PRegistration();
             registration.Register(userID, conferenceID, sessionID);
-        }
-
-        // Edit registration details
-        public void EditRegistrationDetails(int regID, int conferenceID, int sessionID)
-        {
-            //PRegistration registration = new PRegistration();
-            registration.EditRegistration(regID, UserID, conferenceID, sessionID);
-        }
-
-        // Get participant's registration by regID
-        public void GetRegistrationDetails(int regID)
-        {
-            //PRegistration registration = new PRegistration();
-            registration.GetRegistrations();
-        }
-
-        // Unregister the participant
-        public void Unregister(int regID)
-        {
-            //PRegistration registration = new PRegistration();
-            registration.Unregister(regID);
         }
     }
 }
