@@ -33,7 +33,7 @@ namespace CMS
             string phoneText = SpeakerPhoneTxt.Text.Trim();
             string userName = speakerUserName.Text.Trim();
             string password = speakerPassword.Text.Trim();
-            
+
             // Validations
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(bio) ||
                 string.IsNullOrEmpty(email) || string.IsNullOrEmpty(phoneText) ||
@@ -51,14 +51,22 @@ namespace CMS
 
             if (!long.TryParse(phoneText, out long phone) || phoneText.Length != 10)
             {
-                MessageBox.Show("Please enter a 10 digit phone number.");
+                MessageBox.Show("Please enter a 10-digit phone number.");
                 return;
             }
 
-            Speaker speaker = new Speaker();
             User user = new User();
+
+            if (user.IsUsernameExists(userName))
+            {
+                MessageBox.Show("Username already exists. Please choose a different one.");
+                return;
+            }
+
             user.AddUser(userName, password, "Speaker");
             int userId = user.GetUsers(userName);
+
+            Speaker speaker = new Speaker();
             speaker.AddSpeaker(name, bio, email, (int)phone, userId);
 
             ManageSpeaker manageSpeakers = new ManageSpeaker();

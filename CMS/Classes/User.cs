@@ -105,8 +105,26 @@ namespace CMS
         // Check if the username already exists
         public bool IsUsernameExists(string userNameToCheck)
         {
-            List<User> users = GetUsers();
-            return users.Any(user => user.UserName.Equals(userNameToCheck, StringComparison.OrdinalIgnoreCase));
+            string query = $"SELECT COUNT(*) FROM users_table WHERE userName = '{userNameToCheck}'";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+                        connection.CloseConnection();
+                        return count > 0; // If count > 0, username exists
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error checking username: {ex.Message}");
+            }
+
+            return false; // Default return if error occurs
         }
 
         // Get the list of users from the database
@@ -154,26 +172,31 @@ namespace CMS
         {
             string query = $"SELECT userID FROM users_table WHERE userName = '{username}'";
 
-            //return connection.ExecuteQuery(query);
-
-            if (connection.OpenConnection())
+            try
             {
-                using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                if (connection.OpenConnection())
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
                     {
-                        if (reader.Read())
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            return Convert.ToInt32(reader["userID"]);
+                            if (reader.Read())
+                            {
+                                int userId = Convert.ToInt32(reader["userID"]);
+                                connection.CloseConnection();
+                                return userId;
+                            }
                         }
-                        else { return -1; }
                     }
+                    connection.CloseConnection();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return -1;
+                MessageBox.Show($"Error: {ex.Message}");
             }
+
+            return -1;
         }
 
         // Method to get the UserID based on the username
@@ -207,6 +230,27 @@ namespace CMS
             return loggedInUserID;
         }
 
+        // Delete User Method
+        public void DeleteUser(int userID)
+        {
+            string query = $"DELETE FROM users_table WHERE userID = {userID}";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.CloseConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
     }
 }
 

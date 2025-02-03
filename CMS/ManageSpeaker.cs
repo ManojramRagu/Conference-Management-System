@@ -15,6 +15,7 @@ namespace CMS
     public partial class ManageSpeaker : Form
     {
         Speaker speaker = new Speaker();
+        User user = new User();
         public ManageSpeaker()
         {
             InitializeComponent();
@@ -72,6 +73,17 @@ namespace CMS
                 if (result == DialogResult.Yes)
                 {
                     speaker.DeleteSpeaker(speakerId);
+
+                    List<User> usersList = user.GetUsers();
+
+                    User userToDelete = usersList.FirstOrDefault(u => u.UserID == speakerId);
+
+                    if (userToDelete != null)
+                    {
+                        user.DeleteUser(userToDelete.UserID);
+                    }
+
+                    // Refresh the speaker list
                     List<Speaker> speakersList = speaker.GetSpeakers();
                     dataGridView1.DataSource = speakersList;
                 }

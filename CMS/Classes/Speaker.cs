@@ -117,10 +117,41 @@ namespace CMS.Classes
             {
                 connection.ExecuteQuery(query);
                 MessageBox.Show("Speaker deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                DeleteUserAssociatedWithSpeaker(speakerID);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error deleting speaker: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DeleteUserAssociatedWithSpeaker(int speakerID)
+        {
+            string query = $"SELECT userID FROM speakers_table WHERE speakersID = {speakerID}";
+
+            try
+            {
+                if (connection.OpenConnection())
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection.GetConnection()))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int userID = Convert.ToInt32(reader["userID"]);
+                                User user = new User();
+                                user.DeleteUser(userID);
+                            }
+                        }
+                    }
+                    connection.CloseConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting user: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
